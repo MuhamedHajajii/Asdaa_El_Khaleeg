@@ -1,0 +1,21 @@
+.navbar__banner {
+  img {
+    // box model
+    width: 77px;
+    height: 52px;
+  }
+  .Banner_logo:first-child {
+    width: 56px;
+    height: 56px;
+  }
+  .Banner_logo:nth-child(2) {
+    width: 24px;
+    height: 21px;
+  }
+}
+.social__icons {
+  a img {
+    width: 24px;
+    height: 24px;
+  }
+}
