@@ -19,3 +19,7 @@
     height: 24px;
   }
 }
+
+.navbar-toggler:focus {
+  box-shadow: none !important;
+}

@@ -1,0 +1,16 @@
+@import "variables";
+.date_color {
+  color: #afaeae;
+}
+.desc_color {
+  color: #646363;
+}
+
+.nav-anchors.active {
+  background-color: $main-color;
+  color: $text-light;
+}
+.nav-anchors {
+  background-color: $secondary-color;
+  color: black;
+}

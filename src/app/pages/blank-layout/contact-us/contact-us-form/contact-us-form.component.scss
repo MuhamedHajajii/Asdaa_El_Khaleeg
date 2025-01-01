@@ -1,0 +1,22 @@
+input,
+textarea,
+::ng-deep .iti,
+input:focus,
+textarea:focus,
+::ng-deep .iti:focus {
+  border-radius: 10px;
+  border: 1px solid #454444;
+  background: #fff;
+}
+input:focus,
+textarea:focus,
+::ng-deep .form-control:focus,
+::ng-deep .iti:focus {
+  box-shadow: 0 0 0 0.1rem #454444 !important;
+}
+input,
+textarea,
+::ng-deep .form-control,
+::ng-deep .iti {
+  direction: rtl;
+}

@@ -1,0 +1,110 @@
+@if (investigations) {
+<section id="Home__Investigations__News" class="bg-third py-4">
+  <div class="container">
+    <header class="d-flex justify-content-between">
+      <h2 class="section__title">التحقيقات</h2>
+      <a href="" class="btn btn-show-all">عرض الكل</a>
+    </header>
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <div>
+          <figure class="Logo_Water_Mark small">
+            <img
+              class="w-100 object-fit-cover border-radius-10 h-300"
+              [src]="investigations.blogs.data[0].post_image"
+              [alt]="investigations.blogs.data[0].post_title"
+            />
+          </figure>
+          <div>
+            <h3 class="fs-13 text-main fw-bold mb-1">
+              {{ investigations.blogs.data[0].post_title }}
+            </h3>
+            <p
+              class="fs-13 text-lighter fw-semibold py-2"
+              [innerHTML]="
+                investigations.blogs.data[0].post_content | stringSlice
+              "
+            ></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div>
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <div>
+                <figure class="Logo_Water_Mark small">
+                  <img
+                    class="w-100 object-fit-cover border-radius-10 h-120"
+                    [src]="investigations.blogs.data[1].post_image"
+                    [alt]="investigations.blogs.data[1].post_title"
+                  />
+                </figure>
+                <div>
+                  <h3 class="fs-13 text-main fw-bold mb-2">
+                    {{ investigations.blogs.data[1].post_title }}
+                  </h3>
+
+                  <p
+                    class="fs-13 text-lighter fw-semibold"
+                    [innerHTML]="
+                      investigations.blogs.data[1].post_content | stringSlice
+                    "
+                  ></p>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div>
+                <figure class="Logo_Water_Mark small">
+                  <img
+                    class="w-100 object-fit-cover border-radius-10 h-120"
+                    [src]="investigations.blogs.data[2].post_image"
+                    [alt]="investigations.blogs.data[2].post_title"
+                  />
+                </figure>
+                <div>
+                  <h3 class="fs-13 text-main fw-bold mb-2">
+                    {{ investigations.blogs.data[2].post_title }}
+                  </h3>
+
+                  <p
+                    class="fs-13 text-lighter fw-semibold"
+                    [innerHTML]="
+                      investigations.blogs.data[2].post_content | stringSlice
+                    "
+                  ></p>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div>
+                <figure class="Logo_Water_Mark small">
+                  <img
+                    class="w-100 object-fit-cover border-radius-10 h-120"
+                    [src]="investigations.blogs.data[3].post_image"
+                    [alt]="investigations.blogs.data[3].post_title"
+                  />
+                </figure>
+                <div>
+                  <h3 class="fs-13 text-main fw-bold mb-2">
+                    {{ investigations.blogs.data[3].post_title }}
+                  </h3>
+
+                  <p
+                    class="fs-13 text-lighter fw-semibold"
+                    [innerHTML]="
+                      investigations.blogs.data[3].post_content | stringSlice
+                    "
+                  ></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+}

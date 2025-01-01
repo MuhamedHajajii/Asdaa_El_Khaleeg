@@ -1,0 +1,81 @@
+<section id="Home__News" class="mb-5">
+  <div class="container">
+    <header class="d-flex justify-content-between align-items-center">
+      <h2 class="section__title">الاخبار</h2>
+      <nav>
+        <ul class="list-unstyled m-0 p-0 d-flex flex-wrap">
+          <li class="d-none d-md-block">
+            <a
+              class="text-decoration-none fs-13 border-radius-10 d-inline-block px-3 py-2 mx-2 nav-anchors active"
+              >الكل</a
+            >
+          </li>
+          <li class="d-none d-md-block">
+            <a
+              class="text-decoration-none fs-13 border-radius-10 d-inline-block px-3 py-2 mx-2 nav-anchors"
+              >رياضة</a
+            >
+          </li>
+          <li class="d-none d-md-block">
+            <a
+              class="text-decoration-none fs-13 border-radius-10 d-inline-block px-3 py-2 mx-2 nav-anchors"
+              >اقتصاد</a
+            >
+          </li>
+          <li class="d-none d-md-block">
+            <a
+              class="text-decoration-none fs-13 border-radius-10 d-inline-block px-3 py-2 mx-2 nav-anchors"
+              >ثقافة و فن</a
+            >
+          </li>
+          <li class="d-none d-md-block">
+            <a
+              class="text-decoration-none fs-13 border-radius-10 d-inline-block px-3 py-2 mx-2 nav-anchors"
+              >اخبار العالم</a
+            >
+          </li>
+          <li class="d-none d-md-block">
+            <a
+              class="text-decoration-none fs-13 border-radius-10 d-inline-block px-3 py-2 mx-2 nav-anchors"
+              >اخبار المجتمع</a
+            >
+          </li>
+          <li>
+            <a class="me-2 btn-show-all">عرض الكل</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <div class="row my-2 g-4">
+      @for (card of cardsContent; track $index) {
+      <div class="col-12 col-md-6 col-lg-3">
+        <div>
+          <figure class="Logo_Water_Mark">
+            <img
+              class="w-100 object-fit-cover"
+              [src]="card.img_url"
+              [alt]="card.author"
+            />
+          </figure>
+          <h3
+            class="text-main fs-13 fw-bold mt-2 mb-1 text-decoration-underline"
+          >
+            {{ card.category }}
+          </h3>
+          <div
+            class="d-flex justify-content-between align-items-center mb-2 mt-3"
+          >
+            <h4 class="fs-13 fw-bold">{{ card.author }}</h4>
+            <p class="mb-0 date_color fw-bold fs-13">
+              {{ card.date }}
+            </p>
+          </div>
+          <div>
+            <p class="mb-0 fs-13 desc_color fw-bold">{{ card.description }}</p>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+</section>

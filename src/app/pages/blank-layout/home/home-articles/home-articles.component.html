@@ -1,0 +1,37 @@
+@if (specificCategory) {
+<section id="Home__articles" class="bg-third py-4">
+  <div class="container">
+    <header class="d-flex justify-content-between">
+      <h2 class="section__title">المقالات</h2>
+      <a href="" class="btn btn-show-all">عرض الكل</a>
+    </header>
+    <div class="row g-4 g-lg-3">
+      @for (blog of specificCategory.blogs.data | slice:0:3; track $index) {
+      <div class="col-md-6 col-lg-4">
+        <article class="card p-3 h-100 justify-content-between flex-column">
+          <div class="d-flex flex-column justify-content-between">
+            <h3 class="text-main fs-13 fw-bold">{{ blog.post_title }}</h3>
+            <p
+              class="fs-13 text-lighter mb-4"
+              [innerHTML]="blog.post_content | stringSlice : 150"
+            ></p>
+          </div>
+
+          <h4 class="text-start">
+            <img
+              width="37px"
+              height="37px"
+              class="align-middle rounded-circle object-fit-cover ms-3"
+              [src]="blog.post_image"
+              alt="tweet"
+            />
+            <span class="align-middle fs-13">{{ blog.post_title }}</span>
+          </h4>
+        </article>
+      </div>
+      }
+    </div>
+  </div>
+</section>
+
+}

@@ -1,0 +1,70 @@
+@if (sliderData) {
+<section id="Hero__Section" class="mt-4">
+  <div class="container">
+    <div class="row g-4 g-lg-3">
+      <div class="p-2 pt-0 col-12 col-lg-8 order-1 order-lg-1">
+        <div>
+          <div class="hero_height border-radius-10 overflow-hidden">
+            @defer {
+            <owl-carousel-o [options]="customOptions">
+              @for (slide of sliderData.blogs; track $index) {
+              <ng-container>
+                <ng-template carouselSlide [id]="slide.post_id + ''">
+                  <figure class="my-0 h-100 Logo_Water_Mark card">
+                    <img
+                      class="w-100 object-fit-cover hero_height"
+                      [src]="slide.featured_image"
+                      [alt]="slide.post_title"
+                    />
+                    <figcaption class="card-img-overlay d-flex align-items-end">
+                      <div
+                        class="carousel__content bg-black bg-opacity-50 px-3 border-radius-10 col-9 col-md-10 mb-4 px-3 text-white"
+                      >
+                        <p
+                          [innerHTML]="slide.post_content | stringSlice : 150"
+                          class="text-light fs-15"
+                        ></p>
+                        <div class="text-start">
+                          <button class="btn-show-all btn text-light">
+                            المزيد
+                          </button>
+                        </div>
+                      </div>
+                    </figcaption>
+                  </figure>
+                </ng-template>
+              </ng-container>
+              }
+            </owl-carousel-o>
+            }
+          </div>
+        </div>
+      </div>
+      <div class="p-2 col-12 col-lg-4 order-0 order-lg-1 position-relative">
+        <div>
+          <div
+            class="main_animation border-radius-10 overflow-hidden Logo_Water_Mark"
+          >
+            <img
+              class="w-100 object-fit-cover h-370"
+              src="/assets/images/pages/home/Hero_Section/سلمان-بن-أحمد-العيد-.-1.png"
+              alt="carousel"
+            />
+          </div>
+        </div>
+        <div class="main-content">
+          <p class="fw-bold fs-13">
+            خطوات رائدة فى مواجهه التصحر و الجفاف فى الرياض
+          </p>
+          <p
+            class="fw-bold fs-13 text-main border-color-main border border-2 border-radius-10 p-3 text-center fs-13"
+          >
+            زاوية رئيس التحرير : سلمان بن أحمد العيد
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+}

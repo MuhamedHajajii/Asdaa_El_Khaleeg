@@ -1,0 +1,96 @@
+@if (localNews) {
+<section id="Home__Local__News" class="bg-third py-4">
+  <div class="container">
+    <header class="d-flex justify-content-between">
+      <h2 class="section__title">الاخبار المحلية</h2>
+      <a href="" class="btn btn-show-all">عرض الكل</a>
+    </header>
+    <div class="row py-2 flex-row-reverse">
+      <div class="col-12 col-lg-5">
+        <div>
+          <div class="row g-3 g-lg-2">
+            <div class="col-12">
+              <div
+                class="bg-white border-radius-10 d-flex justify-content-evenly"
+              >
+                <button class="w-100 border-radius-10 py-1 btn-main">
+                  اخر الاخبار
+                </button>
+                <button class="w-100 border-radius-10 py-1 bg-white">
+                  الاكثر مشاهدة
+                </button>
+              </div>
+            </div>
+            @for (news of localNews.blogs.data | slice:1:5; track $index) {
+            <div class="col-3">
+              <div>
+                <figure class="Logo_Water_Mark small">
+                  <img
+                    height="100px"
+                    class="w-100 object-fit-cover border-radius-10"
+                    [src]="news.post_image"
+                    [alt]="news.post_title"
+                  />
+                </figure>
+              </div>
+            </div>
+            <div class="col-9">
+              <p class="date_color fw-bold fs-13">
+                <img
+                  class="ms-1 align-middle"
+                  src="/assets/images/pages/home/loca_news/clock-rotate-left-solid.png"
+                />
+                <span class="align-middle">{{ news.post_date | date }}</span>
+              </p>
+              <div>
+                <p class="mb-0 fs-13 desc_color fw-bold">
+                  {{ news.post_title }}
+                </p>
+              </div>
+            </div>
+            }
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-7">
+        <div>
+          <figure class="Logo_Water_Mark">
+            <img
+              height="398px"
+              class="w-100 object-fit-cover border-radius-10"
+              [src]="localNews.blogs.data[0].post_image"
+              alt="card.author"
+            />
+          </figure>
+          <div
+            class="d-flex justify-content-between align-items-center mb-2 mt-3"
+          >
+            <h3 class="fs-13 fw-bold">
+              {{ localNews.blogs.data[0].post_title }}
+            </h3>
+            <p class="mb-0 date_color fw-bold fs-13">
+              <img
+                class="ms-1 align-middle"
+                style="398px"
+                src="/assets/images/pages/home/loca_news/clock-rotate-left-solid.png"
+              />
+              <span class="align-middle">{{
+                localNews.blogs.data[0].post_date | date
+              }}</span>
+            </p>
+          </div>
+          <div>
+            <p
+              class="mb-0 fs-13 desc_color fw-bold"
+              [innerHTML]="
+                localNews.blogs.data[0].post_content | stringSlice : 150
+              "
+            ></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+}

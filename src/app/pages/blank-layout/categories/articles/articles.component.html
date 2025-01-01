@@ -1,0 +1,32 @@
+@if (specificCategories) {
+<section>
+  <div class="row g-4">
+    @for (card of specificCategories.blogs.data; track $index) {
+    <div class="col-md-6 col-lg-4">
+      <article
+        [routerLink]="['/details/', card.post_id]"
+        class="card article-shadow p-3 h-100 d-flex flex-column justify-content-between"
+      >
+        <div>
+          <h3 class="text-main fs-13 fw-bold">{{ card.post_title }}</h3>
+          <p
+            [innerHTML]="card.post_content | stringSlice : 150"
+            class="fs-13 text-lighter mb-4"
+          ></p>
+        </div>
+        <h4 class="text-start">
+          <img
+            width="37px"
+            height="37px"
+            class="align-middle rounded-circle object-fit-cover ms-3"
+            [src]="card.post_image"
+            alt="tweet"
+          />
+          <!-- <span class="align-middle fs-13">{{card.}}</span> -->
+        </h4>
+      </article>
+    </div>
+    }
+  </div>
+</section>
+}

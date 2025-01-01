@@ -1,3 +1,27 @@
 .footer {
-  height: 384px;
+  position: relative;
+  padding-block: 45px;
+  .social_images {
+    text-align: center;
+    width: 18px;
+  }
+  li {
+    margin-bottom: 6px;
+  }
+  .arabic_coryRight {
+    margin-bottom: 80px;
+  }
+  .download_app_images {
+    width: 181px;
+    height: 53px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .download_app_container {
+    position: absolute;
+    bottom: 45px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }

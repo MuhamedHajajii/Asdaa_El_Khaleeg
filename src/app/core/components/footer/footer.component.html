@@ -1,9 +1,9 @@
 <div class="bg-light footer">
   <div class="container">
-    <div class="row">
-      <div class="col-2 col-mg-3">
+    <div class="row row-cols-2 row-cols-sm-2 row-cols-lg-4">
+      <div>
         <div>
-          <h2>مشاهدة جميع الاقسام</h2>
+          <h2 class="fs-6 fw-bold mb-3">مشاهدة جميع الاقسام</h2>
           <ul class="list-unstyled p-0 m-0">
             <li>الاخبار</li>
             <li>الحوادث</li>
@@ -16,34 +16,102 @@
           </ul>
         </div>
       </div>
-      <div class="col-2 col-mg-3">
+      <div>
         <div>
-          <h2>التواصل</h2>
+          <h2 class="fs-6 fw-bold mb-3">التواصل</h2>
           <ul class="list-unstyled p-0 m-0">
-            <li>فيسبوك</li>
-            <li>تويتر</li>
-            <li>انستغرام</li>
-            <li>سناب شات</li>
-            <li>واتساب</li>
+            <li>
+              <div class="social_images d-inline-block ms-2">
+                <img
+                  src="../../../../assets/images/social_meida_icons/facebook.png"
+                  alt="فيسبوك"
+                />
+              </div>
+              فيسبوك
+            </li>
+            <li>
+              <div class="social_images d-inline-block ms-2">
+                <img
+                  src="../../../../assets/images/social_meida_icons/twiiter.png"
+                  alt="تويتر"
+                />
+              </div>
+              تويتر
+            </li>
+            <li>
+              <div class="social_images d-inline-block ms-2">
+                <img
+                  src="../../../../assets/images/social_meida_icons/instagram.png"
+                  alt="انستغرام"
+                />
+              </div>
+              انستغرام
+            </li>
+            <li>
+              <div class="social_images d-inline-block ms-2">
+                <img
+                  src="../../../../assets/images/social_meida_icons/Vector.png"
+                  alt="سناب"
+                />
+              </div>
+              سناب شات
+            </li>
+            <li>
+              <div class="social_images d-inline-block ms-2">
+                <img
+                  src="../../../../assets/images/social_meida_icons/whatsapp.png"
+                  alt="واتساب"
+                />
+              </div>
+              واتساب
+            </li>
           </ul>
         </div>
       </div>
-      <div class="col-2 col-mg-3">
+      <div>
         <div>
-          <h2>عام</h2>
+          <h2 class="fs-6 fw-bold mb-3">عام</h2>
           <ul class="list-unstyled p-0 m-0">
-            <li>من نحن</li>
-            <li>تواصل معنا</li>
+            <li>
+              <a class="text-black text-decoration-none" routerLink="about-us"
+                >من نحن</a
+              >
+            </li>
+            <li>
+              <a
+                class="text-black text-decoration-none"
+                routerLink="/contact-us"
+                >تواصل معنا</a
+              >
+            </li>
           </ul>
         </div>
       </div>
-      <div class="col-2 col-mg-3">
+      <div>
         <div>
-          <img src="./assets/images/footer-logo.png" alt="" />
-          <p>
+          <div class="mb-3">
+            <img
+              style="width: 156px"
+              src="./assets/images/footer-logo.png"
+              alt="اصداء الخليج"
+            />
+          </div>
+          <p class="arabic_coryRight">
             جميع التعليقات و الردود المطروحة لا تعبر عن رأى الموقع و لكن تعبر عن
             رأي كاتبها و الموقع لا يتحمل اى مسؤولية تجاه تلك التعليقات و الردود
           </p>
+        </div>
+        <div class="d-flex justify-content-evenly gap-3 download_app_container">
+          <img
+            class="download_app_images"
+            src="/assets/images/footer_images/google_play.png"
+            alt="تحميل من google play"
+          />
+          <img
+            class="download_app_images"
+            src="/assets/images/footer_images/app_store.png"
+            alt="تحميل من app store"
+          />
         </div>
       </div>
     </div>

@@ -3,6 +3,7 @@
   <div class="container navbar__banner py-2 d-flex justify-content-between">
     <div class="d-flex justify-content-between align-items-center gap-3">
       <img
+        routerLink="/"
         class="Banner_logo"
         src="/assets/images/logo.png"
         alt="اصداء الخليج"
@@ -12,7 +13,7 @@
         src="/assets/images/navbar/calender_logo.png"
         alt="التاريخ"
       />
-      <time datetime="">جمادي الاخرة 1446 هـ</time>
+      <time class="d-none d-sm-inline">جمادي الاخرة 1446 هـ</time>
     </div>
     <div
       class="d-flex justify-content-center align-items-center gap-4 flex-row-reverse"
@@ -21,7 +22,7 @@
         src="/assets/images/navbar/logo.png"
         alt="رؤية المملكة العربية السعودية"
       />
-      <div class="social__icons">
+      <div class="social__icons d-none d-sm-block">
         <ul class="list-unstyled p-0 m-0 d-flex flex-row-reverse gap-1">
           <li>
             <a href="" aria-label="find us on facebook">
@@ -69,8 +70,10 @@
     </div>
   </div>
   <!-- nav bar banner -->
-  <div class="navbar navbar-expand-md bg-main">
-    <div class="container">
+  <div class="navbar navbar-expand-lg bg-main flex-row-reverse">
+    <div
+      class="container flex-row-reverse w-100 d-flex justify-content-between"
+    >
       <button
         class="navbar-toggler"
         type="button"
@@ -80,23 +83,33 @@
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
-        <span class="navbar-toggler-icon"></span>
+        <img
+          width="35px"
+          height="35px"
+          src="/assets/images/navbar/bars-solid.svg"
+          alt=""
+        />
       </button>
+      <div>
+        <img src="/assets/images/navbar/search.png" alt="search icon" />
+      </div>
       <div
-        class="collapse flex-row-reverse justify-content-between navbar-collapse"
-        id="navbarNav m-0"
+        class="collapse me-auto navbar-collapse flex-row-reverse justify-content-end"
+        id="navbarNav"
       >
-        <div>
-          <img src="/assets/images/navbar/search.png" alt="search icon" />
-        </div>
         <ul class="navbar-nav justify-content-between p-0">
           <li class="nav-item mx-1">
-            <a class="nav-link px-4" aria-current="page" routerLink="/"
+            <a
+              class="nav-link px-1 px-md-2 px-lg-2 px-xl-3"
+              aria-current="page"
+              routerLink="/"
+              routerLinkActive="bg-secondary text-main"
+              [routerLinkActiveOptions]="{ exact: true }"
               >الصفحة الرئيسية</a
             >
           </li>
           <li class="nav-item drop-down-container mx-1 position-relative z-3">
-            <a class="nav-link" href="#"
+            <a class="nav-link"
               >الاخبار
               <img
                 src="./assets/images/navbar/navbar-dropdown-icon.svg"
@@ -106,39 +119,80 @@
               class="drop-down-nav overflow-hidden end-0 border-radius-10 list-unstyled position-absolute z-3 bg-light box-shadow p-0 m-0 justify-content-between flex-column"
             >
               <li class="pe-3 py-2">
-                <a class="text-black" href="">الاخبار المحلية</a>
+                <a class="text-black" [routerLink]="['/archives/blogs', '01']"
+                  >أخبار محلية</a
+                >
               </li>
               <li class="pe-3 py-2">
-                <a class="text-black" href="">اخبار العالم</a>
+                <a class="text-black" [routerLink]="['/archives/blogs', '02']"
+                  >اخبار العالم</a
+                >
               </li>
               <li class="pe-3 py-2">
-                <a class="text-black" href="">اخبار المجتمع</a>
+                <a class="text-black" [routerLink]="['/archives/blogs', '09']"
+                  >اخبار المجتمع</a
+                >
               </li>
             </ul>
           </li>
           <li class="nav-item mx-1">
-            <a class="nav-link px-4" href="#">الرياضة</a>
+            <a
+              class="nav-link px-1 px-md-2 px-lg-2 px-xl-3"
+              [routerLink]="['/archives/blogs', '03']"
+              routerLinkActive="bg-secondary text-main"
+              >الرياضة</a
+            >
           </li>
           <li class="nav-item mx-1">
-            <a class="nav-link px-4" href="#">الاقتصاد</a>
+            <a
+              class="nav-link px-1 px-md-2 px-lg-2 px-xl-3"
+              [routerLink]="['/archives/blogs', '04']"
+              routerLinkActive="bg-secondary text-main"
+              >الاقتصاد</a
+            >
           </li>
           <li class="nav-item mx-1">
-            <a class="nav-link px-4" href="#">التعليم</a>
+            <a
+              class="nav-link px-1 px-md-2 px-lg-2 px-xl-3"
+              [routerLink]="['/archives/blogs', '05']"
+              routerLinkActive="bg-secondary text-main"
+              >التعليم</a
+            >
           </li>
           <li class="nav-item mx-1">
-            <a class="nav-link px-4" href="#">ثقافة و فن</a>
+            <a
+              class="nav-link px-1 px-md-2 px-lg-2 px-xl-3"
+              [routerLink]="['/archives/blogs', 'f']"
+              routerLinkActive="bg-secondary text-main"
+              >ثقافة و فن</a
+            >
           </li>
           <li class="nav-item mx-1">
-            <a class="nav-link px-4" href="#">تحقيقات</a>
+            <a
+              class="nav-link px-1 px-md-2 px-lg-2 px-xl-3"
+              [routerLink]="['/archives/blogs', 'i']"
+              routerLinkActive="bg-secondary text-main"
+              >تحقيقات</a
+            >
           </li>
           <li class="nav-item mx-1">
-            <a class="nav-link px-4" href="#">دراسات وابحاث</a>
+            <a
+              class="nav-link px-1 px-md-2 px-lg-2 px-xl-3"
+              [routerLink]="['/archives/blogs', '07']"
+              routerLinkActive="bg-secondary text-main"
+              >دراسات وابحاث</a
+            >
           </li>
           <li class="nav-item mx-1">
-            <a class="nav-link px-4" href="#">مقلات</a>
+            <a
+              class="nav-link px-1 px-md-2 px-lg-2 px-xl-3"
+              [routerLink]="['/archives/article', '08']"
+              routerLinkActive="bg-secondary text-main"
+              >مقلات</a
+            >
           </li>
           <li class="nav-item drop-down-container mx-1 position-relative z-3">
-            <a class="nav-link px-4" href="#">
+            <a class="nav-link px-1 px-md-2 px-lg-2 px-xl-3">
               اخري
               <img
                 src="./assets/images/navbar/navbar-dropdown-icon.svg"
@@ -149,16 +203,24 @@
               class="drop-down-nav overflow-hidden end-0 border-radius-10 list-unstyled position-absolute z-3 bg-light box-shadow p-0 m-0 justify-content-between flex-column"
             >
               <li class="pe-3 py-2">
-                <a class="text-black" href="">كاريكاتير</a>
+                <a class="text-black" [routerLink]="['/archives/blogs', '11']"
+                  >كاريكاتير</a
+                >
               </li>
               <li class="pe-3 py-2">
-                <a class="text-black" href="">الصحة والحياه</a>
+                <a class="text-black" [routerLink]="['/archives/blogs', 'g']"
+                  >الصحة والحياه</a
+                >
               </li>
               <li class="pe-3 py-2">
-                <a class="text-black" href="">علوم و تكنولوجا</a>
+                <a class="text-black" [routerLink]="['/archives/blogs', '06']"
+                  >علوم و تكنولوجا</a
+                >
               </li>
               <li class="pe-3 py-2">
-                <a class="text-black" href="">وقائع امنية</a>
+                <a class="text-black" [routerLink]="['/archives/blogs', 'h']"
+                  >وقائع امنية</a
+                >
               </li>
             </ul>
           </li>

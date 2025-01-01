@@ -1,0 +1,107 @@
+@if (nationalNews) {
+<section id="Home__Articles" class="bg-white py-5">
+  <div class="container">
+    <header class="d-flex justify-content-between">
+      <h2 class="section__title">إبداعات الوطن</h2>
+      <a href="" class="btn btn-show-all">عرض الكل</a>
+    </header>
+    <div class="row flex-row-reverse g-4">
+      <div class="col-12 col-lg-3">
+        <div class="bg-third border-radius-10 p-2">
+          <app-advertising-area
+            [positionClasses]="
+              'd-flex flex-column justify-content-center gap-3 h-250 p-5 fs-5 fw-semibold'
+            "
+          />
+
+          <div class="mt-2">
+            <figure class="Logo_Water_Mark small">
+              <img
+                class="w-100 object-fit-cover h-110 border-radius-10"
+                [src]="nationalNews.blogs.data[3].post_image"
+                [alt]="nationalNews.blogs.data[3].post_title"
+              />
+            </figure>
+            <h3 class="fs-13 fw-bold mb-1">
+              {{ nationalNews.blogs.data[3].post_title }}
+            </h3>
+            <div>
+              <p
+                class="mb-0 fs-13 desc_color"
+                [innerHTML]="
+                  nationalNews.blogs.data[3].post_content | stringSlice
+                "
+              ></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-6">
+        <div>
+          <figure class="Logo_Water_Mark small">
+            <img
+              class="w-100 object-fit-cover border-radius-10 h-370"
+              [src]="nationalNews.blogs.data[0].post_image"
+              [alt]="nationalNews.blogs.data[0].post_title"
+            />
+          </figure>
+          <h3 class="fs-13 fw-bold mb-1">
+            {{ nationalNews.blogs.data[0].post_title }}
+          </h3>
+          <div>
+            <p
+              class="mb-0 fs-13 desc_color"
+              [innerHTML]="
+                nationalNews.blogs.data[0].post_content | stringSlice
+              "
+            ></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-3">
+        <div>
+          <figure class="Logo_Water_Mark small">
+            <img
+              class="w-100 object-fit-cover border-radius-10 h-130"
+              [src]="nationalNews.blogs.data[1].post_image"
+              [alt]="nationalNews.blogs.data[1].post_title"
+            />
+          </figure>
+          <h3 class="fs-13 fw-bold mb-1">
+            {{ nationalNews.blogs.data[1].post_title }}
+          </h3>
+          <div>
+            <p
+              class="mb-0 fs-13 desc_color"
+              [innerHTML]="
+                nationalNews.blogs.data[1].post_content | stringSlice
+              "
+            ></p>
+          </div>
+        </div>
+        <div>
+          <figure class="Logo_Water_Mark small">
+            <img
+              class="w-100 object-fit-cover h-130 border-radius-10"
+              [src]="nationalNews.blogs.data[2].post_image"
+              [alt]="nationalNews.blogs.data[2].post_title"
+            />
+          </figure>
+          <h3 class="fs-13 fw-bold mb-1">
+            {{ nationalNews.blogs.data[2].post_title }}
+          </h3>
+          <div>
+            <p
+              class="mb-0 fs-13 desc_color"
+              [innerHTML]="
+                nationalNews.blogs.data[2].post_content | stringSlice
+              "
+            ></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+}

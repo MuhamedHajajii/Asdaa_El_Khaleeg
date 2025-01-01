@@ -1,0 +1,43 @@
+@if (specificCategories) {
+<section>
+  <div class="row g-4">
+    @for (card of specificCategories.blogs.data; track $index) {
+    <div class="col-12 col-md-6 col-lg-4">
+      <div [routerLink]="['/details/', card.post_id]">
+        <figure class="Logo_Water_Mark">
+          <img
+            class="w-100 object-fit-cover border-radius-10"
+            [src]="card.post_image"
+            (load)="imageLoaded($event)"
+            alt="card.author"
+          />
+          @if (!imageLoadedFlag) {
+          <div
+            class="placeholder opacity-100 bd-placeholder-img card-img-top position-absolute top-0 start-0 w-100 border-radius-10"
+            style="height: 250px; background-color: #868e96"
+          ></div>
+          }
+        </figure>
+        <h3 class="text-main fs-13 fw-bold mt-2 mb-1 text-decoration-underline">
+          {{ card.post_title }}
+        </h3>
+        <div
+          class="d-flex justify-content-between align-items-center mb-2 mt-3"
+        >
+          <h4 class="fs-13 fw-bold">{{ card.post_id }}</h4>
+          <p class="mb-0 date_color fw-bold fs-13">
+            {{ card.post_date | date }}
+          </p>
+        </div>
+        <div>
+          <p
+            class="mb-0 fs-13 desc_color fw-bold"
+            [innerHTML]="card.post_content | stringSlice : 100"
+          ></p>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+</section>
+}

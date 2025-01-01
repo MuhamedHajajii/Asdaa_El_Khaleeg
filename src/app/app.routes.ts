@@ -16,11 +16,35 @@ export const routes: Routes = [
           ),
       },
       {
-        path: 'categories',
+        path: 'archives',
         loadComponent: () =>
           import('./pages/blank-layout/categories/categories.component').then(
             (c) => c.CategoriesComponent
           ),
+        children: [
+          {
+            path: 'blogs/:id',
+            loadComponent: () =>
+              import(
+                './pages/blank-layout/categories/blogs/blogs.component'
+              ).then((c) => c.BlogsComponent),
+          },
+          {
+            path: 'article/:id',
+            loadComponent: () =>
+              import(
+                './pages/blank-layout/categories/articles/articles.component'
+              ).then((c) => c.ArticlesComponent),
+          },
+        ],
+      },
+
+      {
+        path: 'details/:id',
+        loadComponent: () =>
+          import(
+            './pages/blank-layout/categories/details/details.component'
+          ).then((c) => c.DetailsComponent),
       },
       {
         path: 'articles',

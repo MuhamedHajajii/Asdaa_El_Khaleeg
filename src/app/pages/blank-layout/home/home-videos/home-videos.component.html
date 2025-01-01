@@ -1,0 +1,63 @@
+@if(currentYoutubeVideos) {
+<section id="Home__Local__News" class="py-4">
+  <div class="container">
+    <header class="d-flex justify-content-between">
+      <h2 class="section__title">بعض من الفيديوهات الاخبارية</h2>
+      <a href="" class="btn btn-show-all">عرض الكل</a>
+    </header>
+    <div class="row">
+      <div class="col-12 col-md-9">
+        <div class="Logo_youtube_Mark">
+          <figure class="Logo_Water_Mark small">
+            <img
+              class="w-100 object-fit-cover border-radius-10 h-440"
+              [src]="
+                currentYoutubeVideos.items[0].snippet.thumbnails.standard.url
+              "
+              alt="card.author"
+            />
+          </figure>
+          <h3 class="fs-13 fw-bold mb-1">
+            {{ currentYoutubeVideos.items[0].snippet.title }}
+          </h3>
+        </div>
+      </div>
+      <div class="col-12 col-md-3">
+        <div class="Logo_youtube_Mark">
+          <figure class="Logo_Water_Mark small">
+            <img
+              class="w-100 object-fit-cover border-radius-10 h-160"
+              [src]="
+                currentYoutubeVideos.items[1].snippet.thumbnails.standard.url
+              "
+              alt="card.author"
+            />
+          </figure>
+          <div>
+            <h3 class="fs-13 fw-bold mb-1">
+              {{ currentYoutubeVideos.items[1].snippet.title }}
+            </h3>
+          </div>
+        </div>
+        <div class="Logo_youtube_Mark">
+          <figure class="Logo_Water_Mark small">
+            <img
+              class="w-100 object-fit-cover border-radius-10 h-160"
+              [src]="
+                currentYoutubeVideos.items[2].snippet.thumbnails.standard.url
+              "
+              alt="card.author"
+            />
+          </figure>
+          <div>
+            <h3 class="fs-13 fw-bold mb-1">
+              {{ currentYoutubeVideos.items[2].snippet.title }}
+            </h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+}

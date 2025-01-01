@@ -47,3 +47,68 @@ body {
     color: $text-light !important;
   }
 }
+
+.Logo_Water_Mark {
+  &::selection {
+    background-color: none;
+  }
+  position: relative;
+  &::after {
+    &::selection {
+      background-color: none;
+    }
+    content: "";
+    display: inline-block;
+    width: 53px;
+    height: 52px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 16px;
+    background-image: url("/assets/images/logo_light.png");
+    background-size: 100% 100%;
+  }
+}
+.Logo_youtube_Mark {
+  &::selection {
+    background-color: none;
+  }
+  position: relative;
+  &::after {
+    &::selection {
+      background-color: none;
+    }
+    content: "";
+    cursor: pointer;
+    display: inline-block;
+    width: 53px;
+    height: 52px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-image: url("/assets/images/youtube.png");
+    background-size: 100% 100%;
+  }
+}
+.Logo_Water_Mark.small::after {
+  width: 30px;
+  height: 30px;
+}
+.section__title {
+  color: #000;
+
+  font-family: Cairo;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.btn-large a {
+  padding-inline: 50px !important;
+}
+
+img {
+  object-position: top;
+}
