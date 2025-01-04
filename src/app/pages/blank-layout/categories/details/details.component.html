@@ -3,8 +3,8 @@
   <div class="container">
     <div class="row g-4 g-lg-3 align-items-stretch">
       <div class="p-2 col-12 col-lg-8 order-1 order-lg-1">
+        @if (!isShowSkeleton &&IBlogs) {
         <div>
-          @if (!isShowSkeleton &&IBlogs) {
           <div>
             <figure class="Logo_Water_Mark">
               <img
@@ -40,61 +40,6 @@
               ></p>
             </div>
           </div>
-          }
-          <!-- skeleton -->
-          @defer { @if (isShowSkeleton) {
-          <div>
-            <figure class="Logo_Water_Mark">
-              <ngx-skeleton-loader
-                [theme]="{
-                  width: '100%',
-                  height: '650px',
-                  background: 'lightgray'
-                }"
-              />
-            </figure>
-            <h3 class="text-main fs-13 fw-bold mt-2 mb-1 fs-5">
-              <ngx-skeleton-loader
-                [theme]="{
-                  width: '100%',
-                  height: '20px',
-                  background: 'lightgray'
-                }"
-              />
-            </h3>
-            <div
-              class="d-flex justify-content-between align-items-center mb-2 mt-3"
-            >
-              <p class="mb-0 date_color fw-bold fs-13">
-                <ngx-skeleton-loader
-                  [theme]="{
-                    width: '150px',
-                    height: '20px',
-                    background: 'lightgray'
-                  }"
-                />
-              </p>
-              <p class="mb-0 date_color fw-bold fs-13">
-                <ngx-skeleton-loader
-                  [theme]="{
-                    width: '50px',
-                    height: '20px',
-                    background: 'lightgray'
-                  }"
-                />
-              </p>
-            </div>
-            <div>
-              <ngx-skeleton-loader
-                [theme]="{
-                  width: '100%',
-                  height: '60px',
-                  background: 'lightgray'
-                }"
-              />
-            </div>
-          </div>
-          } }
         </div>
         <div class="p-2 col-12 order-0 order-lg-1 my-4">
           <form [formGroup]="userDataForm" (ngSubmit)="onSubmitComment()">
@@ -231,7 +176,106 @@
               </div>
             </div>
           </form>
+          <div class="mt-4">
+            <div class="d-flex justify-content-between align-items-center">
+              <p>التعليقات</p>
+              <p class="text-danger" style="font-size: 13px !important">
+                3 تعليقات
+              </p>
+            </div>
+            <div class="box-shadow border-radius-10 p-3 mb-3">
+              <div class="d-flex align-items-center gap-2 mb-2">
+                <span
+                  class="d-inline-block rounded-circle"
+                  style="width: 25px; height: 25px; background-color: #d9d9d9"
+                ></span>
+                <p class="mb-0">Mohamed Ahmed</p>
+                <p
+                  class="mb-0"
+                  style="font-size: 10px !important; color: #878787"
+                >
+                  منذ ساعة
+                </p>
+              </div>
+              <p class="me-4 mb-0">
+                موضوع هام جدا و اري انه سوف يحدث بسببه طفرة كبيرة
+              </p>
+            </div>
+            <div class="box-shadow border-radius-10 p-3 mb-3">
+              <div class="d-flex align-items-center gap-2 mb-2">
+                <span
+                  class="d-inline-block rounded-circle"
+                  style="width: 25px; height: 25px; background-color: #d9d9d9"
+                ></span>
+                <p class="mb-0">Mohamed Ahmed</p>
+                <p
+                  class="mb-0"
+                  style="font-size: 10px !important; color: #878787"
+                >
+                  منذ ساعة
+                </p>
+              </div>
+              <p class="me-4 mb-0">
+                موضوع هام جدا و اري انه سوف يحدث بسببه طفرة كبيرة
+              </p>
+            </div>
+          </div>
         </div>
+        }
+        <!-- skeleton -->
+        @defer { @if (isShowSkeleton) {
+        <div>
+          <figure class="Logo_Water_Mark">
+            <ngx-skeleton-loader
+              [theme]="{
+                width: '100%',
+                height: '650px',
+                background: 'lightgray'
+              }"
+            />
+          </figure>
+          <h3 class="text-main fs-13 fw-bold mt-2 mb-1 fs-5">
+            <ngx-skeleton-loader
+              [theme]="{
+                width: '100%',
+                height: '20px',
+                background: 'lightgray'
+              }"
+            />
+          </h3>
+          <div
+            class="d-flex justify-content-between align-items-center mb-2 mt-3"
+          >
+            <p class="mb-0 date_color fw-bold fs-13">
+              <ngx-skeleton-loader
+                [theme]="{
+                  width: '150px',
+                  height: '20px',
+                  background: 'lightgray'
+                }"
+              />
+            </p>
+            <p class="mb-0 date_color fw-bold fs-13">
+              <ngx-skeleton-loader
+                [theme]="{
+                  width: '50px',
+                  height: '20px',
+                  background: 'lightgray'
+                }"
+              />
+            </p>
+          </div>
+          <div>
+            <ngx-skeleton-loader
+              [theme]="{
+                width: '100%',
+                height: '60px',
+                background: 'lightgray'
+              }"
+            />
+          </div>
+        </div>
+        } }
       </div>
       <div class="p-2 col-12 col-lg-4 order-0 order-lg-1">
         <div class="d-flex flex-column h-100">
@@ -242,7 +286,7 @@
               >
                 <img
                   class="w-100 object-fit-cover main_animation"
-                  src="/assets/images/pages/home/Hero_Section/سلمان-بن-أحمد-العيد-.-1.png"
+                  src="./assets/images/pages/home/Hero_Section/سلمان-بن-أحمد-العيد-.-1.png"
                   alt="carousel"
                 />
               </div>
