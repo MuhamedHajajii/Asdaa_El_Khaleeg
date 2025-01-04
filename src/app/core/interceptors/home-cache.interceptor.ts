@@ -1,10 +1,5 @@
-import {
-  HttpInterceptorFn,
-  HttpRequest,
-  HttpHandlerFn,
-  HttpResponse,
-} from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { HttpInterceptorFn, HttpResponse } from '@angular/common/http';
+import { of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 // Create a simple cache map
@@ -12,7 +7,7 @@ const cache = new Map<
   string,
   { response: HttpResponse<any>; expiry: number }
 >();
-const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+const CACHE_DURATION = 2 * 60 * 1000; // 2 minutes
 
 export const homeCacheInterceptor: HttpInterceptorFn = (req, next) => {
   if (req.method !== 'GET') {

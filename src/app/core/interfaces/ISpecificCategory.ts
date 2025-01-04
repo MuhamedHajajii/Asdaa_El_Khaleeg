@@ -30,4 +30,5 @@ export interface IBlog {
   post_date: string;
   post_content: string;
   post_image: string;
+  author_name: string;
 }

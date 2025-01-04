@@ -6,11 +6,20 @@ import {
 } from '../../../../core/interfaces/ISpecificCategory';
 import { HomeContentService } from '../../../../core/services/content/home/home-content.service';
 import { StringSlicePipe } from '../../../../core/pipes/string-slice.pipe';
+import { RouterLink } from '@angular/router';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { SafeHtmlPipe } from '../../../../core/pipes/safe-html.pipe';
 
 @Component({
   selector: 'app-national-news',
   standalone: true,
-  imports: [AdvertisingAreaComponent, StringSlicePipe],
+  imports: [
+    AdvertisingAreaComponent,
+    StringSlicePipe,
+    RouterLink,
+    NgxSkeletonLoaderModule,
+    SafeHtmlPipe,
+  ],
   templateUrl: './national-news.component.html',
   styleUrl: './national-news.component.scss',
 })

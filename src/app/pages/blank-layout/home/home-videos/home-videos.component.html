@@ -3,14 +3,22 @@
   <div class="container">
     <header class="d-flex justify-content-between">
       <h2 class="section__title">بعض من الفيديوهات الاخبارية</h2>
-      <a href="" class="btn btn-show-all">عرض الكل</a>
+      <a (click)="onClickOpenYouTube()" class="cr btn btn-show-all">عرض الكل</a>
     </header>
     <div class="row">
       <div class="col-12 col-md-9">
-        <div class="Logo_youtube_Mark">
+        <div
+          (click)="
+            onClickOpenYouTubeVideo(
+              currentYoutubeVideos.items[0].snippet.resourceId.videoId
+            )
+          "
+          class="Logo_youtube_Mark cr"
+        >
           <figure class="Logo_Water_Mark small">
             <img
-              class="w-100 object-fit-cover border-radius-10 h-440"
+              height="545px"
+              class="w-100 object-fit-cover border-radius-10"
               [src]="
                 currentYoutubeVideos.items[0].snippet.thumbnails.standard.url
               "
@@ -22,11 +30,19 @@
           </h3>
         </div>
       </div>
+
       <div class="col-12 col-md-3">
-        <div class="Logo_youtube_Mark">
-          <figure class="Logo_Water_Mark small">
+        <div
+          (click)="
+            onClickOpenYouTubeVideo(
+              currentYoutubeVideos.items[1].snippet.resourceId.videoId
+            )
+          "
+          class="Logo_youtube_Mark cr mb-3"
+        >
+          <figure class="Logo_Water_Mark small overflow-hidden">
             <img
-              class="w-100 object-fit-cover border-radius-10 h-160"
+              class="youTube_Image w-100 h-100 object-fit-cover border-radius-10"
               [src]="
                 currentYoutubeVideos.items[1].snippet.thumbnails.standard.url
               "
@@ -39,10 +55,17 @@
             </h3>
           </div>
         </div>
-        <div class="Logo_youtube_Mark">
-          <figure class="Logo_Water_Mark small">
+        <div
+          (click)="
+            onClickOpenYouTubeVideo(
+              currentYoutubeVideos.items[2].snippet.resourceId.videoId
+            )
+          "
+          class="Logo_youtube_Mark cr"
+        >
+          <figure class="Logo_Water_Mark small overflow-hidden">
             <img
-              class="w-100 object-fit-cover border-radius-10 h-160"
+              class="youTube_Image w-100 h-100 object-fit-cover border-radius-10"
               [src]="
                 currentYoutubeVideos.items[2].snippet.thumbnails.standard.url
               "

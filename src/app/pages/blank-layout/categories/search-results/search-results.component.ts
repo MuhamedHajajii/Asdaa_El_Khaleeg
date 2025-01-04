@@ -1,17 +1,18 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CategoriesService } from '../../../../core/services/content/categories.service';
 
 import { NgxPaginationModule } from 'ngx-pagination';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { ISpecificCategory } from '../../../../core/interfaces/ISpecificCategory';
 import { HijriDatePipe } from '../../../../core/pipes/date-hijri.pipe';
-import { StringSlicePipe } from '../../../../core/pipes/string-slice.pipe';
 import { ImagesSrcPipe } from '../../../../core/pipes/images-src.pipe';
-import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { SafeHtmlPipe } from '../../../../core/pipes/safe-html.pipe';
+import { StringSlicePipe } from '../../../../core/pipes/string-slice.pipe';
+import { SearchBlogsService } from '../../../../core/services/content/home/search-blogs.service';
 
 @Component({
-  selector: 'app-blogs',
+  selector: 'app-search-results',
   standalone: true,
   imports: [
     HijriDatePipe,
@@ -22,10 +23,10 @@ import { SafeHtmlPipe } from '../../../../core/pipes/safe-html.pipe';
     NgxSkeletonLoaderModule,
     SafeHtmlPipe,
   ],
-  templateUrl: './blogs.component.html',
-  styleUrl: './blogs.component.scss',
+  templateUrl: './search-results.component.html',
+  styleUrl: './search-results.component.scss',
 })
-export class BlogsComponent {
+export class SearchResultsComponent {
   currentId!: string;
   specificCategories!: ISpecificCategory | null;
   imageLoadedFlag = false;
@@ -37,8 +38,8 @@ export class BlogsComponent {
     window.scrollTo(0, 0);
     this.currentPage = e;
     console.log(this.currentPage);
-    this._CategoriesService
-      .getCurrentCategories(this.currentId, this.currentPage)
+    this._SearchBlogsService
+      .getSearchResults(this.currentId, this.currentPage)
       .subscribe({
         next: (response) => {
           this.specificCategories = response as ISpecificCategory;
@@ -50,8 +51,7 @@ export class BlogsComponent {
   }
 
   constructor(
-    private _CategoriesService: CategoriesService,
-    private _Router: Router,
+    private _SearchBlogsService: SearchBlogsService,
     private _ActivatedRoute: ActivatedRoute
   ) {}
 
@@ -75,7 +75,7 @@ export class BlogsComponent {
 
   getCurrentCategory(blogId: string): void {
     this.isShowSkeleton = true;
-    this._CategoriesService.getCurrentCategories(blogId).subscribe({
+    this._SearchBlogsService.getSearchResults(blogId).subscribe({
       next: (response) => {
         this.specificCategories = response as ISpecificCategory;
         this.totalItems = response?.blogs.total as number;

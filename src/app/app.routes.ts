@@ -36,22 +36,21 @@ export const routes: Routes = [
                 './pages/blank-layout/categories/articles/articles.component'
               ).then((c) => c.ArticlesComponent),
           },
+          {
+            path: 'search/:id',
+            loadComponent: () =>
+              import(
+                './pages/blank-layout/categories/search-results/search-results.component'
+              ).then((c) => c.SearchResultsComponent),
+          },
         ],
       },
-
       {
         path: 'details/:id',
         loadComponent: () =>
           import(
             './pages/blank-layout/categories/details/details.component'
           ).then((c) => c.DetailsComponent),
-      },
-      {
-        path: 'articles',
-        loadComponent: () =>
-          import('./pages/blank-layout/articles/articles.component').then(
-            (c) => c.ArticlesComponent
-          ),
       },
       {
         path: 'contact-us',

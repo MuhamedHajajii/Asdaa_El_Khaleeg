@@ -26,4 +26,12 @@ export class HomeVideosComponent {
       },
     });
   }
+
+  onClickOpenYouTubeVideo(targetVideoUrl: string): void {
+    window.open(`https://www.youtube.com/watch?v=${targetVideoUrl}`, '_blank');
+  }
+
+  onClickOpenYouTube(): void {
+    window.open('https://www.youtube.com/@asda-alkhaleej', '_blank');
+  }
 }

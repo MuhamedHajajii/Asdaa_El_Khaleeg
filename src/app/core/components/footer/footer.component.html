@@ -1,74 +1,125 @@
 <div class="bg-light footer">
   <div class="container">
-    <div class="row row-cols-2 row-cols-sm-2 row-cols-lg-4">
-      <div>
+    <div class="row g-4 g-lg-3">
+      <div class="col-12 col-lg-4">
         <div>
           <h2 class="fs-6 fw-bold mb-3">مشاهدة جميع الاقسام</h2>
-          <ul class="list-unstyled p-0 m-0">
-            <li>الاخبار</li>
-            <li>الحوادث</li>
-            <li>اقتصاد</li>
-            <li>اعمال تجارية</li>
-            <li>اخبار رياضة</li>
-            <li>الترفية</li>
-            <li>المدونات</li>
-            <li>فيديوهات</li>
+          <ul class="list-unstyled p-0 m-0 row">
+            <li class="cr col-6 pe-0">
+              <a class="text-decoration-none text-black" routerLink="/"
+                >الرئيسية</a
+              >
+            </li>
+            <li class="cr col-6 pe-0">
+              <a
+                class="text-decoration-none text-black"
+                [routerLink]="['/archives/blogs', '01']"
+                >أخبار محلية</a
+              >
+            </li>
+            <li class="cr col-6 pe-0">
+              <a
+                class="text-decoration-none text-black"
+                [routerLink]="['/archives/blogs', '02']"
+                >أخبار العالم</a
+              >
+            </li>
+            <li class="cr col-6 pe-0">
+              <a
+                class="text-decoration-none text-black"
+                [routerLink]="['/archives/blogs', '03']"
+                >الرياضة</a
+              >
+            </li>
+            <li class="cr col-6 pe-0">
+              <a
+                class="text-decoration-none text-black"
+                [routerLink]="['/archives/blogs', 'f']"
+                >ثقافة و فن</a
+              >
+            </li>
+            <li class="cr col-6 pe-0">
+              <a
+                class="text-decoration-none text-black"
+                [routerLink]="['/archives/blogs', '04']"
+                >الاقتصاد</a
+              >
+            </li>
+            <li class="cr col-6 pe-0">
+              <a
+                class="text-decoration-none text-black"
+                [routerLink]="['/archives/blogs', '05']"
+                >التعليم</a
+              >
+            </li>
+            <li class="cr col-6 pe-0">
+              <a
+                class="text-decoration-none text-black"
+                [routerLink]="['/archives/article', '08']"
+                >المقلات</a
+              >
+            </li>
+            <li class="cr col-6 pe-0">
+              <a
+                class="text-decoration-none text-black"
+                [routerLink]="['/archives/blogs', 'i']"
+                >تحقيقات</a
+              >
+            </li>
+            <li class="cr col-6 pe-0">
+              <a
+                class="text-decoration-none text-black"
+                [routerLink]="['/archives/blogs', '09']"
+                >اخبار المجتمع</a
+              >
+            </li>
+            <li class="cr col-6 pe-0">
+              <a
+                class="text-decoration-none text-black"
+                [routerLink]="['/archives/blogs', '07']"
+                >دراسات وابحاث</a
+              >
+            </li>
+            <li class="cr col-6 pe-0">
+              <a
+                class="text-decoration-none text-black"
+                [routerLink]="['/archives/blogs', '11']"
+                >كاريكاتير</a
+              >
+            </li>
+            <li class="cr col-6 pe-0">
+              <a
+                class="text-decoration-none text-black"
+                [routerLink]="['/archives/blogs', 'g']"
+                >الصحة والحياه</a
+              >
+            </li>
+            <li class="cr col-6 pe-0">
+              <a
+                class="text-decoration-none text-black"
+                [routerLink]="['/archives/blogs', '06']"
+                >علوم و تكنولوجا</a
+              >
+            </li>
+            <li class="cr col-6 pe-0">
+              <a
+                class="text-decoration-none text-black"
+                [routerLink]="['/archives/blogs', 'h']"
+                >وقائع امنية</a
+              >
+            </li>
+            <li class="cr col-6 pe-0">
+              <a
+                class="text-decoration-none text-black"
+                [routerLink]="['/archives/blogs', '10']"
+                >زاوية رئيس التحرير</a
+              >
+            </li>
           </ul>
         </div>
       </div>
-      <div>
-        <div>
-          <h2 class="fs-6 fw-bold mb-3">التواصل</h2>
-          <ul class="list-unstyled p-0 m-0">
-            <li>
-              <div class="social_images d-inline-block ms-2">
-                <img
-                  src="../../../../assets/images/social_meida_icons/facebook.png"
-                  alt="فيسبوك"
-                />
-              </div>
-              فيسبوك
-            </li>
-            <li>
-              <div class="social_images d-inline-block ms-2">
-                <img
-                  src="../../../../assets/images/social_meida_icons/twiiter.png"
-                  alt="تويتر"
-                />
-              </div>
-              تويتر
-            </li>
-            <li>
-              <div class="social_images d-inline-block ms-2">
-                <img
-                  src="../../../../assets/images/social_meida_icons/instagram.png"
-                  alt="انستغرام"
-                />
-              </div>
-              انستغرام
-            </li>
-            <li>
-              <div class="social_images d-inline-block ms-2">
-                <img
-                  src="../../../../assets/images/social_meida_icons/Vector.png"
-                  alt="سناب"
-                />
-              </div>
-              سناب شات
-            </li>
-            <li>
-              <div class="social_images d-inline-block ms-2">
-                <img
-                  src="../../../../assets/images/social_meida_icons/whatsapp.png"
-                  alt="واتساب"
-                />
-              </div>
-              واتساب
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div>
+
+      <div class="col-12 col-lg-2">
         <div>
           <h2 class="fs-6 fw-bold mb-3">عام</h2>
           <ul class="list-unstyled p-0 m-0">
@@ -87,31 +138,97 @@
           </ul>
         </div>
       </div>
-      <div>
+
+      <div class="col-4 col-lg-2">
+        <div class="mb-3">
+          <img
+            width="156px"
+            src="./assets/images/footer-logo.png"
+            alt="اصداء الخليج"
+          />
+        </div>
+      </div>
+
+      <div class="col-8 col-lg-4">
         <div>
-          <div class="mb-3">
-            <img
-              style="width: 156px"
-              src="./assets/images/footer-logo.png"
-              alt="اصداء الخليج"
-            />
-          </div>
-          <p class="arabic_coryRight">
+          <p class="arabic_coryRight mt-2">
             جميع التعليقات و الردود المطروحة لا تعبر عن رأى الموقع و لكن تعبر عن
             رأي كاتبها و الموقع لا يتحمل اى مسؤولية تجاه تلك التعليقات و الردود
           </p>
         </div>
-        <div class="d-flex justify-content-evenly gap-3 download_app_container">
-          <img
-            class="download_app_images"
-            src="/assets/images/footer_images/google_play.png"
-            alt="تحميل من google play"
-          />
-          <img
-            class="download_app_images"
-            src="/assets/images/footer_images/app_store.png"
-            alt="تحميل من app store"
-          />
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="h-100 d-flex justify-content-center align-items-end">
+          <p class="ltr">
+            <img
+              class="align-middle"
+              src="./assets/images/digital_bond.png"
+              role="presentation"
+              width="41px"
+            />
+            <span class="fw-bold align-middle me-2">DIGITAL BOND</span>
+            <span class="align-middle">جميع الحقوق محفوظة &commat;2025</span>
+          </p>
+        </div>
+      </div>
+      <div class="col-12 col-lg-6">
+        <div class="d-flex flex-column justify-content-end gap-3 flex-wrap">
+          <ul
+            class="list-unstyled p-0 m-0 d-flex justify-content-end gap-2 w-100"
+          >
+            <li>
+              <div class="social_images d-inline-block ms-2">
+                <img
+                  src="/assets/images/social_meida_icons/facebook.png"
+                  alt="فيسبوك"
+                />
+              </div>
+            </li>
+            <li>
+              <div class="social_images d-inline-block ms-2">
+                <img
+                  src="/assets/images/social_meida_icons/twiiter.png"
+                  alt="تويتر"
+                />
+              </div>
+            </li>
+            <li>
+              <div class="social_images d-inline-block ms-2">
+                <img
+                  src="/assets/images/social_meida_icons/instagram.png"
+                  alt="انستغرام"
+                />
+              </div>
+            </li>
+            <li>
+              <div class="social_images d-inline-block ms-2">
+                <img
+                  src="/assets/images/social_meida_icons/Vector.png"
+                  alt="سناب"
+                />
+              </div>
+            </li>
+            <li>
+              <div class="social_images d-inline-block ms-2">
+                <img
+                  src="/assets/images/social_meida_icons/whatsapp.png"
+                  alt="واتساب"
+                />
+              </div>
+            </li>
+          </ul>
+          <div class="d-flex justify-content-end">
+            <img
+              class="download_app_images ms-3"
+              src="/assets/images/footer_images/google_play.png"
+              alt="تحميل من google play"
+            />
+            <img
+              class="download_app_images"
+              src="/assets/images/footer_images/app_store.png"
+              alt="تحميل من app store"
+            />
+          </div>
         </div>
       </div>
     </div>

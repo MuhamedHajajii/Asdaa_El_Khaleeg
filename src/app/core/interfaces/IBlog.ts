@@ -9,4 +9,7 @@ export interface Blog {
   post_date: string;
   post_content: string;
   post_image: string;
+  category_name: string;
+  category_slug: string;
+  author_name: string;
 }

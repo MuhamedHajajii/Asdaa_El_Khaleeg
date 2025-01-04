@@ -77,6 +77,11 @@
 .h-250 {
   height: 250px !important;
 }
+@media screen and (max-width: 767px) {
+  .h-md-450 {
+    height: 450px !important;
+  }
+}
 .h-90 {
   height: 90px !important;
 }
@@ -100,5 +105,16 @@
   height: 160px;
 }
 .h-600 {
-  height: 600px;
+  height: 600px !important;
+}
+.h-550 {
+  height: 550px;
+}
+
+.cr {
+  cursor: pointer;
+}
+.sticky_content-20 {
+  position: sticky !important;
+  top: 20% !important;
 }

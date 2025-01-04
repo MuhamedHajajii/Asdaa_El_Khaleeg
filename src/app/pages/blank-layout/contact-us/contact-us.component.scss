@@ -13,3 +13,7 @@ section {
   background-repeat: no-repeat;
   background-position: top right;
 }
+
+::ng-deep .iti {
+  width: 100% !important;
+}

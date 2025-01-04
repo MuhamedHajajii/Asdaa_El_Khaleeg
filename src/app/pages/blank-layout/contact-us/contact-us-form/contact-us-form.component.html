@@ -3,20 +3,19 @@
     <div class="row g-3">
       <!-- input field: userName  -->
       <div class="col-md-6">
-        <div>
-          <div class="text-end">
+        <div class="position-relative mb-3">
+          <div class="text-start">
             @if (messagesForm.get('name')?.getError("required") &&
             startValidation) {
-            <small class="text-danger fst-italic">Please fill the field*</small>
-            } @if (messagesForm.get('name')?.getError("pattern") &&
-            startValidation) {
-            <small class="text-danger fst-italic"
-              >Name Must Include only characters*</small
+            <small
+              class="text-danger fst-italic fw-bold position-absolute bottom-100 start-0"
+              >مطلوب*</small
             >
             } @if (messagesForm.get('name')?.getError("minlength") &&
             startValidation) {
-            <small class="text-danger fst-italic"
-              >Name min length 3 characters*</small
+            <small
+              class="text-danger fst-italic fw-bold position-absolute bottom-100 start-0"
+              >اقل عدد احرف 3*</small
             >
             }
           </div>
@@ -29,7 +28,7 @@
                     messagesForm.get('name')?.getError('pattern'))
               }"
               type="text"
-              class="form-control py-3"
+              class="form-control h-100 py-3"
               id="name"
               placeholder="الاسم"
               formControlName="name"
@@ -37,16 +36,67 @@
           </div>
         </div>
       </div>
-      <!-- input field: userEmail  -->
+      <!-- input field: userPhone  -->
       <div class="col-md-6">
-        <div>
-          <div class="text-end">
+        <div class="position-relative mb-3">
+          <div class="text-start">
+            @if (messagesForm.get('phone')?.getError("required") &&
+            startValidation) {
+            <small
+              class="text-danger fst-italic fw-bold position-absolute bottom-100 start-0"
+              >مطلوب*</small
+            >
+            } @if (messagesForm.get('phone')?.errors && startValidation &&
+            phone.value?.length || 0 > 0) {
+            <small
+              class="text-danger fst-italic fw-bold position-absolute bottom-100 start-0"
+              >رقم هاتف غير صالح*</small
+            >
+            }
+          </div>
+          <ngx-intl-tel-input
+            #phone
+            [cssClass]="
+              startValidation && messagesForm.get('phone')?.errors
+                ? 'form-control h-100 py-3 is-invalid text-end'
+                : 'form-control h-100 py-3 text-end'
+            "
+            [preferredCountries]="[CountryISO.SaudiArabia]"
+            [enableAutoCountrySelect]="false"
+            [enablePlaceholder]="false"
+            customPlaceholder="الهاتف"
+            [searchCountryFlag]="true"
+            [searchCountryField]="[
+              SearchCountryField.Iso2,
+              SearchCountryField.Name
+            ]"
+            dir="ltr"
+            [selectFirstCountry]="false"
+            [selectedCountryISO]="CountryISO.SaudiArabia"
+            [maxLength]="15"
+            [phoneValidation]="true"
+            name="phone"
+            formControlName="phone"
+          ></ngx-intl-tel-input>
+          <!-- [dir]="'rtl'" -->
+        </div>
+      </div>
+      <!-- input field: userEmail  -->
+      <div class="col-md-12">
+        <div class="position-relative mb-3">
+          <div class="text-start">
             @if (messagesForm.get('email')?.getError("required") &&
             startValidation) {
-            <small class="text-danger fst-italic">Please fill the field*</small>
+            <small
+              class="text-danger fst-italic fw-bold position-absolute bottom-100 start-0"
+              >مطلوب*</small
+            >
             } @if (messagesForm.get('email')?.getError("email") &&
             startValidation) {
-            <small class="text-danger fst-italic">Email not Valid*</small>
+            <small
+              class="text-danger fst-italic fw-bold position-absolute bottom-100 start-0"
+              >ايميل غير صالح*</small
+            >
             }
           </div>
           <div>
@@ -66,50 +116,16 @@
           </div>
         </div>
       </div>
-      <!-- input field: userPhone  -->
-      <div class="col-md-12">
-        <div>
-          <div class="text-end">
-            @if (messagesForm.get('phone')?.getError("required") &&
-            startValidation) {
-            <small class="text-danger fst-italic">Please fill the field*</small>
-            } @if (messagesForm.get('phone')?.errors && startValidation &&
-            phone.value?.length || 0 > 0) {
-            <small class="text-danger fst-italic">Phone is Not Valid*</small>
-            }
-          </div>
-          <ngx-intl-tel-input
-            #phone
-            [cssClass]="
-              startValidation && messagesForm.get('phone')?.errors
-                ? 'form-control h-100 py-3 is-invalid'
-                : 'form-control h-100 py-3'
-            "
-            [preferredCountries]="[CountryISO.Egypt]"
-            [enableAutoCountrySelect]="false"
-            [enablePlaceholder]="true"
-            [searchCountryFlag]="true"
-            [searchCountryField]="[
-              SearchCountryField.Iso2,
-              SearchCountryField.Name
-            ]"
-            [selectFirstCountry]="false"
-            [dir]="'rtl'"
-            [selectedCountryISO]="CountryISO.Egypt"
-            [maxLength]="15"
-            [phoneValidation]="true"
-            name="phone"
-            formControlName="phone"
-          ></ngx-intl-tel-input>
-        </div>
-      </div>
       <!-- input field: userMessage  -->
       <div class="col-md-12">
-        <div>
-          <div class="text-end">
+        <div class="position-relative mb-3">
+          <div class="text-start">
             @if (messagesForm.get('message')?.getError("required") &&
             startValidation) {
-            <small class="text-danger fst-italic">Please fill the field*</small>
+            <small
+              class="text-danger fst-italic fw-bold position-absolute bottom-100 start-0"
+              >مطلوب*</small
+            >
             }
           </div>
           <div>
@@ -131,7 +147,7 @@
       <!-- submit button  -->
       <div class="text-center col-md-12">
         <button
-          class="btn-main btn rounded-3 mx-auto col-8 px-4 title__fonts fw-bold py-3 text-uppercase fs-14"
+          class="btn-main btn rounded-3 mx-auto col-6 px-4 title__fonts fw-bold py-3 text-uppercase fs-14"
         >
           ارسال
         </button>

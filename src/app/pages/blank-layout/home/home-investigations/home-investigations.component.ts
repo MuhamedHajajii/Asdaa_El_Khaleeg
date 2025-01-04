@@ -2,11 +2,14 @@ import { Component } from '@angular/core';
 import { HomeContentService } from '../../../../core/services/content/home/home-content.service';
 import { ISpecificCategory } from '../../../../core/interfaces/ISpecificCategory';
 import { StringSlicePipe } from '../../../../core/pipes/string-slice.pipe';
+import { RouterLink } from '@angular/router';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { SafeHtmlPipe } from '../../../../core/pipes/safe-html.pipe';
 
 @Component({
   selector: 'app-home-investigations',
   standalone: true,
-  imports: [StringSlicePipe],
+  imports: [StringSlicePipe, RouterLink, NgxSkeletonLoaderModule, SafeHtmlPipe],
   templateUrl: './home-investigations.component.html',
   styleUrl: './home-investigations.component.scss',
 })

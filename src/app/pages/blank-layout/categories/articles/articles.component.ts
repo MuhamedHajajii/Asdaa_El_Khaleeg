@@ -1,19 +1,51 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { ISpecificCategory } from '../../../../core/interfaces/ISpecificCategory';
 import { StringSlicePipe } from '../../../../core/pipes/string-slice.pipe';
 import { CategoriesService } from '../../../../core/services/content/categories.service';
+import { ImagesSrcPipe } from '../../../../core/pipes/images-src.pipe';
+import { SafeHtmlPipe } from '../../../../core/pipes/safe-html.pipe';
 
 @Component({
   selector: 'app-articles',
   standalone: true,
-  imports: [RouterLink, StringSlicePipe],
+  imports: [
+    RouterLink,
+    StringSlicePipe,
+    NgxPaginationModule,
+    NgxSkeletonLoaderModule,
+    ImagesSrcPipe,
+    SafeHtmlPipe,
+  ],
   templateUrl: './articles.component.html',
   styleUrl: './articles.component.scss',
 })
 export class ArticlesComponent {
   currentId!: string;
-  specificCategories!: ISpecificCategory;
+  specificCategories!: ISpecificCategory | null;
+  currentPage: number = 1;
+  totalItems: number = 0;
+  isShowSkeleton: boolean = true;
+  pageChanged(e: number) {
+    this.isShowSkeleton = true;
+    window.scrollTo(0, 0);
+    this.currentPage = e;
+    console.log(this.currentPage);
+    this._CategoriesService
+      .getCurrentCategories(this.currentId, this.currentPage)
+      .subscribe({
+        next: (response) => {
+          this.isShowSkeleton = false;
+          console.log(response);
+          this.specificCategories = response as ISpecificCategory;
+          this.totalItems = response?.blogs.total as number;
+        },
+        error: (err) => console.error('Error fetching category:', err),
+      });
+  }
+
   constructor(
     private _CategoriesService: CategoriesService,
     private _Router: Router,
@@ -39,10 +71,13 @@ export class ArticlesComponent {
   }
 
   getCurrentCategory(blogId: string): void {
+    this.isShowSkeleton = true;
     this._CategoriesService.getCurrentCategories(blogId).subscribe({
       next: (response) => {
         console.log(response);
-        this.specificCategories = response;
+        this.isShowSkeleton = false;
+        this.specificCategories = response as ISpecificCategory;
+        this.totalItems = response?.blogs.total as number;
       },
       error: (err) => console.error('Error fetching category:', err),
     });

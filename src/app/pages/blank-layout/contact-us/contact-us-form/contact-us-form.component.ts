@@ -33,11 +33,7 @@ export class ContactUsFormComponent {
   ) {}
 
   messagesForm: FormGroup = new FormGroup({
-    name: new FormControl('', [
-      Validators.required,
-      Validators.pattern(/^[a-zA-Z\s]+$/),
-      Validators.minLength(3),
-    ]),
+    name: new FormControl('', [Validators.required, Validators.minLength(3)]),
     email: new FormControl('', [Validators.required, Validators.email]),
     phone: new FormControl('', [Validators.required]),
     message: new FormControl('', [Validators.required]),

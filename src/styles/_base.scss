@@ -4,12 +4,21 @@
 html,
 body {
   direction: rtl;
+  // overflow-x: hidden;
 }
 // cards
 .card {
   border: 1px solid transparent;
   transition: 0.5s all;
 }
+
+.rtl {
+  direction: rtl;
+}
+.ltr {
+  direction: ltr;
+}
+
 .card:hover {
   box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.27);
   border: 1px solid #334f97;
@@ -111,4 +120,7 @@ body {
 
 img {
   object-position: top;
+}
+
+.image_place_holder {
 }

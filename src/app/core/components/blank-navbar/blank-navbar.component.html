@@ -4,7 +4,7 @@
     <div class="d-flex justify-content-between align-items-center gap-3">
       <img
         routerLink="/"
-        class="Banner_logo"
+        class="Banner_logo cr"
         src="/assets/images/logo.png"
         alt="اصداء الخليج"
       />
@@ -13,7 +13,7 @@
         src="/assets/images/navbar/calender_logo.png"
         alt="التاريخ"
       />
-      <time class="d-none d-sm-inline">جمادي الاخرة 1446 هـ</time>
+      <time class="d-none d-sm-inline">{{ nowDate | hijriDate }} هـ</time>
     </div>
     <div
       class="d-flex justify-content-center align-items-center gap-4 flex-row-reverse"
@@ -72,8 +72,33 @@
   <!-- nav bar banner -->
   <div class="navbar navbar-expand-lg bg-main flex-row-reverse">
     <div
-      class="container flex-row-reverse w-100 d-flex justify-content-between"
+      class="container flex-row-reverse w-100 d -flex justify-content-between"
     >
+      <div class="search_container">
+        <input
+          #inputSearch
+          (keydown.enter)="
+            searchResults(inputSearch.value); inputSearch.value = ''
+          "
+          id="Search_Input"
+          type="search"
+          class="search Input border-radius-10"
+        />
+        <img
+          (click)="searchResults(inputSearch.value); inputSearch.value = ''"
+          class="search_icon cr d-none"
+          width="45px"
+          src="/assets/images/navbar/search-dark.svg"
+          alt="search icon"
+        />
+        <img
+          (click)="searchResults(inputSearch.value); inputSearch.value = ''"
+          class="search_icon cr"
+          width="45px"
+          src="/assets/images/navbar/search-light.svg"
+          alt="search icon"
+        />
+      </div>
       <button
         class="navbar-toggler"
         type="button"
@@ -90,9 +115,7 @@
           alt=""
         />
       </button>
-      <div>
-        <img src="/assets/images/navbar/search.png" alt="search icon" />
-      </div>
+
       <div
         class="collapse me-auto navbar-collapse flex-row-reverse justify-content-end"
         id="navbarNav"
@@ -103,94 +126,59 @@
               class="nav-link px-1 px-md-2 px-lg-2 px-xl-3"
               aria-current="page"
               routerLink="/"
-              routerLinkActive="bg-secondary text-main"
-              [routerLinkActiveOptions]="{ exact: true }"
-              >الصفحة الرئيسية</a
+              >الرئيسية</a
             >
           </li>
-          <li class="nav-item drop-down-container mx-1 position-relative z-3">
-            <a class="nav-link"
-              >الاخبار
-              <img
-                src="./assets/images/navbar/navbar-dropdown-icon.svg"
-                role="presentation"
-            /></a>
-            <ul
-              class="drop-down-nav overflow-hidden end-0 border-radius-10 list-unstyled position-absolute z-3 bg-light box-shadow p-0 m-0 justify-content-between flex-column"
+          <li class="nav-item mx-1">
+            <a
+              class="nav-link px-1 px-md-2 px-lg-2 px-xl-3"
+              [routerLink]="['/archives/blogs', '01']"
+              >أخبار محلية</a
             >
-              <li class="pe-3 py-2">
-                <a class="text-black" [routerLink]="['/archives/blogs', '01']"
-                  >أخبار محلية</a
-                >
-              </li>
-              <li class="pe-3 py-2">
-                <a class="text-black" [routerLink]="['/archives/blogs', '02']"
-                  >اخبار العالم</a
-                >
-              </li>
-              <li class="pe-3 py-2">
-                <a class="text-black" [routerLink]="['/archives/blogs', '09']"
-                  >اخبار المجتمع</a
-                >
-              </li>
-            </ul>
+          </li>
+          <li class="nav-item mx-1">
+            <a
+              class="nav-link px-1 px-md-2 px-lg-2 px-xl-3"
+              [routerLink]="['/archives/blogs', '02']"
+              >أخبار العالم</a
+            >
           </li>
           <li class="nav-item mx-1">
             <a
               class="nav-link px-1 px-md-2 px-lg-2 px-xl-3"
               [routerLink]="['/archives/blogs', '03']"
-              routerLinkActive="bg-secondary text-main"
               >الرياضة</a
             >
           </li>
           <li class="nav-item mx-1">
             <a
               class="nav-link px-1 px-md-2 px-lg-2 px-xl-3"
-              [routerLink]="['/archives/blogs', '04']"
-              routerLinkActive="bg-secondary text-main"
-              >الاقتصاد</a
-            >
-          </li>
-          <li class="nav-item mx-1">
-            <a
-              class="nav-link px-1 px-md-2 px-lg-2 px-xl-3"
-              [routerLink]="['/archives/blogs', '05']"
-              routerLinkActive="bg-secondary text-main"
-              >التعليم</a
-            >
-          </li>
-          <li class="nav-item mx-1">
-            <a
-              class="nav-link px-1 px-md-2 px-lg-2 px-xl-3"
               [routerLink]="['/archives/blogs', 'f']"
-              routerLinkActive="bg-secondary text-main"
               >ثقافة و فن</a
             >
           </li>
           <li class="nav-item mx-1">
             <a
               class="nav-link px-1 px-md-2 px-lg-2 px-xl-3"
-              [routerLink]="['/archives/blogs', 'i']"
-              routerLinkActive="bg-secondary text-main"
-              >تحقيقات</a
+              [routerLink]="['/archives/blogs', '04']"
+              >الاقتصاد</a
             >
           </li>
-          <li class="nav-item mx-1">
+          <li class="nav-item mx-1 d-none d-xl-block">
             <a
               class="nav-link px-1 px-md-2 px-lg-2 px-xl-3"
-              [routerLink]="['/archives/blogs', '07']"
-              routerLinkActive="bg-secondary text-main"
-              >دراسات وابحاث</a
+              [routerLink]="['/archives/blogs', '05']"
+              >التعليم</a
             >
           </li>
-          <li class="nav-item mx-1">
+          <li class="nav-item mx-1 d-none d-xl-block">
             <a
               class="nav-link px-1 px-md-2 px-lg-2 px-xl-3"
               [routerLink]="['/archives/article', '08']"
-              routerLinkActive="bg-secondary text-main"
-              >مقلات</a
+              >المقلات</a
             >
           </li>
+
           <li class="nav-item drop-down-container mx-1 position-relative z-3">
             <a class="nav-link px-1 px-md-2 px-lg-2 px-xl-3">
               اخري
@@ -202,6 +190,35 @@
             <ul
               class="drop-down-nav overflow-hidden end-0 border-radius-10 list-unstyled position-absolute z-3 bg-light box-shadow p-0 m-0 justify-content-between flex-column"
             >
+              <li class="pe-3 py-2 d-xl-none">
+                <a class="text-black" [routerLink]="['/archives/blogs', '05']"
+                  >التعليم</a
+                >
+              </li>
+              <li class="pe-3 py-2 d-xl-none">
+                <a class="text-black" [routerLink]="['/archives/article', '08']"
+                  >المقلات</a
+                >
+              </li>
+
+              <li class="pe-3 py-2">
+                <a class="text-black" [routerLink]="['/archives/blogs', 'i']"
+                  >تحقيقات</a
+                >
+              </li>
+              <li class="text-black">
+                <a
+                  class="nav-link px-1 px-md-2 px-lg-2 px-xl-3"
+                  [routerLink]="['/archives/blogs', '09']"
+                  >اخبار المجتمع</a
+                >
+              </li>
+              <li class="pe-3 py-2">
+                <a class="text-black" [routerLink]="['/archives/blogs', '07']"
+                  >دراسات وابحاث</a
+                >
+              </li>
+
               <li class="pe-3 py-2">
                 <a class="text-black" [routerLink]="['/archives/blogs', '11']"
                   >كاريكاتير</a
@@ -220,6 +237,11 @@
               <li class="pe-3 py-2">
                 <a class="text-black" [routerLink]="['/archives/blogs', 'h']"
                   >وقائع امنية</a
+                >
+              </li>
+              <li class="pe-3 py-2 border-top border-1">
+                <a class="text-black" [routerLink]="['/archives/blogs', '10']"
+                  >زاوية رئيس التحرير</a
                 >
               </li>
             </ul>

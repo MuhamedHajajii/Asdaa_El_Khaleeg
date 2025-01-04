@@ -2,12 +2,12 @@
 <section id="Hero__Section" class="mt-4">
   <div class="container">
     <div class="row g-4 g-lg-3">
-      <div class="p-2 col-12 col-lg-8 order-1 order-lg-1">
+      <div class="p-2 col-12 col-lg-9 order-1 order-lg-1">
         <div>
           <router-outlet></router-outlet>
         </div>
       </div>
-      <div class="p-2 col-12 col-lg-4 order-0 order-lg-1 position-relative">
+      <div class="p-2 col-12 col-lg-3 order-0 order-lg-1 position-relative">
         <div>
           <div
             class="hero_height main_animation border-radius-10 overflow-hidden Logo_Water_Mark"
@@ -24,7 +24,8 @@
             خطوات رائدة فى مواجهه التصحر و الجفاف فى الرياض
           </p>
           <p
-            class="fw-bold fs-13 text-main border-color-main border border-2 border-radius-10 p-3 text-center fs-13"
+            (click)="onClickGetLastEditorNewsId()"
+            class="cr fw-bold fs-13 text-main border-color-main border border-2 border-radius-10 p-3 text-center fs-13"
           >
             زاوية رئيس التحرير : سلمان بن أحمد العيد
           </p>
@@ -33,7 +34,7 @@
         <div>
           <app-advertising-area
             [positionClasses]="
-              'd-flex justify-content-center flex-column flex-md-row align-items-center gap-5 h-600 btn-large'
+              'd-flex justify-content-center flex-column  align-items-center gap-5 h-600 btn-large'
             "
           />
         </div>
@@ -41,5 +42,4 @@
     </div>
   </div>
 </section>
-<app-related-content />
-<app-last-banner />
+<app-related-content [isRandom]="true" />
