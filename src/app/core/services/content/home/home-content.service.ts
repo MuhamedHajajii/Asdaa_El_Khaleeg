@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { forkJoin, Observable, of } from 'rxjs';
 import { WEB_SITE_BASE_URL } from '../../../constants/WEB_SITE_BASE_UTL';
@@ -22,21 +22,33 @@ export class HomeContentService {
   }
   getHomeLocalNews(): Observable<any> {
     if (this.checkPlatForm()) {
-      return this._HttpClient.get(`${WEB_SITE_BASE_URL}blogs/01`);
+      let category_slug = {
+        category_slug :'01'
+      }
+      let params = new HttpParams({fromObject: category_slug});
+      return this._HttpClient.get(`${WEB_SITE_BASE_URL}blogstest`,{params});
     } else {
       return of(null);
     }
   }
   getHomeArticles(): Observable<any> {
     if (this.checkPlatForm()) {
-      return this._HttpClient.get(`${WEB_SITE_BASE_URL}blogs/08`);
+      let category_slug = {
+        category_slug :'08'
+      }
+      let params = new HttpParams({fromObject: category_slug});
+      return this._HttpClient.get(`${WEB_SITE_BASE_URL}blogstest`,{params});
     } else {
       return of(null);
     }
   }
   getHomeInvestigations(): Observable<any> {
     if (this.checkPlatForm()) {
-      return this._HttpClient.get(`${WEB_SITE_BASE_URL}blogs/i`);
+      let category_slug = {
+        category_slug :'i'
+      }
+      let params = new HttpParams({fromObject: category_slug});
+      return this._HttpClient.get(`${WEB_SITE_BASE_URL}blogstest`,{params});
     } else {
       return of(null);
     }
@@ -52,7 +64,11 @@ export class HomeContentService {
   }
   getHomeNationalsNews(): Observable<any> {
     if (this.checkPlatForm()) {
-      return this._HttpClient.get(`${WEB_SITE_BASE_URL}blogs/6`);
+      let category_slug = {
+        category_slug :'6'
+      }
+      let params = new HttpParams({fromObject: category_slug});
+      return this._HttpClient.get(`${WEB_SITE_BASE_URL}blogstest`,{params});
     } else {
       return of(null);
     }

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { WEB_SITE_BASE_URL } from '../../constants/WEB_SITE_BASE_UTL';
@@ -19,19 +19,29 @@ export class CategoriesService {
     blogId: string,
     page?: number
   ): Observable<ISpecificCategory | null> {
+    console.log('Active Route ID (Reload):', blogId);
     if (isPlatformBrowser(this._PLATFORM_ID)) {
+      let slug = {
+        category_slug :blogId
+      }
+      let params = new HttpParams({fromObject: slug});
+
       if (!page) {
+
         return <Observable<ISpecificCategory>>(
-          this._HttpClient.get(`${WEB_SITE_BASE_URL}blogs/${blogId}`)
+          this._HttpClient.get(`${WEB_SITE_BASE_URL}blogstest`,{params})
         );
-      } else {
+      }
+
+      else {
         return <Observable<ISpecificCategory>>(
           this._HttpClient.get(
-            `${WEB_SITE_BASE_URL}blogs/${blogId}?page=${page}`
+            `${WEB_SITE_BASE_URL}blogstest?page=${page}`,{params}
           )
         );
       }
-    } else return of(null);
+    }
+    else return of(null);
   }
 
   getBlogById(blogId: string): Observable<IBlog | null> {

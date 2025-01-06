@@ -45,6 +45,7 @@ export const routes: Routes = [
           },
         ],
       },
+      // detail
       {
         path: 'details/:id',
         loadComponent: () =>
@@ -67,6 +68,49 @@ export const routes: Routes = [
           ),
       },
     ],
+  },
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('./auth/components/login/login.component').then(
+        (c) => c.LoginComponent
+      ),
+  },
+  {
+    path: 'dashboard',
+    loadComponent: () =>
+      import('./dashboard/components/dashboard-home/dashboard-home.component').then(
+        (c) => c.DashboardHomeComponent
+      ),children:[
+        {
+          path: '',
+          loadComponent: () =>
+            import('./dashboard/components/dashboard-home/main-control/dashboard-home-layout/dashboard-home-layout.component').then(
+              (c) => c.DashboardHomeLayoutComponent
+            ),
+        },
+        {
+          path: 'news-control',
+          loadComponent: () =>
+            import('./dashboard/components/dashboard-home/news-control/news-control/news-control.component').then(
+              (c) => c.NewsControlComponent
+            ),
+        },
+        {
+          path: 'news-add',
+          loadComponent: () =>
+            import('./dashboard/components/dashboard-home/news-control/news-add/news-add.component').then(
+              (c) => c.NewsAddComponent
+            ),
+        },
+        {
+          path: 'news-control',
+          loadComponent: () =>
+            import('./dashboard/components/dashboard-home/news-control/news-add/news-add.component').then(
+              (c) => c.NewsAddComponent
+            ),
+        },
+      ]
   },
   {
     path: '**',

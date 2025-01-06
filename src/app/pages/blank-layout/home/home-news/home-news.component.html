@@ -250,7 +250,7 @@
               (load)="imageLoaded($event)"
               class="w-100 object-fit-cover h-250 h-md-450 border-radius-10"
               [src]="
-                card?.post_image || '/assets/images/not_found_image.jpg'
+                card?.post_image || './assets/images/not_found_image.jpg'
                   | imagesSrc
               "
               [alt]="card.post_title"

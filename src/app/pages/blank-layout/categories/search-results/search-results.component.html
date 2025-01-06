@@ -10,7 +10,7 @@
           <img
             class="w-100 h-100 object-fit-cover border-radius-10"
             [src]="
-              card?.post_image || '/assets/images/not_found_image.jpg'
+              card?.post_image || './assets/images/not_found_image.jpg'
                 | imagesSrc
             "
             (load)="imageLoaded($event)"

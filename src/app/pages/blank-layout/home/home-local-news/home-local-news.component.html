@@ -43,7 +43,7 @@
                     height="100px"
                     class="w-100 object-fit-cover border-radius-10"
                     [src]="
-                      news.post_image || '/assets/images/not_found_image.jpg'
+                      news.post_image || './assets/images/not_found_image.jpg'
                         | imagesSrc
                     "
                     [alt]="news.post_title"
@@ -79,7 +79,7 @@
               class="w-100 object-fit-cover border-radius-10"
               [src]="
                 localNews.blogs.data[0].post_image ||
-                  '/assets/images/not_found_image.jpg' | imagesSrc
+                  './assets/images/not_found_image.jpg' | imagesSrc
               "
               alt="card.author"
             />

@@ -3,16 +3,25 @@ import { inject } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { finalize } from 'rxjs';
 
+// Flag to track if it's the first reload
+let isFirstLoad = true;
+
 export const loadingSpinnerInterceptor: HttpInterceptorFn = (req, next) => {
   const spinner = inject(NgxSpinnerService);
 
-  spinner.show();
+  // Show the spinner only if it's the first load
+  if (isFirstLoad) {
+    spinner.show();
+    isFirstLoad = false; // Set flag to false after first load
+  }
 
   return next(req).pipe(
     finalize(() => {
-      setTimeout(() => {
-        spinner.hide();
-      }, 1000);
+      if (isFirstLoad === false) {
+        setTimeout(() => {
+          spinner.hide();
+        }, 2000);
+      }
     })
   );
 };

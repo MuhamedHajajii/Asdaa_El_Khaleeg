@@ -66,7 +66,9 @@ export class BlogsComponent {
       next: (params) => {
         let id = params.get('id');
         if (id) {
+          this.isShowSkeleton = true;
           this.currentId = id;
+          console.log('Active Route ID (Reload):', this.currentId);
           this.getCurrentCategory(this.currentId);
         }
       },
@@ -74,9 +76,12 @@ export class BlogsComponent {
   }
 
   getCurrentCategory(blogId: string): void {
+    console.log('Active Route ID (Reload):', this.currentId);
+
     this.isShowSkeleton = true;
     this._CategoriesService.getCurrentCategories(blogId).subscribe({
       next: (response) => {
+
         this.specificCategories = response as ISpecificCategory;
         this.totalItems = response?.blogs.total as number;
         this.isShowSkeleton = false;

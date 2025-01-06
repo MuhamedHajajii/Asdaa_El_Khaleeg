@@ -14,6 +14,7 @@ import {
   SearchCountryField,
 } from 'ngx-intl-tel-input';
 
+
 @Component({
   selector: 'app-contact-us-form',
   standalone: true,
@@ -44,17 +45,6 @@ export class ContactUsFormComponent {
     const USER_DATA = this.messagesForm.value;
     if (this.messagesForm.valid) {
       console.log('Form Submitted:', USER_DATA);
-      // this._ContactUsService.submitUserContactForm(USER_DATA).subscribe({
-      //   next: (response) => {
-      //     console.log(response);
-      //     this.messagesForm.reset();
-
-      //     this._Router.navigate(['/contact-us-success']);
-      //   },
-      //   error: (error) => {
-      //     console.log(error);
-      //   },
-      // });
       this.messagesForm.reset();
       this.startValidation = false;
     } else {

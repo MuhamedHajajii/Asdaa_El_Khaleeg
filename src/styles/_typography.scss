@@ -3,7 +3,9 @@ $main-font: "Cairo", serif;
 body {
   font-family: "Cairo", serif;
 }
-
+.fs-cairo {
+  font-family: "Cairo", serif !important;
+}
 .Inter-font {
   font-family: "Inter", serif;
 }
