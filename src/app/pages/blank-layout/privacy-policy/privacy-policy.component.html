@@ -1,0 +1,25 @@
+<app-blank-navbar />
+<section id="Contact__Us" class="py-5 bg-light">
+  <div class="container shadow-sm rounded p-4 bg-white">
+    <!-- Slogan -->
+    <h2 class="text-main fw-bold text-center mb-4">{{ privacy_policy.slogan }}</h2>
+
+    <!-- First Title and Content -->
+    <h3 class="fw-bold text-secondary mb-3">{{ privacy_policy.first_title }}</h3>
+    <p class="fs-18 text-muted mb-4">{{ privacy_policy.first_title_content }}</p>
+
+    <!-- Second Title -->
+    <h4 class="fw-bold text-secondary mb-3">{{ privacy_policy.second_title }}</h4>
+    <p class="fs-18 text-muted mb-4">{{ privacy_policy.second_title_content }}</p>
+
+    <!-- Third Title and Content List -->
+    <h5 class="fw-bold text-secondary mb-3">{{ privacy_policy.third_title }}</h5>
+    <ol class="fs-18 text-muted ps-4">
+      @for (item of privacy_policy.third_title_content; track $index) {
+      <li class="mb-2">
+        {{ item }}
+      </li>
+      }
+    </ol>
+  </div>
+</section>

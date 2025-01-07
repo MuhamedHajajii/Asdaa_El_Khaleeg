@@ -26,7 +26,7 @@ export class FooterComponent {
             // Use Record<string, any> to allow dynamic indexing
         const linksMapping: Record<string, { label: string; icon: string; alt: string }> = {
           face_url: { label: 'Facebook', icon: './assets/images/social_meida_icons/facebook.svg', alt: 'اصداء الخليج فيسبوك' },
-          tweet_url: { label: 'Twitter', icon: './assets/images/social_meida_icons/twitter.svg', alt: 'اصداء الخليج اكس' },
+          tweet_url: { label: 'Twitter', icon: './assets/images/social_meida_icons/x-twitter-brands-solid.svg', alt: 'اصداء الخليج اكس' },
           instgram_url: { label: 'Instagram', icon: './assets/images/social_meida_icons/instagram.svg', alt: 'اصداء الخليج انستجرام' },
           tiktok_url: { label: 'TikTok', icon: './assets/images/social_meida_icons/tiktok.svg', alt: 'اصداء الخليج تيك توك' },
           snapchat_url: { label: 'Snapchat', icon: './assets/images/social_meida_icons/snapchat.svg', alt: 'اصداء الخليج سناب شات' },

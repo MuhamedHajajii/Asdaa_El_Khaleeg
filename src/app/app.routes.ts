@@ -67,6 +67,20 @@ export const routes: Routes = [
             (c) => c.AboutUsComponent
           ),
       },
+      {
+        path: 'administrative-structure',
+        loadComponent: () =>
+          import('./pages/blank-layout/administrative-structure/administrative-structure.component').then(
+            (c) => c.AdministrativeStructureComponent
+          ),
+      },
+      {
+        path: 'privacy-policy',
+        loadComponent: () =>
+          import('./pages/blank-layout/privacy-policy/privacy-policy.component').then(
+            (c) => c.PrivacyPolicyComponent
+          ),
+      },
     ],
   },
   {
