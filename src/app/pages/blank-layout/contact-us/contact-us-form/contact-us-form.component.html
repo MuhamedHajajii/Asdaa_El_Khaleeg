@@ -146,10 +146,12 @@
       </div>
       <!-- submit button  -->
       <div class="text-center col-md-12">
-        <button
+        <button [disabled]="isLoading"
           class="btn-main btn rounded-3 mx-auto col-6 px-4 title__fonts fw-bold py-3 text-uppercase fs-14"
         >
-          ارسال
+          <span class="position-relative">
+            ارسال الرسالة <i [ngClass]="{'d-none':!isLoading}" class="position-absolute top-25 pi pi-spin pi-spinner mx-2" style="font-size: 13px"></i>
+          </span>
         </button>
       </div>
     </div>

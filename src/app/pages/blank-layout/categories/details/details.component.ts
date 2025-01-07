@@ -12,7 +12,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BlankNavbarComponent } from '../../../../core/components/blank-navbar/blank-navbar.component';
 import { IBlog } from '../../../../core/interfaces/IBlog';
@@ -36,7 +36,7 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     CommonModule,
     HijriDatePipe,
     SafeHtmlPipe,
-    ImagesSrcPipe,
+    ImagesSrcPipe,RouterLink
   ],
   templateUrl: './details.component.html',
   styleUrl: './details.component.scss',
@@ -47,6 +47,8 @@ export class DetailsComponent {
   userComments: string = '';
   isStoreData: boolean = false;
   isShowSkeleton = true;
+  masterBlog!:any;
+
   @ViewChild('isStoreDataInput') isStoreDataInput!: ElementRef;
   @ViewChild('stickySection') stickySection!: ElementRef;
   constructor(
@@ -59,6 +61,7 @@ export class DetailsComponent {
 
   ngOnInit(): void {
     this.getInitialId();
+    this.onClickGetLastEditorNewsId()
   }
 
   ngAfterContentInit(): void {
@@ -93,8 +96,10 @@ export class DetailsComponent {
   onClickGetLastEditorNewsId(): void {
     this._CategoriesService.getEditorBlog().subscribe({
       next: (response) => {
-        console.log(response);
-        this._Router.navigate([`/details`, response.blogs[0].post_id]);
+        this.masterBlog = response
+        console.log(response.blogs[0].post_id);
+        console.log(response.blogs[0].post_title);
+        // this._Router.navigate([`/details`, response.blogs[0].post_id]);
       },
     });
   }

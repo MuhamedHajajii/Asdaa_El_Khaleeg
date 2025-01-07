@@ -24,47 +24,13 @@
       />
       <div class="social__icons d-none d-sm-block">
         <ul class="list-unstyled p-0 m-0 d-flex flex-row-reverse gap-1">
-          <li>
-            <a href="" aria-label="find us on facebook">
-              <img
-                style="width: 12px !important"
-                src="./assets/images/social_meida_icons/facebook.png"
-                alt="اصداء الخليج فيسبوك"
-              />
-            </a>
-          </li>
-          <li>
-            <a href="" aria-label="find us on x">
-              <img
-                src="./assets/images/social_meida_icons/twiiter.png"
-                alt="اصداء الخليج اكس"
-              />
-            </a>
-          </li>
-          <li>
-            <a href="" aria-label="find us on instagram">
-              <img
-                src="./assets/images/social_meida_icons/instagram.png"
-                alt="اصداء الخليج انستجرام"
-              />
-            </a>
-          </li>
-          <li>
-            <a href="" aria-label="find us on snapchat">
-              <img
-                src="./assets/images/social_meida_icons/Vector.png"
-                alt="اصداء الخليج سناب شات"
-              />
-            </a>
-          </li>
-          <li>
-            <a href="" aria-label="find us on whatsapp">
-              <img
-                src="./assets/images/social_meida_icons/whatsapp.png"
-                alt="اصداء الخليج واتساب"
-              />
-            </a>
-          </li>
+          @for (link of socialLinks; track $index) {
+            <li>
+              <a [href]="link.url" target="_blank" [attr.aria-label]="'find us on ' + link.label">
+                <img [src]="link.icon" [alt]="link.alt" />
+              </a>
+            </li>
+          }
         </ul>
       </div>
     </div>

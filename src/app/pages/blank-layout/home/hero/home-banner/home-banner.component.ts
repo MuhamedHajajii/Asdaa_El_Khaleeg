@@ -16,7 +16,7 @@ export class HomeBannerComponent {
   sar: string = '';
   staticDate = '';
   year = new Date().getFullYear();
-  currentPopulation: string = '37.33';
+  currentPopulation: string = '36.95';
   constructor(
     private _HttpClient: HttpClient,
     @Inject(PLATFORM_ID) private PLATFORM_ID: object

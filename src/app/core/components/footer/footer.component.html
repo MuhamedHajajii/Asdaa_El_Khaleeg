@@ -172,50 +172,15 @@
         </div>
       </div>
       <div class="col-12 col-lg-6">
-        <div class="d-flex flex-column justify-content-end gap-3 flex-wrap">
-          <ul
-            class="list-unstyled p-0 m-0 d-flex justify-content-end gap-2 w-100"
-          >
-            <li>
-              <div class="social_images d-inline-block ms-2">
-                <img
-                  src="./assets/images/social_meida_icons/facebook.png"
-                  alt="فيسبوك"
-                />
-              </div>
-            </li>
-            <li>
-              <div class="social_images d-inline-block ms-2">
-                <img
-                  src="./assets/images/social_meida_icons/twiiter.png"
-                  alt="تويتر"
-                />
-              </div>
-            </li>
-            <li>
-              <div class="social_images d-inline-block ms-2">
-                <img
-                  src="./assets/images/social_meida_icons/instagram.png"
-                  alt="انستغرام"
-                />
-              </div>
-            </li>
-            <li>
-              <div class="social_images d-inline-block ms-2">
-                <img
-                  src="./assets/images/social_meida_icons/Vector.png"
-                  alt="سناب"
-                />
-              </div>
-            </li>
-            <li>
-              <div class="social_images d-inline-block ms-2">
-                <img
-                  src="./assets/images/social_meida_icons/whatsapp.png"
-                  alt="واتساب"
-                />
-              </div>
-            </li>
+        <div class="d-flex flex-column justify-content-end gap-3 flex-wrap social__icons">
+          <ul class="list-unstyled p-0 m-0 d-flex flex-row-reverse gap-1">
+            @for (link of socialLinks; track $index) {
+              <li>
+                <a [href]="link.url" target="_blank" [attr.aria-label]="'find us on ' + link.label">
+                  <img [src]="link.icon" [alt]="link.alt" />
+                </a>
+              </li>
+            }
           </ul>
           <div class="d-flex justify-content-end">
             <img

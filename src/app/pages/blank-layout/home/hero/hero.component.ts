@@ -1,12 +1,13 @@
-import { CategoriesService } from './../../../../core/services/content/categories.service';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { ISliderHome } from '../../../../core/interfaces/slider/ISliderHome';
+import { SafeHtmlPipe } from '../../../../core/pipes/safe-html.pipe';
 import { StringSlicePipe } from '../../../../core/pipes/string-slice.pipe';
 import { HomeContentService } from '../../../../core/services/content/home/home-content.service';
-import { Router, RouterLink } from '@angular/router';
-import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
-import { SafeHtmlPipe } from '../../../../core/pipes/safe-html.pipe';
+import { CategoriesService } from './../../../../core/services/content/categories.service';
+import { ISpecificCategory } from '../../../../core/interfaces/ISpecificCategory';
 
 @Component({
   selector: 'app-hero',
@@ -24,6 +25,8 @@ import { SafeHtmlPipe } from '../../../../core/pipes/safe-html.pipe';
 export class HeroComponent {
   sliderData!: ISliderHome;
 
+  masterBlog!:any;
+
   constructor(
     private _Router: Router,
     private _HomeContentService: HomeContentService,
@@ -32,6 +35,7 @@ export class HeroComponent {
 
   ngOnInit(): void {
     this.getSliderData();
+    this.onClickGetLastEditorNewsId()
   }
 
   getSliderData() {
@@ -46,8 +50,10 @@ export class HeroComponent {
   onClickGetLastEditorNewsId(): void {
     this._CategoriesService.getEditorBlog().subscribe({
       next: (response) => {
-        console.log(response);
-        this._Router.navigate([`/details`, response.blogs[0].post_id]);
+        this.masterBlog = response
+        console.log(response.blogs[0].post_id);
+        console.log(response.blogs[0].post_title);
+        // this._Router.navigate([`/details`, response.blogs[0].post_id]);
       },
     });
   }

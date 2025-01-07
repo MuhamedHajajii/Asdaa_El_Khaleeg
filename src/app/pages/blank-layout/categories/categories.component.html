@@ -21,17 +21,17 @@
         </div>
         <div class="main-content">
           <p class="fw-bold fs-13 my-2">
-            خطوات رائدة فى مواجهه التصحر و الجفاف فى الرياض
+            {{masterBlog?.blogs[0]?.post_title}}
           </p>
           <p
-            (click)="onClickGetLastEditorNewsId()"
+          [routerLink]="['/archives/blogs', '10']"
             class="cr fw-bold fs-13 text-main border-color-main border border-2 border-radius-10 p-3 text-center fs-13"
           >
             زاوية رئيس التحرير : سلمان بن أحمد العيد
           </p>
         </div>
 
-        <div>
+        <div class="my-3">
           <app-advertising-area
             [positionClasses]="
               'd-flex justify-content-center flex-column  align-items-center gap-5 h-600 btn-large'

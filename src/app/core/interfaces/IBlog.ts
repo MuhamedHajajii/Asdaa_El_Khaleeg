@@ -1,6 +1,7 @@
 export interface IBlog {
   status: string;
   blog: Blog;
+  comments: []
 }
 
 export interface Blog {

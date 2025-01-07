@@ -81,7 +81,7 @@ export class BlogsComponent {
     this.isShowSkeleton = true;
     this._CategoriesService.getCurrentCategories(blogId).subscribe({
       next: (response) => {
-
+        console.log(response);
         this.specificCategories = response as ISpecificCategory;
         this.totalItems = response?.blogs.total as number;
         this.isShowSkeleton = false;

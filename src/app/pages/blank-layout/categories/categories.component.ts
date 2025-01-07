@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { BlankNavbarComponent } from '../../../core/components/blank-navbar/blank-navbar.component';
 import { CategoriesService } from '../../../core/services/content/categories.service';
 import { AdvertisingAreaComponent } from '../../../shared/components/advertising-area/advertising-area.component';
@@ -12,12 +12,20 @@ import { RelatedContentComponent } from './related-content/related-content.compo
     BlankNavbarComponent,
     AdvertisingAreaComponent,
     RelatedContentComponent,
-    RouterOutlet,
+    RouterOutlet,RouterLink
   ],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss',
 })
 export class CategoriesComponent {
+
+  masterBlog!:any;
+
+
+  ngOnInit(): void {
+    this.onClickGetLastEditorNewsId()
+  }
+
   constructor(
     private _CategoriesService: CategoriesService,
     private _Router: Router
@@ -26,9 +34,7 @@ export class CategoriesComponent {
   onClickGetLastEditorNewsId(): void {
     this._CategoriesService.getEditorBlog().subscribe({
       next: (response) => {
-        console.log(response);
-        this._Router.navigate([`/details`, response.blogs[0].post_id]);
-      },
+        this.masterBlog = response      },
     });
   }
 }
