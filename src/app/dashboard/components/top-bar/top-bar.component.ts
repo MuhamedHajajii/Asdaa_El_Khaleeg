@@ -12,17 +12,23 @@ import { AppLayoutServiceService } from '../../services/app.layout.service.servi
 @Component({
   selector: 'app-top-bar',
   standalone: true,
-  imports: [CommonModule,RouterLink,SidebarModule,
+  imports: [
+    CommonModule,
+    RouterLink,
+    SidebarModule,
     InputTextModule,
     BadgeModule,
     RadioButtonModule,
     InputSwitchModule,
-    RippleModule,],
+    RippleModule,
+  ],
   templateUrl: './top-bar.component.html',
-  styleUrl: './top-bar.component.scss'
+  styleUrl: './top-bar.component.scss',
 })
 export class TopBarComponent {
   items!: MenuItem[];
+
+  name: string = 'محمد حجاجي';
 
   @ViewChild('menubutton') menuButton!: ElementRef;
 
@@ -30,5 +36,5 @@ export class TopBarComponent {
 
   @ViewChild('topbarmenu') menu!: ElementRef;
 
-  constructor(public layoutService: AppLayoutServiceService) { }
+  constructor(public layoutService: AppLayoutServiceService) {}
 }

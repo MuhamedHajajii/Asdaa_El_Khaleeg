@@ -79,38 +79,102 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     loadComponent: () =>
-      import('./dashboard/components/dashboard-home/dashboard-home.component').then(
-        (c) => c.DashboardHomeComponent
-      ),children:[
-        {
-          path: '',
-          loadComponent: () =>
-            import('./dashboard/components/dashboard-home/main-control/dashboard-home-layout/dashboard-home-layout.component').then(
-              (c) => c.DashboardHomeLayoutComponent
-            ),
-        },
-        {
-          path: 'news-control',
-          loadComponent: () =>
-            import('./dashboard/components/dashboard-home/news-control/news-control/news-control.component').then(
-              (c) => c.NewsControlComponent
-            ),
-        },
-        {
-          path: 'news-add',
-          loadComponent: () =>
-            import('./dashboard/components/dashboard-home/news-control/news-add/news-add.component').then(
-              (c) => c.NewsAddComponent
-            ),
-        },
-        {
-          path: 'news-control',
-          loadComponent: () =>
-            import('./dashboard/components/dashboard-home/news-control/news-add/news-add.component').then(
-              (c) => c.NewsAddComponent
-            ),
-        },
-      ]
+      import(
+        './dashboard/components/dashboard-home/dashboard-home.component'
+      ).then((c) => c.DashboardHomeComponent),
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import(
+            './dashboard/components/dashboard-home/main-control/dashboard-home-layout/dashboard-home-layout.component'
+          ).then((c) => c.DashboardHomeLayoutComponent),
+      },
+      {
+        path: 'news-control',
+        loadComponent: () =>
+          import(
+            './dashboard/components/dashboard-home/news-control/news-control/news-control.component'
+          ).then((c) => c.NewsControlComponent),
+      },
+      {
+        path: 'news-add',
+        loadComponent: () =>
+          import(
+            './dashboard/components/dashboard-home/news-control/news-add/news-add.component'
+          ).then((c) => c.NewsAddComponent),
+      },
+      {
+        path: 'slugs-control',
+        loadComponent: () =>
+          import(
+            './dashboard/components/dashboard-home/blogs-control/blogs-control/blogs-control.component'
+          ).then((c) => c.BlogsControlComponent),
+      },
+      {
+        path: 'slugs-add',
+        loadComponent: () =>
+          import(
+            './dashboard/components/dashboard-home/blogs-control/blogs-add/blogs-add.component'
+          ).then((c) => c.BlogsAddComponent),
+      },
+      {
+        path: 'comments',
+        loadComponent: () =>
+          import(
+            './dashboard/components/dashboard-home/comments-control/comments-control/comments-control.component'
+          ).then((c) => c.CommentsControlComponent),
+      },
+      {
+        path: 'users-control',
+        loadComponent: () =>
+          import(
+            './dashboard/components/dashboard-home/users-control/users-control/users-control.component'
+          ).then((c) => c.UsersControlComponent),
+      },
+      {
+        path: 'users-add',
+        loadComponent: () =>
+          import(
+            './dashboard/components/dashboard-home/users-control/users-add/users-add.component'
+          ).then((c) => c.UsersAddComponent),
+      },
+      {
+        path: 'about-us',
+        loadComponent: () =>
+          import(
+            './dashboard/components/dashboard-home/pages-control/about-us-control/about-us-control.component'
+          ).then((c) => c.AboutUsControlComponent),
+      },
+      {
+        path: 'privacy-policy',
+        loadComponent: () =>
+          import(
+            './dashboard/components/dashboard-home/pages-control/privacy-policy/privacy-policy.component'
+          ).then((c) => c.PrivacyPolicyComponent),
+      },
+      {
+        path: 'contact-us',
+        loadComponent: () =>
+          import(
+            './dashboard/components/dashboard-home/pages-control/contact-us/contact-us.component'
+          ).then((c) => c.ContactUsComponent),
+      },
+      {
+        path: 'account-setting',
+        loadComponent: () =>
+          import(
+            './dashboard/components/dashboard-home/settings-control/setting-control/setting-control.component'
+          ).then((c) => c.SettingControlComponent),
+      },
+      {
+        path: 'help',
+        loadComponent: () =>
+          import(
+            './dashboard/components/dashboard-home/verifications-control/verifications-help/verifications-help.component'
+          ).then((c) => c.VerificationsHelpComponent),
+      },
+    ],
   },
   {
     path: '**',

@@ -1,10 +1,16 @@
 :host * {
   font-size: 20px;
 }
+// section {
+//   background-image: url("/assets/images/about_us/footer.png"),
+//     url("/assets/images/about_us/logo.png");
+//   background-repeat: no-repeat;
+//   background-position: right bottom, center;
+//   background-size: 100% 40%, 250px;
+// }
 section {
-  background-image: url("/assets/images/about_us/footer.png"),
-    url("/assets/images/about_us/logo.png");
+  background-image: url("/assets/images/about_us/logo.png");
   background-repeat: no-repeat;
-  background-position: right bottom, center;
-  background-size: 100% 40%, 250px;
+  background-position: center;
+  background-size: 250px;
 }

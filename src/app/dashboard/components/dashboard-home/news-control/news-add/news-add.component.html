@@ -1,1 +1,94 @@
-<p>news-add works!</p>
+<p-card header="إضافة مقال جديد" class="p-mb-3">
+  <form [formGroup]="addArticleForm" (ngSubmit)="onSubmit()">
+    <!-- Image Upload -->
+    <div class="p-field mb-3">
+      <label for="post_image">صورة المقال</label>
+      <p-fileUpload
+        name="post_image"
+        url=""
+        accept="image/*"
+        (onSelect)="onFileSelect($event)"
+        [auto]="true"
+      ></p-fileUpload>
+      <!-- [showPreview]="true"
+            [(ngModel)]="postImage" -->
+    </div>
+    <!-- Title Input -->
+    <div class="p-field">
+      <label for="post_title">عنوان المقال</label>
+      <input
+        id="post_title"
+        type="text"
+        pInputText
+        formControlName="post_title"
+        placeholder="أدخل عنوان المقال"
+        class="p-inputtext-lg"
+      />
+    </div>
+
+    <!-- Author Input -->
+    <div class="p-field">
+      <label for="author_name">اسم الكاتب</label>
+      <input
+        id="author_name"
+        type="text"
+        pInputText
+        formControlName="author_name"
+        placeholder="أدخل اسم الكاتب"
+        class="p-inputtext-lg"
+      />
+    </div>
+
+    <!-- Date Input -->
+    <div class="p-field">
+      <label for="post_date">تاريخ المقال</label>
+      <input
+        id="post_date"
+        type="date"
+        pInputText
+        formControlName="post_date"
+        class="p-inputtext-lg"
+      />
+    </div>
+
+    <!-- Content Editor -->
+    <div class="p-field mb-3">
+      <label for="post_content">محتوى المقال</label>
+      <p-editor
+        id="post_content"
+        formControlName="post_content"
+        [(ngModel)]="articleContent"
+        [style]="{ height: '320px' }"
+        placeholder="أدخل محتوى المقال"
+      ></p-editor>
+    </div>
+
+    <!-- Preview Button -->
+    <div class="p-field mb-3">
+      <button
+        pButton
+        type="button"
+        label="عرض المقال"
+        (click)="previewArticle()"
+      ></button>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="p-field">
+      <button
+        pButton
+        type="submit"
+        label="نشر المقال"
+        [disabled]="!addArticleForm.valid"
+      ></button>
+    </div>
+  </form>
+</p-card>
+
+<!-- Preview Section -->
+<p-card *ngIf="isPreview" header="معاينة المقال">
+  <h3>{{ addArticleForm.value.post_title }}</h3>
+  <p><strong>الكاتب:</strong> {{ addArticleForm.value.author_name }}</p>
+  <p><strong>التاريخ:</strong> {{ addArticleForm.value.post_date }}</p>
+  <div [innerHTML]="articleContent"></div>
+</p-card>

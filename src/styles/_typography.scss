@@ -1,11 +1,14 @@
 $main-font: "Cairo", serif;
 
 body {
-  font-family: "Cairo", serif;
+  font-family: "Cairo", serif !important;
 }
 .fs-cairo {
   font-family: "Cairo", serif !important;
 }
 .Inter-font {
   font-family: "Inter", serif;
+}
+.pi {
+  font-family: "primeicons" !important;
 }

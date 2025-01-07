@@ -1,32 +1,53 @@
 <div class="layout-topbar flex-row-reverse">
-    <div class="container d-flex justify-content-between flex-row-reverse">
-    <a class="layout-topbar-logo" routerLink="">
+  <div class="container-fluid d-flex justify-content-between flex-row-reverse">
+    <a class="layout-topbar-logo justify-content-end" routerLink="">
       <span class="fs-cairo">اصداء الخليج</span>
-        <img src="./assets/favicon_io/android-chrome-192x192.png" class="ms-3" alt="logo">
+      <img
+        src="./assets/favicon_io/android-chrome-192x192.png"
+        class="ms-3"
+        alt="logo"
+      />
     </a>
 
-    <button #topbarmenubutton class="p-link layout-topbar-menu-button layout-topbar-button" (click)="layoutService.showProfileSidebar()">
-        <i class="pi pi-ellipsis-v"></i>
+    <button
+      #topbarmenubutton
+      class="p-link layout-topbar-menu-button layout-topbar-button"
+      (click)="layoutService.showProfileSidebar()"
+    >
+      <i class="pi pi-ellipsis-v"></i>
     </button>
 
-    <div #topbarmenu class="layout-topbar-menu" [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
-        <!-- <button class="p-link layout-topbar-button">
+    <div
+      #topbarmenu
+      class="layout-topbar-menu"
+      [ngClass]="{
+        'layout-topbar-menu-mobile-active':
+          layoutService.state.profileSidebarVisible
+      }"
+    >
+      <!-- <button class="p-link layout-topbar-button">
             <i class="pi pi-calendar"></i>
             <span>Calendar</span>
         </button> -->
-        <button #menubutton class="p-link layout-menu-button layout-topbar-button" (click)="layoutService.onMenuToggle()">
-          <i class="pi pi-bars"></i>
+      <button
+        #menubutton
+        class="p-link layout-menu-button layout-topbar-button"
+        (click)="layoutService.onMenuToggle()"
+      >
+        <i class="pi pi-bars"></i>
       </button>
-        <button class="p-link layout-topbar-button">
-            <i class="pi pi-user"></i>
-            <span>Profile</span>
-        </button>
-        <!-- <button class="p-link layout-topbar-button" [routerLink]="'/documentation'">
+      <button class="p-link layout-topbar-button">
+        <i class="pi pi-user"></i>
+        <span>الملف الشخصي</span>
+      </button>
+      <span class="d-flex align-items-center"
+        >السلام عليكم
+        <span class="text-main mx-1 fw-bold">{{ name }}</span></span
+      >
+      <!-- <button class="p-link layout-topbar-button" [routerLink]="'/documentation'">
             <i class="pi pi-cog"></i>
             <span>Settings</span>
         </button> -->
-
     </div>
   </div>
-
 </div>

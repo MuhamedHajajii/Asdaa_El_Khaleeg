@@ -18,7 +18,8 @@ body {
 .ltr {
   direction: ltr;
 }
-.rtl-g , .rtl-g * {
+.rtl-g,
+.rtl-g * {
   direction: rtl !important;
 }
 .card:hover {
@@ -56,6 +57,32 @@ body {
   a:hover,
   a:active {
     color: $text-light !important;
+  }
+}
+.grid .col-12 {
+  flex: 0 0 auto !important;
+  padding: 0.5rem !important;
+  width: 100% !important;
+}
+@media screen and (min-width: 992px) {
+  .grid .lg\:col-6 {
+    flex: 0 0 auto !important;
+    padding: 0.5rem !important;
+    width: 50% !important;
+  }
+}
+@media screen and (min-width: 992px) {
+  .grid .lg\:col-4 {
+    flex: 0 0 auto !important;
+    padding: 0.5rem !important;
+    width: 33.3333% !important;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .grid .xl\:col-3 {
+    flex: 0 0 auto !important;
+    padding: 0.5rem !important;
+    width: 25% !important;
   }
 }
 
@@ -134,6 +161,10 @@ img {
     display: flex;
   }
   100% {
-    display: none ;
+    display: none;
   }
+}
+
+.p-paginator {
+  direction: ltr !important;
 }

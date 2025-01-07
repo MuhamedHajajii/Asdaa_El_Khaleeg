@@ -1,1 +1,250 @@
-<p>news-control works!</p>
+<div class="grid">
+  <div class="col-12">
+    <div class="card px-6 py-6">
+      <p-toast></p-toast>
+
+      <p-table
+        #dt
+        [value]="blogs"
+        [columns]="cols"
+        responsiveLayout="scroll"
+        [rows]="10"
+        [globalFilterFields]="['post_title', 'author_name']"
+        [paginator]="true"
+        [rowsPerPageOptions]="[10, 20, 30]"
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="عرض {first} إلى {last} من {totalRecords} إدخالات"
+        [(selection)]="selectedBlogs"
+        selectionMode="multiple"
+        [rowHover]="true"
+        dataKey="post_id"
+      >
+        <ng-template pTemplate="caption">
+          <div
+            class="flex flex-column md:flex-row md:justify-content-between md:align-items-center"
+          >
+            <h5 class="m-0">إدارة المقالات</h5>
+            <span class="block mt-2 md:mt-0 p-input-icon-left">
+              <i class="pi pi-search"></i>
+              <input
+                pInputText
+                type="text"
+                (input)="onGlobalFilter(dt, $event)"
+                placeholder="ابحث..."
+                class="w-full sm:w-auto"
+              />
+            </span>
+          </div>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width: 3rem">
+              <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th pSortableColumn="post_id">
+              معرف <p-sortIcon field="post_id"></p-sortIcon>
+            </th>
+            <th pSortableColumn="post_title">
+              العنوان <p-sortIcon field="post_title"></p-sortIcon>
+            </th>
+            <th>الصورة</th>
+            <th pSortableColumn="post_date">
+              التاريخ <p-sortIcon field="post_date"></p-sortIcon>
+            </th>
+            <th pSortableColumn="author_name">
+              المؤلف <p-sortIcon field="author_name"></p-sortIcon>
+            </th>
+            <th></th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-blog>
+          <tr>
+            <td>
+              <p-tableCheckbox [value]="blog"></p-tableCheckbox>
+            </td>
+            <td style="width: 14%; min-width: 10rem">
+              <span class="p-column-title">معرف</span>
+              {{ blog.post_id }}
+            </td>
+            <td style="width: 14%; min-width: 10rem">
+              <span class="p-column-title">العنوان</span>
+              {{ blog.post_title }}
+            </td>
+            <td style="width: 14%; min-width: 10rem">
+              <span class="p-column-title">الصورة</span>
+              <img
+                [src]="blog.post_image"
+                [alt]="blog.post_title"
+                width="100"
+                class="shadow-4"
+              />
+            </td>
+            <td style="width: 14%; min-width: 8rem">
+              <span class="p-column-title">التاريخ</span>
+              {{ blog.post_date | hijriDate }}
+            </td>
+            <td style="width: 14%; min-width: 10rem">
+              <span class="p-column-title">المؤلف</span>
+              {{ blog.author_name }}
+            </td>
+            <td>
+              <div class="flex">
+                <button
+                  pButton
+                  pRipple
+                  icon="pi pi-pencil"
+                  class="p-button-rounded p-button-success mr-2"
+                  (click)="editBlog(blog)"
+                ></button>
+                <button
+                  pButton
+                  pRipple
+                  icon="pi pi-trash"
+                  class="p-button-rounded p-button-warning"
+                  (click)="deleteBlog(blog)"
+                ></button>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <!-- Blog Dialog for Editing -->
+    <p-dialog
+      [(visible)]="blogDialog"
+      [style]="{ width: '450px' }"
+      header="تفاصيل المقال"
+      [modal]="true"
+      class="p-fluid"
+    >
+      <ng-template pTemplate="content">
+        <img
+          [src]="blog.post_image"
+          [alt]="blog.post_image"
+          width="150"
+          class="mt-0 mx-auto mb-5 block shadow-2"
+          *ngIf="blog.post_image"
+        />
+        <div class="field">
+          <label for="post_title">العنوان</label>
+          <input
+            type="text"
+            pInputText
+            id="post_title"
+            [(ngModel)]="blog.post_title"
+            required
+            autofocus
+            [ngClass]="{
+              'ng-invalid ng-dirty': submitted && !blog.post_title
+            }"
+          />
+          <small
+            class="ng-dirty ng-invalid"
+            *ngIf="submitted && !blog.post_title"
+            >العنوان مطلوب.</small
+          >
+        </div>
+        <div class="field">
+          <label for="post_content">المحتوى</label>
+          <textarea
+            id="post_content"
+            pInputTextarea
+            [(ngModel)]="blog.post_content"
+            required
+            rows="3"
+            cols="20"
+          ></textarea>
+        </div>
+      </ng-template>
+
+      <ng-template pTemplate="footer">
+        <button
+          pButton
+          pRipple
+          label="إلغاء"
+          icon="pi pi-times"
+          class="p-button-text"
+          (click)="hideDialog()"
+        ></button>
+        <button
+          pButton
+          pRipple
+          label="حفظ"
+          icon="pi pi-check"
+          class="p-button-text"
+          (click)="saveBlog()"
+        ></button>
+      </ng-template>
+    </p-dialog>
+
+    <!-- Confirm Delete Dialog -->
+    <p-dialog
+      [(visible)]="deleteBlogDialog"
+      header="تأكيد"
+      [modal]="true"
+      [style]="{ width: '450px' }"
+    >
+      <div class="flex align-items-center justify-content-center">
+        <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+        <span *ngIf="blog"
+          >هل أنت متأكد أنك تريد حذف <b>{{ blog.post_title }}</b
+          >؟</span
+        >
+      </div>
+      <ng-template pTemplate="footer">
+        <button
+          pButton
+          pRipple
+          icon="pi pi-times"
+          class="p-button-text"
+          label="لا"
+          (click)="deleteBlogDialog = false"
+        ></button>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-check"
+          class="p-button-text"
+          label="نعم"
+          (click)="confirmDelete()"
+        ></button>
+      </ng-template>
+    </p-dialog>
+
+    <!-- Confirm Delete Selected Blogs Dialog -->
+    <p-dialog
+      [(visible)]="deleteBlogsDialog"
+      header="تأكيد"
+      [modal]="true"
+      [style]="{ width: '450px' }"
+    >
+      <div class="flex align-items-center justify-content-center">
+        <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+        <span *ngIf="selectedBlogs.length">
+          هل أنت متأكد أنك تريد حذف المقالات المحددة؟
+        </span>
+      </div>
+      <ng-template pTemplate="footer">
+        <button
+          pButton
+          pRipple
+          icon="pi pi-times"
+          class="p-button-text"
+          label="لا"
+          (click)="deleteBlogsDialog = false"
+        ></button>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-check"
+          class="p-button-text"
+          label="نعم"
+          (click)="confirmDeleteSelected()"
+        ></button>
+      </ng-template>
+    </p-dialog>
+  </div>
+</div>
