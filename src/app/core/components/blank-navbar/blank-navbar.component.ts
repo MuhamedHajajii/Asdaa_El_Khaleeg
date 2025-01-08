@@ -44,7 +44,6 @@ export class BlankNavbarComponent {
         snapchat_url: { label: 'Snapchat', icon: './assets/images/social_meida_icons/snapchat.svg', alt: 'اصداء الخليج سناب شات' },
         telegram_url: { label: 'Telegram', icon: './assets/images/social_meida_icons/telegram.svg', alt: 'اصداء الخليج تيليجرام' },
         watus_number: { label: 'WhatsApp', icon: './assets/images/social_meida_icons/whatsapp.svg', alt: 'اصداء الخليج واتساب' },
-        youtube_url: { label: 'YouTube', icon: './assets/images/social_meida_icons/youtube.svg', alt: 'اصداء الخليج يوتيوب' },
       };
 
           // Filter non-null social media links
