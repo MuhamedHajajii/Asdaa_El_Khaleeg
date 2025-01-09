@@ -1,0 +1,21 @@
+<div class="social-media-control">
+  <h2>روابط وسائل التواصل الاجتماعي</h2>
+
+  <div *ngFor="let link of socialMediaLinks" class="social-media-item">
+    <i [class]="'pi ' + link.icon" class="social-icon"></i>
+    <label>{{ link.label }}</label>
+    <input
+      type="text"
+      [(ngModel)]="link.url"
+      (input)="onInputChange()"
+      placeholder="أدخل الرابط هنا"
+    />
+  </div>
+
+  <button
+    pButton
+    [disabled]="!hasChanges"
+    (click)="saveChanges()"
+    label="حفظ التغييرات"
+  ></button>
+</div>

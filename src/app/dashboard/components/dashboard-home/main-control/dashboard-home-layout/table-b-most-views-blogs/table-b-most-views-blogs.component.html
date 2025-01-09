@@ -25,13 +25,15 @@
     <ng-template pTemplate="body" let-article>
       <tr>
         <td
-          class="col-7"
+          class="col-6"
           style="
             max-width: 250px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
           "
+          pTooltip="{{ article.title }}"
+          tooltipPosition="top"
         >
           {{ article.title }}
         </td>
@@ -41,7 +43,7 @@
         <td class="col-2 text-center" style="max-width: 150px">
           {{ article.publishedDate | hijriDate }}
         </td>
-        <td class="col-1 text-center" style="width: 15%">
+        <td class="col-2 text-center" style="width: 15%">
           <button
             pButton
             pRipple
@@ -51,7 +53,6 @@
             aria-label="Preview Article"
             pTooltip="معاينة المقال"
           ></button>
-          <!-- [routerLink]="'/article/' + article.id" -->
         </td>
       </tr>
     </ng-template>

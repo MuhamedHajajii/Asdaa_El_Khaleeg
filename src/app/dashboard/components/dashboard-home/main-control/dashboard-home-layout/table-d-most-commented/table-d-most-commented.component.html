@@ -37,13 +37,25 @@
             overflow: hidden;
             text-overflow: ellipsis;
           "
+          pTooltip="{{ article.title }}"
+          tooltipPosition="top"
         >
           {{ article.title }}
         </td>
-        <td class="col-3 text-center" style="max-width: 150px">
+        <td
+          class="col-3 text-center"
+          style="max-width: 150px"
+          pTooltip="{{ article.views }} تعليقات"
+          tooltipPosition="top"
+        >
           {{ article.views }}
         </td>
-        <td class="col-3 text-center" style="max-width: 150px">
+        <td
+          class="col-3 text-center"
+          style="max-width: 150px"
+          pTooltip="{{ article.publishedDate | hijriDate }} تاريخ النشر"
+          tooltipPosition="top"
+        >
           {{ article.publishedDate | hijriDate }}
         </td>
         <td class="col-2 text-center" style="width: 15%">
@@ -55,8 +67,8 @@
             class="p-button p-component p-button-text p-button-icon-only"
             aria-label="Preview Article"
             pTooltip="معاينة المقال"
+            tooltipPosition="top"
           ></button>
-          <!-- [routerLink]="'/article/' + article.id" -->
         </td>
       </tr>
     </ng-template>

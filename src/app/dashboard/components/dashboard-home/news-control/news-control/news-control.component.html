@@ -58,21 +58,43 @@
               <span class="p-column-title">معرف</span>
               {{ blog.post_id }}
             </td>
-            <td class="col-5">
+            <td
+              class="col-5"
+              style="
+                max-width: 250px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+              "
+              pTooltip="{{ blog.post_title }}"
+              tooltipPosition="top"
+            >
               <span class="p-column-title">العنوان</span>
               {{ blog.post_title }}
             </td>
-            <td class="col-2">
+
+            <td
+              class="col-2"
+              pTooltip="{{ blog.author_name }}"
+              tooltipPosition="top"
+            >
               <span class="p-column-title">المؤلف</span>
-              {{ blog.author_name }}
+              {{ blog.author_name | slice : 0 : 25 }}
+              <!-- Trim to first 25 characters -->
             </td>
+
             <td class="col-1">
               <span class="p-column-title">التاريخ</span>
               {{ blog.post_date | hijriDate }}
             </td>
-            <td class="col-1">
+            <td
+              class="col-1"
+              pTooltip="{{ blog.category }}"
+              tooltipPosition="top"
+            >
               <span class="p-column-title">القسم</span>
-              {{ blog.category }}
+              {{ blog.category | slice : 0 : 15 }}
+              <!-- Trim to first 15 characters -->
             </td>
             <td class="col-1">
               <div class="flex justify-content-center gap-2">

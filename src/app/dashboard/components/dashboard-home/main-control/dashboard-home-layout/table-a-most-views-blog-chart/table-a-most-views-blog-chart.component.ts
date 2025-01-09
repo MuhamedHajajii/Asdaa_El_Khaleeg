@@ -1,25 +1,15 @@
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-import { TableModule } from 'primeng/table';
-import { TooltipModule } from 'primeng/tooltip';
-import { HijriDatePipe } from '../../../../../../core/pipes/date-hijri.pipe';
-import { SlicePipe } from '@angular/common';
+import { ChartModule } from 'primeng/chart';
+
 @Component({
-  selector: 'app-table-b-most-views-blogs',
+  selector: 'app-table-a-most-views-blog-chart',
   standalone: true,
-  imports: [
-    TableModule,
-    CardModule,
-    HijriDatePipe,
-    ButtonModule,
-    TooltipModule,
-    SlicePipe,
-  ],
-  templateUrl: './table-b-most-views-blogs.component.html',
-  styleUrl: './table-b-most-views-blogs.component.scss',
+  imports: [ChartModule, CardModule],
+  templateUrl: './table-a-most-views-blog-chart.component.html',
+  styleUrl: './table-a-most-views-blog-chart.component.scss',
 })
-export class TableBMostViewsBlogsComponent {
+export class TableAMostViewsBlogChartComponent {
   mostViewedArticles = [
     {
       title:
@@ -50,4 +40,42 @@ export class TableBMostViewsBlogsComponent {
       publishedDate: new Date('2025-01-03'),
     },
   ];
+
+  // Get only the first letter of each title
+  chartData = {
+    labels: this.mostViewedArticles.map((article) =>
+      article.title.split(' ').splice(0, 4).join(' ')
+    ),
+    datasets: [
+      {
+        data: this.mostViewedArticles.map((article) => article.views),
+        backgroundColor: [
+          '#FF6384f8',
+          '#36A2EB',
+          '#FFCE56',
+          '#4BC0C0',
+          '#FF9F40',
+        ], // Optional colors
+      },
+    ],
+  };
+
+  // Tooltip configuration to show full title on hover
+  chartOptions = {
+    responsive: true,
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label: (context: any) => {
+            const articleIndex = context.dataIndex;
+            const articleTitle = this.mostViewedArticles[articleIndex].title;
+            return articleTitle; // Show the full title in the tooltip
+          },
+        },
+      },
+      legend: {
+        position: 'top',
+      },
+    },
+  };
 }

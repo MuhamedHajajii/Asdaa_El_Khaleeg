@@ -41,7 +41,7 @@ import { ChatComponent } from '../chat/chat.component';
   styleUrl: './dashboard-home.component.scss',
 })
 export class DashboardHomeComponent {
-  overlayMenuOpenSubscription: Subscription;
+  overlayMenuOpenSubscription!: Subscription;
 
   menuOutsideClickListener: any;
 
@@ -55,67 +55,69 @@ export class DashboardHomeComponent {
     public layoutService: AppLayoutServiceService,
     public renderer: Renderer2,
     public router: Router,
-    @Inject(PLATFORM_ID) private platformId: Object
-  ) {
-    this.overlayMenuOpenSubscription =
-      this.layoutService.overlayOpen$.subscribe(() => {
-        if (!this.menuOutsideClickListener) {
-          this.menuOutsideClickListener = this.renderer.listen(
-            'document',
-            'click',
-            (event) => {
-              const isOutsideClicked = !(
-                this.appSidebar.el.nativeElement.isSameNode(event.target) ||
-                this.appSidebar.el.nativeElement.contains(event.target) ||
-                this.appTopbar.menuButton.nativeElement.isSameNode(
-                  event.target
-                ) ||
-                this.appTopbar.menuButton.nativeElement.contains(event.target)
-              );
+    @Inject(PLATFORM_ID) private _PLATFORM_ID: Object
+  ) {}
+  ngOnInit(): void {
+    if (isPlatformBrowser(this._PLATFORM_ID)) {
+      this.overlayMenuOpenSubscription =
+        this.layoutService.overlayOpen$.subscribe(() => {
+          if (!this.menuOutsideClickListener) {
+            this.menuOutsideClickListener = this.renderer.listen(
+              'document',
+              'click',
+              (event) => {
+                const isOutsideClicked = !(
+                  this.appSidebar.el.nativeElement.isSameNode(event.target) ||
+                  this.appSidebar.el.nativeElement.contains(event.target) ||
+                  this.appTopbar.menuButton.nativeElement.isSameNode(
+                    event.target
+                  ) ||
+                  this.appTopbar.menuButton.nativeElement.contains(event.target)
+                );
 
-              if (isOutsideClicked) {
-                this.hideMenu();
+                if (isOutsideClicked) {
+                  this.hideMenu();
+                }
               }
-            }
-          );
-        }
+            );
+          }
 
-        if (!this.profileMenuOutsideClickListener) {
-          this.profileMenuOutsideClickListener = this.renderer.listen(
-            'document',
-            'click',
-            (event) => {
-              const isOutsideClicked = !(
-                this.appTopbar.menu.nativeElement.isSameNode(event.target) ||
-                this.appTopbar.menu.nativeElement.contains(event.target) ||
-                this.appTopbar.topbarMenuButton.nativeElement.isSameNode(
-                  event.target
-                ) ||
-                this.appTopbar.topbarMenuButton.nativeElement.contains(
-                  event.target
-                )
-              );
+          if (!this.profileMenuOutsideClickListener) {
+            this.profileMenuOutsideClickListener = this.renderer.listen(
+              'document',
+              'click',
+              (event) => {
+                const isOutsideClicked = !(
+                  this.appTopbar.menu.nativeElement.isSameNode(event.target) ||
+                  this.appTopbar.menu.nativeElement.contains(event.target) ||
+                  this.appTopbar.topbarMenuButton.nativeElement.isSameNode(
+                    event.target
+                  ) ||
+                  this.appTopbar.topbarMenuButton.nativeElement.contains(
+                    event.target
+                  )
+                );
 
-              if (isOutsideClicked) {
-                this.hideProfileMenu();
+                if (isOutsideClicked) {
+                  this.hideProfileMenu();
+                }
               }
-            }
-          );
-        }
+            );
+          }
 
-        if (this.layoutService.state.staticMenuMobileActive) {
-          this.blockBodyScroll();
-        }
-      });
+          if (this.layoutService.state.staticMenuMobileActive) {
+            this.blockBodyScroll();
+          }
+        });
 
-    this.router.events
-      .pipe(filter((event) => event instanceof NavigationEnd))
-      .subscribe(() => {
-        this.hideMenu();
-        this.hideProfileMenu();
-      });
+      this.router.events
+        .pipe(filter((event) => event instanceof NavigationEnd))
+        .subscribe(() => {
+          this.hideMenu();
+          this.hideProfileMenu();
+        });
+    }
   }
-
   hideMenu() {
     this.layoutService.state.overlayMenuActive = false;
     this.layoutService.state.staticMenuMobileActive = false;
@@ -144,7 +146,7 @@ export class DashboardHomeComponent {
   }
 
   unblockBodyScroll(): void {
-    if (isPlatformBrowser(this.platformId)) return;
+    if (isPlatformBrowser(this._PLATFORM_ID)) return;
     if (document.body.classList) {
       document.body.classList.remove('blocked-scroll');
     } else {

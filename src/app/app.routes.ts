@@ -70,16 +70,16 @@ export const routes: Routes = [
       {
         path: 'administrative-structure',
         loadComponent: () =>
-          import('./pages/blank-layout/administrative-structure/administrative-structure.component').then(
-            (c) => c.AdministrativeStructureComponent
-          ),
+          import(
+            './pages/blank-layout/administrative-structure/administrative-structure.component'
+          ).then((c) => c.AdministrativeStructureComponent),
       },
       {
         path: 'privacy-policy',
         loadComponent: () =>
-          import('./pages/blank-layout/privacy-policy/privacy-policy.component').then(
-            (c) => c.PrivacyPolicyComponent
-          ),
+          import(
+            './pages/blank-layout/privacy-policy/privacy-policy.component'
+          ).then((c) => c.PrivacyPolicyComponent),
       },
     ],
   },
@@ -147,12 +147,13 @@ export const routes: Routes = [
           ).then((c) => c.UsersControlComponent),
       },
       {
-        path: 'users-add',
+        path: 'social-media-control',
         loadComponent: () =>
           import(
-            './dashboard/components/dashboard-home/users-control/users-add/users-add.component'
-          ).then((c) => c.UsersAddComponent),
+            './dashboard/components/dashboard-home/social-media-control/social-media-control.component'
+          ).then((c) => c.SocialMediaControlComponent),
       },
+
       {
         path: 'about-us',
         loadComponent: () =>

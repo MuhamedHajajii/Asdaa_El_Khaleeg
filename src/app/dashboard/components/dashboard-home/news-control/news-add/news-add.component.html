@@ -1,21 +1,26 @@
 <p-card header="إضافة مقال جديد" class="p-mb-3">
   <form [formGroup]="addArticleForm" (ngSubmit)="onSubmit()">
-    <!-- Image Upload -->
+    <!-- Image Upload with Drag and Drop -->
     <div class="p-field mb-3">
-      <label for="post_image">صورة المقال</label>
       <p-fileUpload
         name="post_image"
         url=""
         accept="image/*"
         (onSelect)="onFileSelect($event)"
         [auto]="true"
+        [chooseLabel]="'اختر صورة'"
+        [uploadLabel]="'رفع'"
+        [cancelLabel]="'إلغاء'"
+        [showUploadButton]="true"
+        [showCancelButton]="true"
+        [customUpload]="true"
+        (onUpload)="onUpload($event)"
+        [draggable]="true"
       ></p-fileUpload>
-      <!-- [showPreview]="true"
-            [(ngModel)]="postImage" -->
     </div>
+
     <!-- Title Input -->
     <div class="p-field">
-      <label for="post_title">عنوان المقال</label>
       <input
         id="post_title"
         type="text"
@@ -26,41 +31,44 @@
       />
     </div>
 
-    <!-- Author Input -->
+    <!-- Author Dropdown -->
     <div class="p-field">
-      <label for="author_name">اسم الكاتب</label>
-      <input
-        id="author_name"
-        type="text"
-        pInputText
+      <p-dropdown
+        [options]="authors"
         formControlName="author_name"
-        placeholder="أدخل اسم الكاتب"
-        class="p-inputtext-lg"
-      />
+        placeholder="اختر اسم الكاتب"
+        [filter]="true"
+        [filterBy]="'label'"
+        optionLabel="label"
+        appendTo="body"
+        styleClass="w-full"
+      >
+        <ng-template let-author pTemplate="item">
+          <div>
+            {{ author.label }}
+          </div>
+        </ng-template>
+      </p-dropdown>
     </div>
 
     <!-- Date Input -->
-    <div class="p-field">
-      <label for="post_date">تاريخ المقال</label>
-      <input
-        id="post_date"
-        type="date"
-        pInputText
-        formControlName="post_date"
-        class="p-inputtext-lg"
-      />
+    <div class="my-3 position-relative">
+      <ngx-hijri-datepicker
+        [(value)]="selectedHijriDate"
+        [locale]="'ar-SA'"
+        [storageLocale]="'en'"
+        [placeholder]="'اختر تاريخ'"
+        [width]="'100%'"
+        class="mb-0"
+        [InputColor]="'#000'"
+        [IconColor]="'#fff'"
+        (valueChange)="onDateSelected($event)"
+      ></ngx-hijri-datepicker>
     </div>
 
     <!-- Content Editor -->
     <div class="p-field mb-3">
-      <label for="post_content">محتوى المقال</label>
-      <p-editor
-        id="post_content"
-        formControlName="post_content"
-        [(ngModel)]="articleContent"
-        [style]="{ height: '320px' }"
-        placeholder="أدخل محتوى المقال"
-      ></p-editor>
+      <ngx-jodit [(value)]="value" [options]="options" #ngxJodit></ngx-jodit>
     </div>
 
     <!-- Preview Button -->

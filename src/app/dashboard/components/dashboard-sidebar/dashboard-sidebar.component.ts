@@ -72,17 +72,12 @@ export class DashboardSidebarComponent {
         ],
       },
       {
-        label: 'المستخدمون',
+        label: 'المؤلفين',
         items: [
           {
-            label: 'إدارة المستخدمين',
+            label: 'إدارة المؤلفين',
             icon: 'pi pi-fw pi-users',
             routerLink: ['/dashboard/users-control'],
-          },
-          {
-            label: 'إضافة مستخدم جديد',
-            icon: 'pi pi-fw pi-user-plus',
-            routerLink: ['/dashboard/users-add'],
           },
         ],
       },
@@ -103,6 +98,16 @@ export class DashboardSidebarComponent {
             label: 'تواصل معنا',
             icon: 'pi pi-fw pi-envelope',
             routerLink: ['/dashboard/contact-us'],
+          },
+        ],
+      },
+      {
+        label: 'روابط السوشيال ميديا',
+        items: [
+          {
+            label: 'إدارة الروابط',
+            icon: 'pi pi-fw pi-share-alt',
+            routerLink: ['/dashboard/social-media-control'],
           },
         ],
       },

@@ -14,3 +14,84 @@ input,
   width: 100%;
   margin-bottom: 16px;
 }
+textarea {
+  width: 100%;
+  min-height: 300px;
+}
+
+h2 {
+  margin-top: 40px;
+}
+
+h3 {
+  margin-top: 20px;
+}
+::ng-deep .jodit-status-bar-link {
+  display: none;
+}
+::ng-deep .datepicker-input {
+  margin-bottom: 0;
+  border-radius: 4px;
+  border: 1px solid #d1d5db !important;
+}
+::ng-deep .datepicker-input:hover {
+  border-color: #3b82f6 !important;
+}
+::ng-deep .datepicker-input:focus {
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: 0 0 0 0.2rem #bfdbfe !important;
+  border-color: #3b82f6 !important;
+}
+
+::ng-deep .datepicker-popup {
+  max-width: 300px;
+}
+
+::ng-deep .iconClender {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 100%;
+  border-radius: 4px;
+}
+/* news-add.component.scss */
+
+::ng-deep .p-dropdown {
+  font-family: "Arial", sans-serif !important;
+  border: 1px solid #ccc !important;
+  background-color: #f8f9fa !important;
+}
+
+::ng-deep .p-dropdown-item {
+  color: #495057 !important;
+}
+
+::ng-deep .p-dropdown-item:hover {
+  background-color: #007bff !important;
+  color: white !important;
+}
+
+::ng-deep .p-button-link {
+  color: #007bff !important;
+  text-decoration: underline !important;
+}
+
+::ng-deep .p-dropdown-panel {
+  max-height: 300px !important;
+  overflow-y: auto !important;
+}
+
+::ng-deep .p-dropdown-panel .p-dropdown-header .p-dropdown-filter-icon {
+  top: 50%;
+  transform: translateY(-50%);
+}
+::ng-deep .p-dropdown-panel .p-dropdown-items {
+  margin: 0px;
+  padding: 0px;
+}
+
+::ng-deep .p-dropdown {
+  background-color: transparent !important;
+}
