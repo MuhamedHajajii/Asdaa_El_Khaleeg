@@ -1,5 +1,11 @@
-import { CommonModule } from '@angular/common';
-import { Component, Renderer2, ViewChild } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import {
+  Component,
+  Inject,
+  PLATFORM_ID,
+  Renderer2,
+  ViewChild,
+} from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { BadgeModule } from 'primeng/badge';
 import { InputSwitchModule } from 'primeng/inputswitch';
@@ -48,7 +54,8 @@ export class DashboardHomeComponent {
   constructor(
     public layoutService: AppLayoutServiceService,
     public renderer: Renderer2,
-    public router: Router
+    public router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.overlayMenuOpenSubscription =
       this.layoutService.overlayOpen$.subscribe(() => {
@@ -137,6 +144,7 @@ export class DashboardHomeComponent {
   }
 
   unblockBodyScroll(): void {
+    if (isPlatformBrowser(this.platformId)) return;
     if (document.body.classList) {
       document.body.classList.remove('blocked-scroll');
     } else {
