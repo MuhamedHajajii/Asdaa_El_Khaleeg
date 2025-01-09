@@ -1,1 +1,111 @@
-<p>comments-control works!</p>
+<p-table
+  [value]="comments"
+  responsiveLayout="scroll"
+  class="comments-table"
+  [paginator]="true"
+  [rows]="100"
+  [rowsPerPageOptions]="[100, 500, 1000]"
+  [showCurrentPageReport]="true"
+  currentPageReportTemplate="عرض {first} إلى {last} من {totalRecords} إدخالات"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>الرقم</th>
+      <th>العنوان</th>
+      <th>التعليق</th>
+      <th>التاريخ</th>
+      <th>التحكم</th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-comment>
+    <tr>
+      <td>{{ comment.id }}</td>
+      <td>{{ comment.title }}</td>
+      <td>{{ comment.content }}</td>
+      <td>{{ comment.date | hijriDate }}</td>
+      <td>
+        <div class="flex justify-content-center gap-2">
+          <button
+            pButton
+            pRipple
+            icon="pi pi-check"
+            class="p-button-rounded p-button-success"
+            (click)="openApproveDialog(comment)"
+            *ngIf="comment.status !== 'approved'"
+          ></button>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-times"
+            class="p-button-rounded p-button-danger"
+            (click)="openDenyDialog(comment)"
+            *ngIf="comment.status !== 'denied'"
+          ></button>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<!-- Confirmation Dialog for Approve -->
+<p-dialog
+  [draggable]="false"
+  [(visible)]="approveDialogVisible"
+  header="تأكيد الموافقة"
+  [modal]="true"
+  [style]="{ width: '400px' }"
+>
+  <div>
+    <span>هل أنت متأكد أنك تريد الموافقة على هذا التعليق؟</span>
+  </div>
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="إلغاء"
+      icon="pi pi-times"
+      class="p-button-text"
+      (click)="approveDialogVisible = false"
+    ></button>
+    <button
+      pButton
+      pRipple
+      label="موافقة"
+      icon="pi pi-check"
+      class="p-button-text"
+      (click)="approveComment()"
+    ></button>
+  </ng-template>
+</p-dialog>
+
+<!-- Confirmation Dialog for Deny -->
+<p-dialog
+  [draggable]="false"
+  [(visible)]="denyDialogVisible"
+  header="تأكيد الرفض"
+  [modal]="true"
+  [style]="{ width: '400px' }"
+>
+  <div>
+    <span>هل أنت متأكد أنك تريد رفض هذا التعليق؟</span>
+  </div>
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="إلغاء"
+      icon="pi pi-times"
+      class="p-button-text"
+      (click)="denyDialogVisible = false"
+    ></button>
+    <button
+      pButton
+      pRipple
+      label="رفض"
+      icon="pi pi-times-circle"
+      class="p-button-text"
+      (click)="denyComment()"
+    ></button>
+  </ng-template>
+</p-dialog>

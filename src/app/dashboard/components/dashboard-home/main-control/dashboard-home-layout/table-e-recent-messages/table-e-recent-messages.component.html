@@ -1,1 +1,31 @@
-<p>table-e-recent-messages works!</p>
+<p-card header="📧 أحدث رسائل اتصل بنا">
+  <p-table [value]="recentEmails" [rows]="5">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>👤 الاسم</th>
+        <th>📌 العنوان</th>
+        <th class="text-center">🗓️ التاريخ</th>
+        <th class="text-center">📨 عرض الرسالة</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-email>
+      <tr>
+        <td class="col-3">
+          <strong>{{ email.name }}</strong>
+        </td>
+        <td class="col-3">{{ email.subject }}</td>
+        <td class="col-3 text-center">{{ email.date | hijriDate }}</td>
+        <td class="col-3 text-center">
+          <button
+            class="p-button p-component p-button-text p-button-icon-only email-icon-button"
+            (click)="viewEmailDetails(email)"
+            pTooltip="عرض الرسالة"
+            tooltipPosition="top"
+          >
+            <i class="pi pi-envelope" style="font-size: 1.5rem"></i>
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>

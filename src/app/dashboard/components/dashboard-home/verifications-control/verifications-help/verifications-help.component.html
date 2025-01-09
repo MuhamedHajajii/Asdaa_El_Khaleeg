@@ -1,5 +1,17 @@
 <h1>Jodit Editor</h1>
-<jodit-editor #editor [config]="config" [(ngModel)]="content"></jodit-editor>
+
+<p-splitter [style]="{ height: '50vh' }" styleClass="mb-5" layout="vertical">
+  <ng-template pTemplate>
+    <div class="col flex align-items-center justify-content-center">
+      <jodit-editor
+        #editor
+        [config]="config"
+        [(ngModel)]="content"
+      ></jodit-editor>
+    </div>
+  </ng-template>
+</p-splitter>
+
 <div class="my-5">
-  <button (click)="printValue(editor)" class="btn-main">إضافة المقال</button>
+  <button class="btn-main">إضافة المقال</button>
 </div>

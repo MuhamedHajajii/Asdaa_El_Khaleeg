@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
-import { TooltipModule } from 'primeng/tooltip';
 import { HijriDatePipe } from '../../../../../../core/pipes/date-hijri.pipe';
+import { ButtonModule } from 'primeng/button';
+import { TooltipModule } from 'primeng/tooltip';
+
 @Component({
-  selector: 'app-table-b-most-views-blogs',
+  selector: 'app-table-d-most-commented',
   standalone: true,
   imports: [
     TableModule,
@@ -14,10 +15,10 @@ import { HijriDatePipe } from '../../../../../../core/pipes/date-hijri.pipe';
     ButtonModule,
     TooltipModule,
   ],
-  templateUrl: './table-b-most-views-blogs.component.html',
-  styleUrl: './table-b-most-views-blogs.component.scss',
+  templateUrl: './table-d-most-commented.component.html',
+  styleUrl: './table-d-most-commented.component.scss',
 })
-export class TableBMostViewsBlogsComponent {
+export class TableDMostCommentedComponent {
   mostViewedArticles = [
     {
       title:

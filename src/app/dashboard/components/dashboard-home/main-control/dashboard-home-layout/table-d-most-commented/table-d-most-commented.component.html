@@ -1,5 +1,5 @@
 <!-- Most Viewed Articles Table -->
-<p-card header="أكثر المواضيع مشاهدة">
+<p-card header="اكثر المواضيع تفاعلاً">
   <p-table
     [value]="mostViewedArticles"
     [rows]="5"
@@ -9,23 +9,28 @@
   >
     <ng-template pTemplate="header">
       <tr>
-        <th><i class="pi pi-book" style="margin-right: 5px"></i> العنوان</th>
-        <th class="text-center">
-          <i class="pi pi-chart-bar" style="margin-right: 5px"></i> عدد
-          المشاهدات
+        <th>
+          <i class="pi pi-tag align-middle" style="margin-right: 5px"></i
+          ><span class="align-middle"> العنوان</span>
         </th>
         <th class="text-center">
-          <i class="pi pi-calendar" style="margin-right: 5px"></i> تاريخ النشر
+          <i class="pi pi-comments align-middle" style="margin-right: 5px"></i
+          ><span class="align-middle"> عدد التعليقات</span>
         </th>
         <th class="text-center">
-          <i class="pi pi-eye" style="margin-right: 5px"></i> معاينة
+          <i class="pi pi-calendar align-middle" style="margin-right: 5px"></i
+          ><span class="align-middle"> تاريخ النشر</span>
+        </th>
+        <th class="text-center">
+          <i class="pi pi-eye align-middle" style="margin-right: 5px"></i
+          ><span class="align-middle"> معاينة</span>
         </th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-article>
       <tr>
         <td
-          class="col-7"
+          class="col-4"
           style="
             max-width: 250px;
             white-space: nowrap;
@@ -35,13 +40,13 @@
         >
           {{ article.title }}
         </td>
-        <td class="col-2 text-center" style="max-width: 150px">
+        <td class="col-3 text-center" style="max-width: 150px">
           {{ article.views }}
         </td>
-        <td class="col-2 text-center" style="max-width: 150px">
+        <td class="col-3 text-center" style="max-width: 150px">
           {{ article.publishedDate | hijriDate }}
         </td>
-        <td class="col-1 text-center" style="width: 15%">
+        <td class="col-2 text-center" style="width: 15%">
           <button
             pButton
             pRipple

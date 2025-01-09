@@ -1,3 +1,10 @@
+<div class="text-500 mb-4">
+  <img
+    class="ms-1 align-middle"
+    src="./assets/images/pages/home/loca_news/clock-rotate-left-solid.png"
+  />
+  آخر زيارة في - <span class="text-main"> 1 جامدي الاول </span>
+</div>
 <div class="grid">
   <!-- Total Views -->
   <div class="col-12 lg:col-6 xl:col-3">
@@ -22,29 +29,17 @@
 <!-- app.component.html -->
 <div class="grid">
   <!-- Most Viewed Articles Table -->
-  <div class="col-12 lg:col-6">
-    <p-card header="أكثر المقالات مشاهدة">
-      <p-table [value]="mostViewedArticles" paginator [rows]="5">
-        <ng-template pTemplate="header">
-          <tr>
-            <th>العنوان</th>
-            <th>عدد المشاهدات</th>
-            <th>تاريخ النشر</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-article>
-          <tr>
-            <td>{{ article.title }}</td>
-            <td>{{ article.views }}</td>
-            <td>{{ article.publishedDate | hijriDate }}</td>
-          </tr>
-        </ng-template>
-      </p-table>
-    </p-card>
+  <div class="col-12">
+    <app-table-b-most-views-blogs />
+  </div>
+
+  <!-- Most Viewed Blog Categories Table -->
+  <div class="col-12 md:col-6 lg:col-6">
+    <app-table-c-most-views-categories />
   </div>
 
   <!-- Most Viewed Articles Chart -->
-  <div class="col-12 lg:col-6">
+  <!-- <div class="col-12 lg:col-4">
     <p-card header="رسم بياني للمقالات الأكثر مشاهدة">
       <p-chart
         type="bar"
@@ -52,89 +47,20 @@
         styleClass="w-full h-20rem"
       ></p-chart>
     </p-card>
-  </div>
+  </div> -->
 
   <!-- Recent Articles Table -->
-  <div class="col-12 md:col-6 lg:col-4">
-    <p-card header="أحدث المقالات">
-      <p-table [value]="recentArticles" paginator [rows]="5">
-        <ng-template pTemplate="header">
-          <tr>
-            <th>العنوان</th>
-            <th>تاريخ النشر</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-article>
-          <tr>
-            <td>{{ article.title }}</td>
-            <td>{{ article.publishedDate | hijriDate }}</td>
-          </tr>
-        </ng-template>
-      </p-table>
-    </p-card>
+  <div class="col-12 md:col-6 lg:col-6">
+    <app-table-a-recent-articles />
   </div>
 
   <!-- Recent Comments Table -->
-  <div class="col-12 md:col-6 lg:col-4">
-    <p-card header="أحدث التعليقات">
-      <p-table [value]="recentComments" paginator [rows]="5">
-        <ng-template pTemplate="header">
-          <tr>
-            <th>الاسم</th>
-            <th>المقال</th>
-            <th>التاريخ</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-comment>
-          <tr>
-            <td>{{ comment.name }}</td>
-            <td>{{ comment.article }}</td>
-            <td>{{ comment.date | hijriDate }}</td>
-          </tr>
-        </ng-template>
-      </p-table>
-    </p-card>
+  <div class="col-12 md:col-6 lg:col-6">
+    <app-table-d-most-commented />
   </div>
 
   <!-- Recent Contact Us Emails Table -->
-  <div class="col-12 md:col-6 lg:col-4">
-    <p-card header="أحدث رسائل اتصل بنا">
-      <p-table [value]="recentEmails" paginator [rows]="5">
-        <ng-template pTemplate="header">
-          <tr>
-            <th>الاسم</th>
-            <th>العنوان</th>
-            <th>التاريخ</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-email>
-          <tr>
-            <td>{{ email.name }}</td>
-            <td>{{ email.subject }}</td>
-            <td>{{ email.date | hijriDate }}</td>
-          </tr>
-        </ng-template>
-      </p-table>
-    </p-card>
-  </div>
-
-  <!-- Most Viewed Blog Categories Table -->
-  <div class="col-12 md:col-6 lg:col-4">
-    <p-card header="أكثر فئات المدونات مشاهدة">
-      <p-table [value]="mostViewedCategories" paginator [rows]="5">
-        <ng-template pTemplate="header">
-          <tr>
-            <th>الفئة</th>
-            <th>عدد المشاهدات</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-category>
-          <tr>
-            <td>{{ category.name }}</td>
-            <td>{{ category.views }}</td>
-          </tr>
-        </ng-template>
-      </p-table>
-    </p-card>
+  <div class="col-12 md:col-6 lg:col-6">
+    <app-table-e-recent-messages />
   </div>
 </div>
