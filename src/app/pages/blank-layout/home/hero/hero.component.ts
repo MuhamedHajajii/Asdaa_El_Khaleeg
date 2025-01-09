@@ -25,7 +25,7 @@ import { ISpecificCategory } from '../../../../core/interfaces/ISpecificCategory
 export class HeroComponent {
   sliderData!: ISliderHome;
 
-  masterBlog!:any;
+  masterBlog!: any;
 
   constructor(
     private _Router: Router,
@@ -35,7 +35,7 @@ export class HeroComponent {
 
   ngOnInit(): void {
     this.getSliderData();
-    this.onClickGetLastEditorNewsId()
+    this.onClickGetLastEditorNewsId();
   }
 
   getSliderData() {
@@ -50,10 +50,9 @@ export class HeroComponent {
   onClickGetLastEditorNewsId(): void {
     this._CategoriesService.getEditorBlog().subscribe({
       next: (response) => {
-        this.masterBlog = response
-        console.log(response.blogs[0].post_id);
-        console.log(response.blogs[0].post_title);
-        // this._Router.navigate([`/details`, response.blogs[0].post_id]);
+        if (response.blogs) {
+          this.masterBlog = response;
+        }
       },
     });
   }
