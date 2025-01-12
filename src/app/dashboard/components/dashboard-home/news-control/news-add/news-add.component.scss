@@ -83,7 +83,7 @@ h3 {
   overflow-y: auto !important;
 }
 
-::ng-deep .p-dropdown-panel .p-dropdown-header .p-dropdown-filter-icon {
+::ng-deep .p-dropdown-filter-icon {
   top: 50%;
   transform: translateY(-50%);
 }
@@ -94,4 +94,23 @@ h3 {
 
 ::ng-deep .p-dropdown {
   background-color: transparent !important;
+}
+
+.p-card {
+  background: #ffffff !important;
+  color: #4b5563 !important;
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
+    0 1px 3px 0 rgba(0, 0, 0, 0.12) !important;
+  border-radius: 6px !important;
+}
+
+::ng-deep .p-fileupload-content::after {
+  content: "يمكنك سحب الصورة وإفلاتها هنا ";
+  font-size: 12px;
+  color: #999;
+  text-align: center;
+}
+
+::ng-deep .p-multiselect-filter.p-inputtext.p-component {
+  margin-bottom: 0px;
 }

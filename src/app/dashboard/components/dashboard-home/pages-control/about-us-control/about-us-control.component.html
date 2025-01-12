@@ -3,61 +3,105 @@
   class="py-5 d-flex flex-column justify-content-between min-h-90vh"
 >
   <div class="container">
-    <p
-      contenteditable="true"
-      class="fs-20"
-      (blur)="updateContent('main', $event)"
-    >
-      {{ aboutUsContent.main }}
-    </p>
-    <h2
-      contenteditable="true"
-      class="text-main fw-bold my-4"
-      (blur)="updateContent('slogan', $event)"
-    >
-      {{ aboutUsContent.slogan }}
+    <!-- Toggle edit mode using isEditing flag -->
+    <div *ngIf="isEditing">
+      <p-editor
+        [(ngModel)]="aboutUsContent.main"
+        [style]="{ direction: 'rtl' }"
+      ></p-editor>
+    </div>
+    <div *ngIf="!isEditing" (click)="toggleEditing()">
+      <p class="fs-20">{{ aboutUsContent.main }}</p>
+    </div>
+
+    <h2 *ngIf="isEditing">
+      <p-editor
+        [(ngModel)]="aboutUsContent.slogan"
+        [style]="{ direction: 'rtl' }"
+      ></p-editor>
     </h2>
-    <h3
-      contenteditable="true"
-      class="fw-bold my-4"
-      (blur)="updateContent('first_title', $event)"
-    >
+    <h2 *ngIf="!isEditing" (click)="toggleEditing()">
+      <strong>{{ aboutUsContent.slogan }}</strong>
+    </h2>
+
+    <!-- First Title Section -->
+    <h3 *ngIf="isEditing">
+      <p-editor
+        [(ngModel)]="aboutUsContent.first_title"
+        [style]="{ direction: 'rtl' }"
+      ></p-editor>
+    </h3>
+    <h3 *ngIf="!isEditing" (click)="toggleEditing()">
       {{ aboutUsContent.first_title }}
     </h3>
-    <p
-      contenteditable="true"
-      class="fs-20"
-      (blur)="updateContent('first_title_content', $event)"
-    >
+
+    <p *ngIf="isEditing">
+      <p-editor
+        [(ngModel)]="aboutUsContent.first_title_content"
+        [style]="{ direction: 'rtl' }"
+      ></p-editor>
+    </p>
+    <p *ngIf="!isEditing" (click)="toggleEditing()">
       {{ aboutUsContent.first_title_content }}
     </p>
-    <h4
-      contenteditable="true"
-      class="fw-bold my-4"
-      (blur)="updateContent('second_title', $event)"
-    >
+
+    <!-- Second Title Section -->
+    <h3 *ngIf="isEditing">
+      <p-editor
+        [(ngModel)]="aboutUsContent.second_title"
+        [style]="{ direction: 'rtl' }"
+      ></p-editor>
+    </h3>
+    <h3 *ngIf="!isEditing" (click)="toggleEditing()">
       {{ aboutUsContent.second_title }}
-    </h4>
-    <h5
-      contenteditable="true"
-      class="fw-bold my-4"
-      (blur)="updateContent('third_title', $event)"
-    >
+    </h3>
+
+    <p *ngIf="isEditing">
+      <p-editor
+        [(ngModel)]="aboutUsContent.second_title_content"
+        [style]="{ direction: 'rtl' }"
+      ></p-editor>
+    </p>
+    <p *ngIf="!isEditing" (click)="toggleEditing()">
+      {{ aboutUsContent.second_title_content }}
+    </p>
+
+    <!-- Third Title Section -->
+    <h3 *ngIf="isEditing">
+      <p-editor
+        [(ngModel)]="aboutUsContent.third_title"
+        [style]="{ direction: 'rtl' }"
+      ></p-editor>
+    </h3>
+    <h3 *ngIf="!isEditing" (click)="toggleEditing()">
       {{ aboutUsContent.third_title }}
-    </h5>
-    <ol class="p-0 pe-3 m-0">
-      @for (item of aboutUsContent.third_title_content; track $index) {
-      <li
-        contenteditable="true"
-        class="fs-20"
-        (blur)="updateListContent($index, $event)"
-      >
-        {{ item }}
-      </li>
-      }
-    </ol>
-  </div>
-  <div class="my-3">
-    <button class="btn-main px-3 py-2">حفظ التعديل</button>
+    </h3>
+
+    <div *ngIf="isEditing">
+      <p-editor
+        *ngFor="let item of aboutUsContent.third_title_content; let i = index"
+        [(ngModel)]="aboutUsContent.third_title_content[i]"
+        [style]="{ direction: 'rtl' }"
+      ></p-editor>
+    </div>
+    <div *ngIf="!isEditing">
+      <ul>
+        <li
+          *ngFor="let item of aboutUsContent.third_title_content; let i = index"
+          (click)="toggleEditing()"
+        >
+          {{ item }}
+        </li>
+      </ul>
+    </div>
+
+    <!-- Save Button to save changes -->
+    <button
+      *ngIf="isEditing"
+      class="btn-main px-3 py-2"
+      (click)="saveChanges()"
+    >
+      حفظ التعديل
+    </button>
   </div>
 </section>

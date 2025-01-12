@@ -1,25 +1,42 @@
-import { Component, ElementRef } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, ElementRef, Inject, PLATFORM_ID } from '@angular/core';
+import { Router } from '@angular/router';
+import { User } from '../../../auth/interfaces/ILoginResponse';
 import { AppLayoutServiceService } from '../../services/app.layout.service.service';
-import { CommonModule } from '@angular/common';
-import { MenuItem } from 'primeng/api';
 import { MenuitemComponent } from '../menuitem/menuitem.component';
-
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 @Component({
   selector: 'app-dashboard-sidebar',
   standalone: true,
-  imports: [CommonModule, MenuitemComponent],
+  imports: [MenuitemComponent, ConfirmDialogModule],
   templateUrl: './dashboard-sidebar.component.html',
   styleUrl: './dashboard-sidebar.component.scss',
+  providers: [ConfirmationService],
 })
 export class DashboardSidebarComponent {
   model: any[] = [];
-
   constructor(
     public layoutService: AppLayoutServiceService,
-    public el: ElementRef
+    public el: ElementRef,
+    @Inject(PLATFORM_ID) private _PLATFORM_ID: Object,
+    private _Router: Router,
+    private _ConfirmationService: ConfirmationService
   ) {}
 
   ngOnInit() {
+    let currentRole!: User;
+    if (isPlatformBrowser(this._PLATFORM_ID)) {
+      currentRole = JSON.parse(localStorage.getItem('user') || '');
+    }
+    if (currentRole.role == 'admin') {
+      this.isUserAdmin();
+    } else {
+      this.isUserWriter();
+    }
+  }
+
+  isUserAdmin() {
     this.model = [
       {
         label: 'الرئيسية',
@@ -43,21 +60,6 @@ export class DashboardSidebarComponent {
             label: 'إضافة خبر جديد',
             icon: 'pi pi-fw pi-plus',
             routerLink: ['/dashboard/news-add'],
-          },
-        ],
-      },
-      {
-        label: 'التصنيفات',
-        items: [
-          {
-            label: 'إدارة التصنيفات',
-            icon: 'pi pi-fw pi-tags',
-            routerLink: ['/dashboard/slugs-control'],
-          },
-          {
-            label: 'إضافة تصنيف جديد',
-            icon: 'pi pi-fw pi-tag',
-            routerLink: ['/dashboard/slugs-add'],
           },
         ],
       },
@@ -115,26 +117,61 @@ export class DashboardSidebarComponent {
         label: 'الإعدادات',
         items: [
           {
-            label: 'إعدادات الموقع',
+            label: 'إعدادات لوحة التحكم',
             icon: 'pi pi-fw pi-cog',
           },
           {
-            label: 'إعدادات الحساب',
-            icon: 'pi pi-fw pi-user-edit',
-            routerLink: ['/dashboard/account-setting'],
-          },
-        ],
-      },
-      {
-        label: 'التوثيق',
-        items: [
-          {
-            label: 'المساعدة',
-            icon: 'pi pi-fw pi-question-circle',
-            routerLink: ['/dashboard/help'],
+            label: 'تسجيل الخروج',
+            icon: 'pi pi-fw pi-sign-out',
+            command: () => this.logout(),
           },
         ],
       },
     ];
+  }
+  isUserWriter() {
+    this.model = [
+      {
+        label: 'الرئيسية',
+        items: [
+          {
+            label: 'لوحة التحكم',
+            icon: 'pi pi-fw pi-home',
+          },
+        ],
+      },
+      {
+        label: 'الإعدادات',
+        items: [
+          {
+            label: 'إعدادات لوحة التحكم',
+            icon: 'pi pi-fw pi-cog',
+          },
+          {
+            label: 'تسجيل الخروج',
+            icon: 'pi pi-fw pi-sign-out',
+            command: () => this.logout(),
+          },
+        ],
+      },
+    ];
+  }
+
+  logout(): void {
+    this._ConfirmationService.confirm({
+      message: 'هل أنت متأكد أنك تريد تسجيل الخروج؟',
+      header: 'تأكيد تسجيل الخروج',
+      icon: 'pi pi-exclamation-triangle',
+      rejectLabel: 'لا',
+      acceptLabel: 'نعم',
+      closeOnEscape: true,
+      acceptButtonStyleClass: 'p-button-danger mx-2',
+
+      accept: () => {
+        localStorage.removeItem('user');
+        this._Router.navigate(['/login']);
+      },
+      reject: () => {},
+    });
   }
 }

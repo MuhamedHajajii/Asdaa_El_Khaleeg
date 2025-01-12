@@ -28,14 +28,12 @@ export class BlankNavbarComponent {
   }
 
   searchResults(searchResult: string): void {
-    console.log(searchResult);
     this._Router.navigate([`/archives/search`, searchResult]);
   }
   getSocialMediaLinks(): void {
     this._SocialMediaService.getSocialMediaLinks().subscribe({
       next: (response) => {
         const contact = response?.contact as Contact;
-        // Use Record<string, any> to allow dynamic indexing
         const linksMapping: Record<
           string,
           { label: string; icon: string; alt: string }
@@ -76,11 +74,11 @@ export class BlankNavbarComponent {
             alt: 'اصداء الخليج واتساب',
           },
         };
-
+        console.log(response);
         // Filter non-null social media links
         if (contact) {
           for (const [key, value] of Object.entries(contact)) {
-            if (value && linksMapping[key]) {
+            if (value !== 'null' && linksMapping[key]) {
               this.socialLinks.push({
                 url: value as string,
                 ...linksMapping[key],
@@ -88,7 +86,6 @@ export class BlankNavbarComponent {
             }
           }
         }
-        console.log(response);
       },
     });
   }

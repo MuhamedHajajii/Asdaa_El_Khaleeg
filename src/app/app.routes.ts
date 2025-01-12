@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { loginGuard } from './auth/gurd/login.guard';
 
 export const routes: Routes = [
   {
@@ -96,6 +97,7 @@ export const routes: Routes = [
       import(
         './dashboard/components/dashboard-home/dashboard-home.component'
       ).then((c) => c.DashboardHomeComponent),
+    canActivate: [loginGuard],
     children: [
       {
         path: '',
@@ -117,20 +119,6 @@ export const routes: Routes = [
           import(
             './dashboard/components/dashboard-home/news-control/news-add/news-add.component'
           ).then((c) => c.NewsAddComponent),
-      },
-      {
-        path: 'slugs-control',
-        loadComponent: () =>
-          import(
-            './dashboard/components/dashboard-home/blogs-control/blogs-control/blogs-control.component'
-          ).then((c) => c.BlogsControlComponent),
-      },
-      {
-        path: 'slugs-add',
-        loadComponent: () =>
-          import(
-            './dashboard/components/dashboard-home/blogs-control/blogs-add/blogs-add.component'
-          ).then((c) => c.BlogsAddComponent),
       },
       {
         path: 'comments',

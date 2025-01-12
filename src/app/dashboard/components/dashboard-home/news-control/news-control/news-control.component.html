@@ -48,7 +48,8 @@
               التاريخ <p-sortIcon field="post_date"></p-sortIcon>
             </th>
             <th>القسم</th>
-            <th class="text-center">التحكم</th>
+            <th class="text-center">التعديل</th>
+            <th class="text-center">الحالة</th>
           </tr>
         </ng-template>
 
@@ -59,7 +60,7 @@
               {{ blog.post_id }}
             </td>
             <td
-              class="col-5"
+              class="col-4"
               style="
                 max-width: 250px;
                 white-space: nowrap;
@@ -89,29 +90,39 @@
             </td>
             <td
               class="col-1"
-              pTooltip="{{ blog.category }}"
+              pTooltip="{{ formatToolTip(blog.category) }}"
               tooltipPosition="top"
+              style="
+                max-width: 250px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+              "
             >
               <span class="p-column-title">القسم</span>
-              {{ blog.category | slice : 0 : 15 }}
-              <!-- Trim to first 15 characters -->
+              {{ formatToolTip(blog.category) }}
             </td>
             <td class="col-1">
               <div class="flex justify-content-center gap-2">
+                <!-- Edit Button -->
                 <button
                   pButton
                   pRipple
                   icon="pi pi-pencil"
-                  class="p-button-rounded p-button-success mr-2"
+                  class="p-button-rounded p-button-success"
                   (click)="editBlog(blog)"
                 ></button>
-                <button
-                  pButton
-                  pRipple
-                  icon="pi pi-trash"
-                  class="p-button-rounded p-button-warning"
-                  (click)="deleteBlog(blog)"
-                ></button>
+              </div>
+            </td>
+            <td class="col-1">
+              <div class="flex justify-content-center gap-2">
+                <!-- Switch Input to Publish/Archive -->
+                <p-inputSwitch
+                  [(ngModel)]="blog.publish_status"
+                  [trueValue]="1"
+                  [falseValue]="0"
+                  (onChange)="toggleBlogStatus(blog)"
+                ></p-inputSwitch>
               </div>
             </td>
           </tr>
@@ -176,75 +187,6 @@
           icon="pi pi-check"
           class="p-button-text"
           (click)="saveBlog()"
-        ></button>
-      </ng-template>
-    </p-dialog>
-
-    <!-- Confirm Delete Dialog -->
-    <p-dialog
-      [(visible)]="deleteBlogDialog"
-      header="تأكيد"
-      [modal]="true"
-      [style]="{ width: '450px' }"
-    >
-      <div class="flex align-items-center justify-content-center">
-        <i class="pi pi-exclamation-triangle mx-2" style="font-size: 2rem"></i>
-        <span *ngIf="blog"
-          >هل أنت متأكد أنك تريد حذف <b>{{ blog.post_title }}</b
-          >؟</span
-        >
-      </div>
-      <ng-template pTemplate="footer">
-        <button
-          pButton
-          pRipple
-          icon="pi pi-times"
-          class="p-button-text"
-          label="لا"
-          (click)="deleteBlogDialog = false"
-        ></button>
-        <button
-          pButton
-          pRipple
-          icon="pi pi-check"
-          class="p-button-text"
-          label="نعم"
-          (click)="confirmDelete()"
-        ></button>
-      </ng-template>
-    </p-dialog>
-
-    <!-- Confirm Delete Selected Blogs Dialog -->
-    <p-dialog
-      [(visible)]="deleteBlogsDialog"
-      header="تأكيد"
-      [modal]="true"
-      [style]="{ width: '450px' }"
-    >
-      <div
-        class="flex flex-row-reverse align-items-center justify-content-center"
-      >
-        <i class="pi pi-exclamation-triangle mx-2" style="font-size: 2rem"></i>
-        <span *ngIf="selectedBlogs.length">
-          هل أنت متأكد أنك تريد حذف الموضوع المحدد؟
-        </span>
-      </div>
-      <ng-template pTemplate="footer">
-        <button
-          pButton
-          pRipple
-          icon="pi pi-times"
-          class="p-button-text"
-          label=" لا "
-          (click)="deleteBlogsDialog = false"
-        ></button>
-        <button
-          pButton
-          pRipple
-          icon="pi pi-check"
-          class="p-button-text"
-          label=" نعم "
-          (click)="confirmDeleteSelected()"
         ></button>
       </ng-template>
     </p-dialog>

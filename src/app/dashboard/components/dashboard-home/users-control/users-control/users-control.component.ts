@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
-import { Writer } from '../../../../../core/interfaces/slider/IWriter';
+import { Component, OnInit } from '@angular/core';
+import { IWriter, Writer } from '../../../../../core/interfaces/IWriters';
 import { MessageService } from 'primeng/api';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // For ngModel binding
-import { ButtonModule } from 'primeng/button'; // For pButton
-import { TableModule } from 'primeng/table'; // For pTable
-import { DialogModule } from 'primeng/dialog'; // For pDialog
-import { ToastModule } from 'primeng/toast'; // For p-toast
-import { InputTextModule } from 'primeng/inputtext'; // For pInputText
-import { InputSwitchModule } from 'primeng/inputswitch'; // Ensure this is imported
+import { FormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import { TableModule } from 'primeng/table';
+import { DialogModule } from 'primeng/dialog';
+import { ToastModule } from 'primeng/toast';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputSwitchModule } from 'primeng/inputswitch';
 import { HijriDatePipe } from '../../../../../core/pipes/date-hijri.pipe';
+import { WritersService } from '../../../../services/writers.service';
 
 @Component({
   selector: 'app-users-control',
@@ -22,23 +23,25 @@ import { HijriDatePipe } from '../../../../../core/pipes/date-hijri.pipe';
     DialogModule,
     ToastModule,
     InputTextModule,
-    InputSwitchModule, // Import the InputSwitchModule
+    InputSwitchModule,
     HijriDatePipe,
   ],
   templateUrl: './users-control.component.html',
   styleUrls: ['./users-control.component.scss'],
   providers: [MessageService],
 })
-export class UsersControlComponent {
-  writers: Writer[] = []; // Array to store the list of writers
-  cols!: any[];
+export class UsersControlComponent implements OnInit {
+  writers: IWriter[] = [];
+  cols: any[] = [];
   selectedWriter: Writer = {} as Writer;
   writerDialog: boolean = false;
   deleteWriterDialog: boolean = false;
   submitted: boolean = false;
-  selectedWriters: any[] = [];
 
-  constructor(private messageService: MessageService) {}
+  constructor(
+    private writersService: WritersService,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit() {
     this.cols = [
@@ -51,110 +54,154 @@ export class UsersControlComponent {
     this.loadWriters();
   }
 
+  // Load writers from API
   loadWriters() {
-    // Simulate fetching data from an API
-    this.writers = [
-      {
-        id: 1,
-        writer_name: 'Khalfia',
-        writer_status: 0,
-        created_at: '2025-01-08 16:04:47',
-        updated_at: '2025-01-08 16:10:36',
+    this.writersService.getAllWriters().subscribe({
+      next: (response) => {
+        this.writers = response.rows;
+        console.log(response.rows);
       },
-      {
-        id: 2,
-        writer_name: 'Sara',
-        writer_status: 1,
-        created_at: '2024-12-15 10:20:10',
-        updated_at: '2024-12-15 10:25:05',
-      },
-      {
-        id: 3,
-        writer_name: 'Mohamed',
-        writer_status: 1,
-        created_at: '2023-11-02 14:30:20',
-        updated_at: '2023-11-02 14:35:00',
-      },
-      {
-        id: 4,
-        writer_name: 'Ali',
-        writer_status: 1,
-        created_at: '2022-05-30 09:00:00',
-        updated_at: '2022-06-10 12:15:00',
-      },
-      {
-        id: 5,
-        writer_name: 'Layla',
-        writer_status: 0,
-        created_at: '2023-08-18 17:05:55',
-        updated_at: '2023-08-18 17:15:30',
-      },
-    ];
+      error: () =>
+        this.messageService.add({
+          severity: 'error',
+          summary: 'خطأ',
+          detail: 'حدث خطأ أثناء تحميل قائمة الكتاب',
+        }),
+    });
   }
 
+  // Open add writer dialog
   openAddWriterDialog() {
-    this.selectedWriter = {} as Writer; // Reset selected writer
+    this.selectedWriter = {} as Writer;
+    this.submitted = false;
     this.writerDialog = true;
   }
 
+  // Save writer (Add or Update)
   saveWriter() {
     this.submitted = true;
-    if (this.selectedWriter.writer_name) {
-      if (this.selectedWriter.id) {
-        // Update existing writer
-        const index = this.writers.findIndex(
-          (writer) => writer.id === this.selectedWriter.id
-        );
-        this.writers[index] = this.selectedWriter;
-      } else {
-        // Add new writer
-        this.selectedWriter.id = this.writers.length + 1; // Generate a new ID
-        this.writers.push(this.selectedWriter);
-      }
-      this.writerDialog = false;
-      this.messageService.add({
-        severity: 'success',
-        summary: 'تم الحفظ',
-        detail: 'تم حفظ البيانات بنجاح',
+
+    if (!this.selectedWriter.writer_name) return;
+
+    if (this.selectedWriter.id) {
+      let writer = {
+        writer_name: this.selectedWriter.writer_name,
+        writer_status: this.selectedWriter.writer_status,
+      };
+      // Update existing writer
+      this.writersService
+        .updateWriter(this.selectedWriter.id, writer)
+        .subscribe({
+          next: (response) => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'نجاح',
+              detail: 'تم تحديث الكاتب بنجاح',
+            });
+            this.loadWriters();
+          },
+          error: () =>
+            this.messageService.add({
+              severity: 'error',
+              summary: 'خطأ',
+              detail: 'حدث خطأ أثناء تحديث الكاتب',
+            }),
+        });
+    } else {
+      let writer = {
+        writer_name: this.selectedWriter.writer_name,
+        writer_status: '1',
+      };
+      // Add new writer
+      this.writersService.addWriter(writer).subscribe({
+        next: (response) => {
+          console.log(response);
+          if (response.message) {
+          }
+          this.messageService.add({
+            severity: 'success',
+            summary: 'نجاح',
+            detail: 'تم إضافة الكاتب بنجاح',
+          });
+          this.loadWriters();
+        },
+        error: () =>
+          this.messageService.add({
+            severity: 'error',
+            summary: 'خطأ',
+            detail: 'حدث خطأ أثناء إضافة الكاتب',
+          }),
       });
     }
+
+    this.writerDialog = false;
+    this.selectedWriter = {} as Writer;
   }
 
-  editWriter(writer: Writer) {
-    this.selectedWriter = { ...writer }; // Copy the writer data for editing
-    this.writerDialog = true;
-  }
-
+  // Delete writer
   deleteWriter(writer: Writer) {
     this.selectedWriter = writer;
     this.deleteWriterDialog = true;
   }
 
   confirmDeleteWriter() {
-    const index = this.writers.indexOf(this.selectedWriter);
-    if (index > -1) {
-      this.writers.splice(index, 1); // Remove the writer
-      this.deleteWriterDialog = false;
-      this.messageService.add({
-        severity: 'error',
-        summary: 'تم الحذف',
-        detail: 'تم حذف الكاتب بنجاح',
+    this.writersService.disableWriter(this.selectedWriter.id).subscribe({
+      next: () => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'نجاح',
+          detail: 'تم حذف الكاتب بنجاح',
+        });
+        this.loadWriters();
+      },
+      error: () =>
+        this.messageService.add({
+          severity: 'error',
+          summary: 'خطأ',
+          detail: 'حدث خطأ أثناء حذف الكاتب',
+        }),
+    });
+
+    this.deleteWriterDialog = false;
+  }
+
+  // Toggle writer status
+  toggleStatus(writer: Writer) {
+    console.log(writer.writer_status);
+    console.log(writer.id);
+    if (parseInt(writer.writer_status) === 0) {
+      {
+        this.writersService.disableWriter(writer.id).subscribe({
+          next: (response) => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'نجاح',
+              detail: 'تم تحديث حالة الكاتب بنجاح',
+            });
+          },
+        });
+      }
+    } else {
+      this.writersService.enableWriter(writer.id).subscribe({
+        next: (response) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'نجاح',
+            detail: 'تم تحديث حالة الكاتب بنجاح',
+          });
+        },
       });
     }
   }
 
+  openEditWriterDialog(writer: Writer) {
+    this.selectedWriter = { ...writer };
+    this.writerDialog = true;
+  }
+
+  // Hide dialog
   hideDialog() {
     this.writerDialog = false;
     this.submitted = false;
-  }
-
-  onGlobalFilter(dt: any, event: any) {
-    dt.filterGlobal(event.target.value, 'contains');
-  }
-
-  // Using the p-inputSwitch to toggle the writer's status
-  toggleStatus(writer: Writer) {
-    // Toggle between 0 and 1
-    writer.writer_status = writer.writer_status === 0 ? 1 : 0;
   }
 }

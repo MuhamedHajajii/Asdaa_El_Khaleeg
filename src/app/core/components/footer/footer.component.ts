@@ -75,7 +75,6 @@ export class FooterComponent {
             }
           }
         }
-        console.log(response);
       },
     });
   }

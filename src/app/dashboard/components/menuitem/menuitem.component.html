@@ -4,11 +4,11 @@
     {{ item.label }}
   </div>
 
-  <!-- Non-Router Link Items -->
+  <!-- Non-Router Link Items (with command support) -->
   <a
     *ngIf="(!item.routerLink || item.items) && item.visible !== false"
-    [attr.href]="item.url"
-    (click)="onConfigButtonClick()"
+    [attr.href]="item.url || null"
+    (click)="item.command ? item.command() : onConfigButtonClick()"
     [ngClass]="item.class"
     [attr.target]="item.target"
     tabindex="0"

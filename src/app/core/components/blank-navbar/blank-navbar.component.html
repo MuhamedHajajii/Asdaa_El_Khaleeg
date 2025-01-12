@@ -25,11 +25,15 @@
       <div class="social__icons d-none d-sm-block">
         <ul class="list-unstyled p-0 m-0 d-flex flex-row-reverse gap-1">
           @for (link of socialLinks; track $index) {
-            <li>
-              <a [href]="link.url" target="_blank" [attr.aria-label]="'find us on ' + link.label">
-                <img [src]="link.icon" [alt]="link.alt" />
-              </a>
-            </li>
+          <li>
+            <a
+              [href]="link.url"
+              target="_blank"
+              [attr.aria-label]="'find us on ' + link.label"
+            >
+              <img [src]="link.icon" [alt]="link.alt" />
+            </a>
+          </li>
           }
         </ul>
       </div>
@@ -89,7 +93,7 @@
         <ul class="navbar-nav justify-content-between p-0">
           <li class="nav-item mx-1">
             <a
-              class="nav-link px-1 px-md-2  px-xl-3"
+              class="nav-link px-1 px-md-2 px-xl-3"
               aria-current="page"
               routerLink="/"
               >الرئيسية</a
@@ -97,56 +101,56 @@
           </li>
           <li class="nav-item mx-1">
             <a
-              class="nav-link px-1 px-md-2  px-xl-3"
+              class="nav-link px-1 px-md-2 px-xl-3"
               [routerLink]="['/archives/blogs', '01']"
               >أخبار محلية</a
             >
           </li>
           <li class="nav-item mx-1">
             <a
-              class="nav-link px-1 px-md-2  px-xl-3"
+              class="nav-link px-1 px-md-2 px-xl-3"
               [routerLink]="['/archives/blogs', '02']"
               >أخبار العالم</a
             >
           </li>
           <li class="nav-item mx-1">
             <a
-              class="nav-link px-1 px-md-2  px-xl-3"
+              class="nav-link px-1 px-md-2 px-xl-3"
               [routerLink]="['/archives/blogs', '03']"
               >الرياضة</a
             >
           </li>
           <li class="nav-item mx-1">
             <a
-              class="nav-link px-1 px-md-2  px-xl-3"
+              class="nav-link px-1 px-md-2 px-xl-3"
               [routerLink]="['/archives/blogs', 'f']"
               >ثقافة و فن</a
             >
           </li>
           <li class="nav-item mx-1">
             <a
-              class="nav-link px-1 px-md-2  px-xl-3"
+              class="nav-link px-1 px-md-2 px-xl-3"
               [routerLink]="['/archives/blogs', '04']"
               >الاقتصاد</a
             >
           </li>
           <li class="nav-item mx-1 d-none d-xl-block">
             <a
-              class="nav-link px-1 px-md-2  px-xl-3"
+              class="nav-link px-1 px-md-2 px-xl-3"
               [routerLink]="['/archives/blogs', '05']"
               >التعليم</a
             >
           </li>
           <li class="nav-item mx-1 d-none d-xl-block">
             <a
-              class="nav-link px-1 px-md-2  px-xl-3"
+              class="nav-link px-1 px-md-2 px-xl-3"
               [routerLink]="['/archives/article', '08']"
               >المقلات</a
             >
           </li>
 
           <li class="nav-item drop-down-container mx-1 position-relative z-3">
-            <a class="nav-link px-1 px-md-2  px-xl-3">
+            <a class="nav-link px-1 px-md-2 px-xl-3">
               اخري
               <img
                 src="./assets/images/navbar/navbar-dropdown-icon.svg"
@@ -174,7 +178,7 @@
               </li>
               <li class="text-black">
                 <a
-                  class="nav-link px-1 px-md-2  px-xl-3"
+                  class="nav-link px-1 px-md-2 px-xl-3"
                   [routerLink]="['/archives/blogs', '09']"
                   >اخبار المجتمع</a
                 >

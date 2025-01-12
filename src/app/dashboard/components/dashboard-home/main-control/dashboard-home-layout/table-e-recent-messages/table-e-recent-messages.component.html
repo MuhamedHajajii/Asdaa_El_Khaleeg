@@ -1,11 +1,11 @@
-<p-card header="📧 أحدث رسائل اتصل بنا">
+<p-card header=" أحدث رسائل اتصل بنا">
   <p-table [value]="recentEmails" [rows]="5">
     <ng-template pTemplate="header">
       <tr>
-        <th>👤 الاسم</th>
-        <th>📌 العنوان</th>
-        <th class="text-center">🗓️ التاريخ</th>
-        <th class="text-center">📨 عرض الرسالة</th>
+        <th><i class="pi pi-user"></i> الاسم</th>
+        <th><i class="pi pi-map"></i> العنوان</th>
+        <th class="text-center"><i class="pi pi-calendar"></i> التاريخ</th>
+        <th class="text-center"><i class="pi pi-envelope"></i> عرض الرسالة</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-email>

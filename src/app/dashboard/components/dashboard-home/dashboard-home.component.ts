@@ -184,5 +184,8 @@ export class DashboardHomeComponent {
     if (this.menuOutsideClickListener) {
       this.menuOutsideClickListener();
     }
+    if (isPlatformBrowser(this._PLATFORM_ID)) {
+      localStorage.removeItem('user');
+    }
   }
 }

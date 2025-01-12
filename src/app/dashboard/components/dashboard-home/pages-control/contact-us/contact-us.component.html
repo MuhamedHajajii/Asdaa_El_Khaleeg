@@ -1,19 +1,41 @@
 <p-card header="أحدث رسائل اتصل بنا" class="contact-card">
-  <p-table [value]="emails" [paginator]="true" [rows]="5" [responsive]="true">
+  <p-table
+    [value]="emails"
+    [paginator]="true"
+    [rows]="5"
+    [responsive]="true"
+    [sortField]="'date'"
+    [sortOrder]="-1"
+  >
     <ng-template pTemplate="header">
       <tr>
-        <th>الاسم</th>
-        <th>العنوان</th>
-        <th>التاريخ</th>
-        <th>إجراء</th>
+        <th class="text-center" pSortableColumn="id">
+          ID <p-sortIcon field="id"></p-sortIcon>
+        </th>
+        <th class="text-end" pSortableColumn="name">
+          الاسم <p-sortIcon field="name"></p-sortIcon>
+        </th>
+        <th class="text-end" pSortableColumn="subject">
+          العنوان <p-sortIcon field="subject"></p-sortIcon>
+        </th>
+        <th class="text-center" pSortableColumn="date">
+          التاريخ <p-sortIcon field="date"></p-sortIcon>
+        </th>
+        <th class="text-center">إجراء</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-email>
       <tr>
-        <td>{{ email.name }}</td>
-        <td>{{ email.subject }}</td>
-        <td>{{ email.date | hijriDate }}</td>
-        <td>
+        <td class="text-center">{{ email.id }}</td>
+        <td class="text-end">{{ email.name }}</td>
+        <td class="text-end">
+          <span pTooltip="{{ email.subject }}" [tooltipPosition]="'top'">
+            {{ email.subject | slice : 0 : 20
+            }}{{ email.subject.length > 20 ? "..." : "" }}
+          </span>
+        </td>
+        <td class="text-center">{{ email.date | hijriDate }}</td>
+        <td class="text-center">
           <button
             pButton
             label="عرض التفاصيل"
@@ -36,11 +58,13 @@
   [responsive]="true"
   [closeOnEscape]="true"
 >
-  <div *ngIf="selectedEmail">
+  @if (selectedEmail) {
+  <div>
     <h3>الاسم: {{ selectedEmail.name }}</h3>
     <h5>البريد الإلكتروني: {{ selectedEmail.email }}</h5>
     <p><strong>العنوان:</strong> {{ selectedEmail.subject }}</p>
     <p><strong>التاريخ:</strong> {{ selectedEmail.date | hijriDate }}</p>
+    <p><strong>رقم الهاتف:</strong> {{ selectedEmail.phone }}</p>
     <p><strong>المحتوى:</strong></p>
     <p>{{ selectedEmail.message }}</p>
     <p-footer>
@@ -52,4 +76,5 @@
       ></button>
     </p-footer>
   </div>
+  }
 </p-dialog>

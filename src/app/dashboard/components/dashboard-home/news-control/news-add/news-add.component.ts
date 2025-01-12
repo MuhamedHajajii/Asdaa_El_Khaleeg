@@ -1,32 +1,35 @@
 import { CommonModule } from '@angular/common';
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
-  FormBuilder,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 // PrimeNG Imports
-import { EditorModule } from 'primeng/editor';
-import { FileUploadModule } from 'primeng/fileupload';
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
-import { CardModule } from 'primeng/card';
-import moment from 'moment-hijri'; // Import the Hijri moment library
 import { FormsModule } from '@angular/forms';
 import { JoditAngularModule } from 'jodit-angular';
-import { JoditConfig, NgxJoditComponent } from 'ngx-jodit';
 import 'jodit/esm/plugins/add-new-line/add-new-line.js';
 import 'jodit/esm/plugins/bold/bold.js';
 import 'jodit/esm/plugins/fullsize/fullsize.js';
 import 'jodit/esm/plugins/indent/indent.js';
-import 'jodit/esm/plugins/source/source.js';
 import 'jodit/esm/plugins/resizer/resizer.js';
-import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import 'jodit/esm/plugins/source/source.js';
+import moment from 'moment-hijri'; // Import the Hijri moment library
 import { NgxHijriDatepickerModule } from 'ngx-hijri-datepicker';
+import { JoditConfig, NgxJoditComponent } from 'ngx-jodit';
+import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
 import { DropdownModule } from 'primeng/dropdown';
+import { EditorModule } from 'primeng/editor';
+import { FileUploadModule } from 'primeng/fileupload';
+import { InputTextModule } from 'primeng/inputtext';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { ToastModule } from 'primeng/toast';
+import { NewsControlService } from '../../../../services/news-control.service';
+import { CategoriesService } from '../../../../services/categories.service';
+import { WritersService } from '../../../../services/writers.service';
 
 @Component({
   selector: 'app-news-add',
@@ -47,69 +50,148 @@ import { DropdownModule } from 'primeng/dropdown';
     ToastModule,
     NgxHijriDatepickerModule,
     DropdownModule,
+    MultiSelectModule,
   ],
   templateUrl: './news-add.component.html',
   styleUrl: './news-add.component.scss',
   providers: [MessageService],
 })
-export class NewsAddComponent {
+export class NewsAddComponent implements OnInit {
   articleContent: string = ''; // Used for the editor content
+
   isPreview: boolean = false; // Toggle preview mode
+
   selectedHijriDate = moment().format('iYYYY-iMM-iDD');
-  constructor(private fb: FormBuilder) {}
-  onDateSelected(event: any) {
-    console.log(event);
-  }
+
+  value = '';
+
+  _optionsStr = '';
+
+  authors: any[] = [];
+
+  categories: any[] = [];
+
   addArticleForm: FormGroup = new FormGroup({
+    post_image: new FormControl(''),
     post_title: new FormControl('', [Validators.required]),
     author_name: new FormControl('', [Validators.required]),
     post_date: new FormControl('', [Validators.required]),
     post_content: new FormControl('', [Validators.required]),
-    post_image: new FormControl('', [Validators.required]),
+    categories: new FormControl([], [Validators.required]),
   });
-  authors: any[] = [
-    { label: 'خلفية محمد', value: 'Khalfia Mohammed' },
-    { label: 'سارة عبدالله', value: 'Sara Abdullah' },
-    { label: 'محمد صالح', value: 'Mohamed Saleh' },
-    { label: 'علي أحمد', value: 'Ali Ahmed' },
-    { label: 'ليلى حسن', value: 'Layla Hassan' },
-  ];
 
-  // Other properties and methods...
+  constructor(
+    private _CategoriesService: CategoriesService,
+    private _WritersService: WritersService,
+    private _NewsControlService: NewsControlService,
+    private _MessageService: MessageService
+  ) {}
 
-  navigateToAddAuthor() {
-    // Navigate to the author control page
-    // You can use Angular's Router to navigate to the desired route
-    // this.router.navigate(['/author-control']);
+  ngOnInit(): void {
+    this.getAllAuthors();
+    this.getAllCategories();
   }
+
+  getAllAuthors(): void {
+    this._WritersService.getAllWriters().subscribe({
+      next: (response) => {
+        console.log(response);
+        this.authors = response.rows.map((e) => {
+          return {
+            label: e.writer_name,
+            value: e.id,
+          };
+        });
+      },
+    });
+  }
+  getAllCategories(): void {
+    this._CategoriesService.getAllCategories().subscribe({
+      next: (response) => {
+        console.log(response);
+        this.categories = response.rows.map((e) => {
+          return {
+            label: e.name,
+            value: e.term_id.toString(),
+          };
+        });
+      },
+    });
+  }
+
+  onDateSelected(event: any) {
+    console.log(event);
+  }
+
   // Handle the form submission
   onSubmit(): void {
-    if (this.addArticleForm.valid) {
-      const newArticle = this.addArticleForm.value;
-      console.log('Article to submit:', newArticle);
-      // Logic to send the article to the backend or save
+    // if (this.addArticleForm.valid) {
+    if (true) {
+      const formValues = this.addArticleForm.value;
+
+      // Create FormData object
+      const formData = new FormData();
+      formData.append('post_title', formValues.post_title);
+      formData.append('post_content', formValues.post_content);
+      formData.append('meta_title', formValues.post_title);
+      formData.append('meta_description', formValues.post_title);
+      formData.append('author_name', formValues.author_name);
+      formData.append('post_date', formValues.post_date);
+      formData.append('publish_status', '1');
+      formData.append(
+        'post_image',
+        formValues.post_image,
+        formValues.post_image.name
+      );
+
+      formValues.categories.forEach((element: any) => {
+        formData.append('categoryIDS[]', element);
+      });
+
+      // Send the form data to your API
+      this._NewsControlService.addNews(formData).subscribe({
+        next: (response) => {
+          console.log(response);
+          this._MessageService.add({
+            severity: 'success',
+            summary: 'تم النشر بنجاح',
+            detail: 'تمت إضافة المقال بنجاح!',
+          });
+        },
+        error: (err) => {
+          console.log(err);
+          this._MessageService.add({
+            severity: 'error',
+            summary: 'خطأ في النشر',
+            detail: 'حدث خطأ أثناء محاولة نشر المقال.',
+          });
+        },
+      });
+    } else {
+      console.log('Form is invalid!');
     }
   }
 
   // Handle file input for the image
   // Handle file selection
-  onFileSelect(event: any) {
-    console.log('File selected:', event.files);
-    // You can perform additional actions here like previewing the image or validating the file
+  onFileSelect(event: any): void {
+    const file = event.files[0];
+    if (file) {
+      this.addArticleForm.patchValue({
+        post_image: file,
+      });
+    }
   }
 
   // Handle file upload (optional if you want to handle the upload process manually)
   onUpload(event: any) {
     console.log('File uploaded:', event.files);
-    // You can perform actions like calling an API or storing the file on the server here
   }
 
   // Show the preview of the article
   previewArticle(): void {
     this.isPreview = true;
   }
-  value = '';
-  _optionsStr = '';
 
   get optionsStr(): string {
     return this._optionsStr;
@@ -139,10 +221,4 @@ export class NewsAddComponent {
     language: 'ar',
     minHeight: 600,
   };
-
-  ngOnInit(): void {
-    setTimeout(() => {
-      console.log(this.options.buttons);
-    }, 0);
-  }
 }

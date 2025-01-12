@@ -21,7 +21,6 @@
         [rowsPerPageOptions]="[100, 500, 1000]"
         [showCurrentPageReport]="true"
         currentPageReportTemplate="عرض {first} إلى {last} من {totalRecords} إدخالات"
-        [(selection)]="selectedWriters"
         selectionMode="multiple"
         [rowHover]="true"
         dataKey="id"
@@ -34,11 +33,12 @@
             <span class="block mt-2 md:mt-0 p-input-icon-left">
               <i class="pi pi-search"></i>
               <input
+                #globalFilter
                 pInputText
                 type="text"
-                (input)="onGlobalFilter(dt, $event)"
                 placeholder="ابحث..."
                 class="w-full sm:w-auto"
+                (input)="dt.filterGlobal(globalFilter.value, 'contains')"
               />
             </span>
           </div>
@@ -73,6 +73,8 @@
               <span class="p-column-title">الحالة</span>
               <p-inputSwitch
                 [(ngModel)]="writer.writer_status"
+                [trueValue]="1"
+                [falseValue]="0"
                 (onChange)="toggleStatus(writer)"
               />
             </td>
@@ -91,15 +93,15 @@
                   pRipple
                   icon="pi pi-pencil"
                   class="p-button-rounded p-button-success mr-2"
-                  (click)="editWriter(writer)"
+                  (click)="openEditWriterDialog(writer)"
                 ></button>
-                <button
+                <!-- <button
                   pButton
                   pRipple
                   icon="pi pi-trash"
                   class="p-button-rounded p-button-warning"
                   (click)="deleteWriter(writer)"
-                ></button>
+                ></button> -->
               </div>
             </td>
           </tr>

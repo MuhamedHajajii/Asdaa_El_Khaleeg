@@ -1,8 +1,12 @@
 <ng-container>
   @for (item of model; track $index) {
-        <ul class="layout-menu">
-       <app-menuitem *ngIf="!item.separator" [item]="item" [index]="$index" [root]="true" />
-       <li *ngIf="item.separator" class="menu-separator"></li>
-      </ul>
-      }
-  </ng-container>
+  <ul class="layout-menu">
+    @if (!item.separator) {
+    <app-menuitem [item]="item" [index]="$index" [root]="true" />
+    } @if (item.separator) {
+    <li class="menu-separator"></li>
+    }
+  </ul>
+  }
+</ng-container>
+<p-confirmDialog></p-confirmDialog>
