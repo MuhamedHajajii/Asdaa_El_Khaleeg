@@ -40,10 +40,12 @@
         <i class="pi pi-user"></i>
         <span>الملف الشخصي</span>
       </button>
+      @if (name.length>0) {
       <span class="d-flex align-items-center"
-        >السلام عليكم
+        >السلام عليكم مرحبا ا/
         <span class="text-main mx-1 fw-bold">{{ name }}</span></span
       >
+      }
       <!-- <button class="p-link layout-topbar-button" [routerLink]="'/documentation'">
             <i class="pi pi-cog"></i>
             <span>Settings</span>

@@ -87,6 +87,11 @@ export class DashboardSidebarComponent {
         label: 'الصفحات',
         items: [
           {
+            label: 'الهيكل الإداري',
+            icon: 'pi pi-fw pi-sitemap',
+            routerLink: ['/dashboard/administrator'],
+          },
+          {
             label: 'حول الموقع',
             icon: 'pi pi-fw pi-info-circle',
             routerLink: ['/dashboard/about-us'],

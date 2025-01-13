@@ -1,6 +1,6 @@
 <p-card header="أحدث المواضيع">
   <p-table
-    [value]="mostViewedArticles"
+    [value]="latestBlogs"
     [rows]="5"
     scrollable="true"
     [style]="{ 'max-width': '100%' }"
@@ -15,7 +15,7 @@
           <i class="pi pi-calendar" style="margin-right: 5px"></i> تاريخ النشر
         </th>
         <th class="text-center">
-          <i class="pi pi-eye" style="margin-right: 5px"></i> معاينة
+          <i class="pi pi-eye" style="margin-right: 5px"></i>
         </th>
       </tr>
     </ng-template>
@@ -29,18 +29,18 @@
             overflow: hidden;
             text-overflow: ellipsis;
           "
-          pTooltip="{{ article.title }}"
+          pTooltip="{{ article.post_title }}"
           tooltipPosition="top"
         >
-          {{ article.title }}
+          {{ article.post_title }}
         </td>
         <td
           class="col-2 text-center"
           style="max-width: 150px"
-          pTooltip="{{ article.publishedDate | hijriDate }} تاريخ النشر"
+          pTooltip="{{ article.created_at | hijriDate }} تاريخ النشر"
           tooltipPosition="top"
         >
-          {{ article.publishedDate | hijriDate }}
+          {{ article.created_at | hijriDate }}
         </td>
         <td class="col-1 text-center" style="width: 15%">
           <button
@@ -52,6 +52,7 @@
             aria-label="Preview Article"
             pTooltip="معاينة المقال"
             tooltipPosition="top"
+            [routerLink]="['/details', article.id]"
           ></button>
         </td>
       </tr>

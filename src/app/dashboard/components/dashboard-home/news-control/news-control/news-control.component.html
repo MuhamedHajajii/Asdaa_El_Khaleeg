@@ -1,3 +1,4 @@
+@if (blogs.length > 0) {
 <div class="grid">
   <div class="col-12">
     <div class="card px-6 py-6">
@@ -9,7 +10,7 @@
         [columns]="cols"
         responsiveLayout="scroll"
         [rows]="100"
-        [globalFilterFields]="['post_title', 'author_name']"
+        [globalFilterFields]="['post_title', 'author_name', 'category']"
         [paginator]="true"
         [rowsPerPageOptions]="[100, 500, 1000]"
         [showCurrentPageReport]="true"
@@ -57,7 +58,7 @@
           <tr>
             <td class="col-1 text-center">
               <span class="p-column-title">معرف</span>
-              {{ blog.post_id }}
+              {{ blog.id }}
             </td>
             <td
               class="col-4"
@@ -75,7 +76,7 @@
             </td>
 
             <td
-              class="col-2"
+              class="col-1"
               pTooltip="{{ blog.author_name }}"
               tooltipPosition="top"
             >
@@ -84,7 +85,7 @@
               <!-- Trim to first 25 characters -->
             </td>
 
-            <td class="col-1">
+            <td class="col-2">
               <span class="p-column-title">التاريخ</span>
               {{ blog.post_date | hijriDate }}
             </td>
@@ -110,7 +111,7 @@
                   pRipple
                   icon="pi pi-pencil"
                   class="p-button-rounded p-button-success"
-                  (click)="editBlog(blog)"
+                  [routerLink]="['/dashboard/news-add', blog.id]"
                 ></button>
               </div>
             </td>
@@ -129,66 +130,10 @@
         </ng-template>
       </p-table>
     </div>
-
-    <!-- Blog Dialog for Editing -->
-    <p-dialog
-      [(visible)]="blogDialog"
-      [style]="{ width: '450px' }"
-      header="تفاصيل المقال"
-      [modal]="true"
-      class="p-fluid"
-    >
-      <ng-template pTemplate="content">
-        <div class="field">
-          <label for="post_title">العنوان</label>
-          <input
-            type="text"
-            pInputText
-            id="post_title"
-            [(ngModel)]="blog.post_title"
-            required
-            autofocus
-            [ngClass]="{
-              'ng-invalid ng-dirty': submitted && !blog.post_title
-            }"
-          />
-          <small
-            class="ng-dirty ng-invalid"
-            *ngIf="submitted && !blog.post_title"
-            >العنوان مطلوب.</small
-          >
-        </div>
-        <div class="field">
-          <label for="post_content">المحتوى</label>
-          <textarea
-            id="post_content"
-            pInputTextarea
-            [(ngModel)]="blog.post_content"
-            required
-            rows="3"
-            cols="20"
-          ></textarea>
-        </div>
-      </ng-template>
-
-      <ng-template pTemplate="footer">
-        <button
-          pButton
-          pRipple
-          label="إلغاء"
-          icon="pi pi-times"
-          class="p-button-text"
-          (click)="hideDialog()"
-        ></button>
-        <button
-          pButton
-          pRipple
-          label="حفظ"
-          icon="pi pi-check"
-          class="p-button-text"
-          (click)="saveBlog()"
-        ></button>
-      </ng-template>
-    </p-dialog>
   </div>
 </div>
+} @else {
+<div class="w-100 min-h-50vh d-flex justify-content-center align-items-center">
+  جار تحميل البيانات ... <i class="pi pi-spin pi-spinner"></i>
+</div>
+}

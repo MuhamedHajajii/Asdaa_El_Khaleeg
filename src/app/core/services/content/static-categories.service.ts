@@ -25,4 +25,10 @@ export class StaticCategoriesService {
       this._HttpClient.get(`${WEB_SITE_BASE_URL}blogs/i`)
     );
   }
+
+  increaseView(): Observable<any> {
+    return <Observable<any>>(
+      this._HttpClient.post(`${WEB_SITE_BASE_URL}storeVisitCounter`, {})
+    );
+  }
 }

@@ -8,3 +8,7 @@ section {
   background-position: center;
   background-size: 250px;
 }
+
+::ng-deep .ql-editor {
+  text-align: right;
+}

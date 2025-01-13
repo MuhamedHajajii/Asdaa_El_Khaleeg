@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { ChartModule } from 'primeng/chart';
 import { TableModule } from 'primeng/table';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { Chart } from 'chart.js';
+import { MostViewedCategoriesBlog } from '../../../../../../core/interfaces/IStatics';
 
 // Register the Data Labels Plugin
 Chart.register(ChartDataLabels);
@@ -16,27 +17,23 @@ Chart.register(ChartDataLabels);
   styleUrl: './table-c-most-views-categories.component.scss',
 })
 export class TableCMostViewsCategoriesComponent {
-  // Data for the Most Viewed Categories
-  mostViewedCategories = [
-    { name: 'أخبار محلية', views: 500 },
-    { name: 'الرياضة', views: 450 },
-    { name: 'الاقتصاد', views: 300 },
-    { name: 'التعليم', views: 250 },
-    { name: 'المقلات', views: 150 },
-  ];
+  @Input() mostViewedCategoriesBlog!: MostViewedCategoriesBlog[];
 
   // Chart data
   categoryChartData: any;
   categoryChartOptions: any;
 
-  ngOnInit(): void {
+  ngAfterContentInit(): void {
     this.prepareChartData();
   }
-
   private prepareChartData() {
     // Extract labels and data for the chart
-    const labels = this.mostViewedCategories.map((category) => category.name);
-    const data = this.mostViewedCategories.map((category) => category.views);
+    const labels = this.mostViewedCategoriesBlog.map(
+      (category) => category.category_name
+    );
+    const data = this.mostViewedCategoriesBlog.map(
+      (category) => category.total_views
+    );
 
     // Prepare the chart data structure
     this.categoryChartData = {

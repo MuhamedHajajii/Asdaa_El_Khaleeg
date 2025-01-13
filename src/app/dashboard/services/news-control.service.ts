@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { WEB_SITE_BASE_URL } from '../../core/constants/WEB_SITE_BASE_UTL';
 import {
   IGetAllNews,
+  IGetOneBlogResponse,
   INewsAddBody,
   INewsAddResponse,
 } from '../../core/interfaces/INewsControl';
@@ -27,7 +28,7 @@ export class NewsControlService {
     );
   }
 
-  updateNews(id: number, data: INewsAddBody): Observable<INewsAddResponse> {
+  updateNews(id: number, data: FormData): Observable<INewsAddResponse> {
     return <Observable<INewsAddResponse>>(
       this._HttpClient.post(`${WEB_SITE_BASE_URL}blog_update/${id}`, data)
     );
@@ -45,8 +46,8 @@ export class NewsControlService {
     );
   }
 
-  getNewsById(id: number): Observable<IBlog> {
-    return <Observable<IBlog>>(
+  getNewsById(id: number): Observable<IGetOneBlogResponse> {
+    return <Observable<IGetOneBlogResponse>>(
       this._HttpClient.get(`${WEB_SITE_BASE_URL}blog_update_data/${id}`)
     );
   }

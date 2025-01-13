@@ -1,107 +1,110 @@
-<section
-  id="Contact__Us"
-  class="py-5 d-flex flex-column justify-content-between min-h-90vh"
->
+@if (aboutUsContent) {
+<section id="Contact__Us" class="py-5">
+  <header class="container mb-5 d-flex gap-3 align-items-center">
+    <p class="mb-0">
+      اخر تحديث في
+      <span  class="text-main">{{
+        aboutUsContent.updated_at | hijriDate
+      }}</span>
+      <i  class="pi pi-calendar"></i>
+    </p>
+    <!-- Toggle Edit Button -->
+    @if (isEditing) {
+      <button pButton  type="button" label="حفظ التغييرات" icon="pi pi-save" (click)="saveChanges()"></button>
+    } @else {
+      <button pButton  type="button" label="تعديل" icon="pi pi-pencil" (click)="toggleEditing()"></button>
+    }
+    <p-toast />
+  </header>
+
   <div class="container">
-    <!-- Toggle edit mode using isEditing flag -->
-    <div *ngIf="isEditing">
-      <p-editor
-        [(ngModel)]="aboutUsContent.main"
-        [style]="{ direction: 'rtl' }"
-      ></p-editor>
-    </div>
-    <div *ngIf="!isEditing" (click)="toggleEditing()">
-      <p class="fs-20">{{ aboutUsContent.main }}</p>
-    </div>
+    <h1 class="fw-bold fs-20 text-main">
+      @if (isEditing) {
+        <p-editor [modules]="editorModules" styleClass="text-start" [(ngModel)]="aboutUsContent.about_title"></p-editor>
+      } @else {
+        <p [innerHTML]="aboutUsContent.about_title | safeHtml"></p>
+      }
+      
+    </h1>
 
-    <h2 *ngIf="isEditing">
-      <p-editor
-        [(ngModel)]="aboutUsContent.slogan"
-        [style]="{ direction: 'rtl' }"
-      ></p-editor>
+
+
+
+
+    <h2 class="my-4">
+      @if (isEditing) {
+        <p-editor  [modules]="editorModules" [(ngModel)]="aboutUsContent.about_text"></p-editor>
+
+      }
+      @else {
+        <p [innerHTML]="aboutUsContent.about_text | safeHtml"></p>
+      }
     </h2>
-    <h2 *ngIf="!isEditing" (click)="toggleEditing()">
-      <strong>{{ aboutUsContent.slogan }}</strong>
-    </h2>
 
-    <!-- First Title Section -->
-    <h3 *ngIf="isEditing">
-      <p-editor
-        [(ngModel)]="aboutUsContent.first_title"
-        [style]="{ direction: 'rtl' }"
-      ></p-editor>
-    </h3>
-    <h3 *ngIf="!isEditing" (click)="toggleEditing()">
-      {{ aboutUsContent.first_title }}
+    <h3 class="fw-bold my-4 text-main">
+      @if (isEditing) {
+        <p-editor  [modules]="editorModules" [(ngModel)]="aboutUsContent.about_second_title"></p-editor>
+
+      }
+      @else {
+        <p [innerHTML]="        aboutUsContent.about_second_title | safeHtml
+        "></p>
+      }
+
     </h3>
 
-    <p *ngIf="isEditing">
-      <p-editor
-        [(ngModel)]="aboutUsContent.first_title_content"
-        [style]="{ direction: 'rtl' }"
-      ></p-editor>
+    <p class="fs-20">
+      @if (isEditing) {
+        <p-editor  [modules]="editorModules" [(ngModel)]="aboutUsContent.about_second_text"></p-editor>
+
+      }
+      @else {
+        <p [innerHTML]="        aboutUsContent.about_second_text | safeHtml
+        "></p>
+      }
+
     </p>
-    <p *ngIf="!isEditing" (click)="toggleEditing()">
-      {{ aboutUsContent.first_title_content }}
-    </p>
-
-    <!-- Second Title Section -->
-    <h3 *ngIf="isEditing">
-      <p-editor
-        [(ngModel)]="aboutUsContent.second_title"
-        [style]="{ direction: 'rtl' }"
-      ></p-editor>
-    </h3>
-    <h3 *ngIf="!isEditing" (click)="toggleEditing()">
-      {{ aboutUsContent.second_title }}
-    </h3>
-
-    <p *ngIf="isEditing">
-      <p-editor
-        [(ngModel)]="aboutUsContent.second_title_content"
-        [style]="{ direction: 'rtl' }"
-      ></p-editor>
-    </p>
-    <p *ngIf="!isEditing" (click)="toggleEditing()">
-      {{ aboutUsContent.second_title_content }}
+    <h4 class="fw-bold my-4 text-main">
+    @if (isEditing) {
+      <p-editor  [modules]="editorModules" [(ngModel)]="aboutUsContent.about_third_title"></p-editor>
+    }
+    @else {
+      <p [innerHTML]="aboutUsContent.about_third_title | safeHtml"></p>
+    }
+    </h4>
+    
+    <p>
+      @if (isEditing) {
+        <p-editor  [modules]="editorModules" [(ngModel)]="aboutUsContent.about_third_text"></p-editor>
+      }
+      @else {
+        <p [innerHTML]="aboutUsContent.about_third_text | safeHtml"></p>
+      }
     </p>
 
-    <!-- Third Title Section -->
-    <h3 *ngIf="isEditing">
-      <p-editor
-        [(ngModel)]="aboutUsContent.third_title"
-        [style]="{ direction: 'rtl' }"
-      ></p-editor>
-    </h3>
-    <h3 *ngIf="!isEditing" (click)="toggleEditing()">
-      {{ aboutUsContent.third_title }}
-    </h3>
+    <h6 class="fw-bold my-4 text-main">
+    @if (isEditing) {
+      <p-editor  [modules]="editorModules" [(ngModel)]="aboutUsContent.about_fourth_title"></p-editor>
+    }
+    @else {
+      <p [innerHTML]="aboutUsContent.about_fourth_title | safeHtml"></p>
+    }
+    </h6>
 
-    <div *ngIf="isEditing">
-      <p-editor
-        *ngFor="let item of aboutUsContent.third_title_content; let i = index"
-        [(ngModel)]="aboutUsContent.third_title_content[i]"
-        [style]="{ direction: 'rtl' }"
-      ></p-editor>
-    </div>
-    <div *ngIf="!isEditing">
-      <ul>
-        <li
-          *ngFor="let item of aboutUsContent.third_title_content; let i = index"
-          (click)="toggleEditing()"
-        >
-          {{ item }}
-        </li>
-      </ul>
-    </div>
-
-    <!-- Save Button to save changes -->
-    <button
-      *ngIf="isEditing"
-      class="btn-main px-3 py-2"
-      (click)="saveChanges()"
-    >
-      حفظ التعديل
-    </button>
+    <p>
+      @if (isEditing) {
+        <p-editor  [modules]="editorModules" [(ngModel)]="aboutUsContent.about_fourth_text"></p-editor>
+      }
+      @else {
+        <p [innerHTML]="aboutUsContent.about_fourth_text | safeHtml"></p>
+      }
+    </p>
   </div>
 </section>
+
+}
+@else {
+  <div class="w-100 min-h-50vh d-flex justify-content-center align-items-center">
+    جار تحميل البيانات ... <i class="pi pi-spin pi-spinner"></i>
+  </div>
+  }

@@ -1,19 +1,41 @@
+<!-- Global Filter Input -->
+<div
+  class="search-container p-input-icon-left search-bar"
+  style="margin-bottom: 20px"
+>
+  <input
+    type="text"
+    pInputText
+    [(ngModel)]="searchTerm"
+    placeholder="ابحث في التعليقات والعنوان"
+    (input)="onGlobalFilter(dt, $event)"
+  />
+  <i class="pi pi-search"></i>
+</div>
+
 <p-table
+  #dt
   [value]="comments"
+  [columns]="cols"
   responsiveLayout="scroll"
-  class="comments-table"
-  [paginator]="true"
   [rows]="100"
+  [globalFilterFields]="['blog_title', 'comment_text', 'comment_name']"
   [rowsPerPageOptions]="[100, 500, 1000]"
   [showCurrentPageReport]="true"
   currentPageReportTemplate="عرض {first} إلى {last} من {totalRecords} إدخالات"
+  selectionMode="multiple"
+  [rowHover]="true"
+  dataKey="id"
 >
+  <p-toast />
   <ng-template pTemplate="header">
     <tr>
       <th>الرقم</th>
       <th>العنوان</th>
       <th>التعليق</th>
+      <th>الاسم</th>
       <th>التاريخ</th>
+      <th>التفاصيل</th>
       <th>التحكم</th>
     </tr>
   </ng-template>
@@ -21,26 +43,51 @@
   <ng-template pTemplate="body" let-comment>
     <tr>
       <td>{{ comment.id }}</td>
-      <td>{{ comment.title }}</td>
-      <td>{{ comment.content }}</td>
-      <td>{{ comment.date | hijriDate }}</td>
+      <td
+        [pTooltip]="comment.blog_title"
+        tooltipPosition="top"
+        style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis"
+      >
+        {{ comment.blog_title | slice : 0 : 50 }}...
+      </td>
+      <td
+        [pTooltip]="comment.comment_text"
+        tooltipPosition="top"
+        style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis"
+      >
+        {{ comment.comment_text | slice : 0 : 50 }}...
+      </td>
+      <td
+        [pTooltip]="comment.comment_name"
+        tooltipPosition="top"
+        style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis"
+      >
+        {{ comment.comment_name | slice : 0 : 50 }}...
+      </td>
+      <td>{{ comment.comment_date | hijriDate }}</td>
+      <td>
+        <a [routerLink]="['/details', comment.blog_id]"
+          ><span>التفاصيل</span>
+          <i class="pi pi-search" style="margin-right: 5px"></i>
+        </a>
+      </td>
       <td>
         <div class="flex justify-content-center gap-2">
           <button
+            *ngIf="comment.comment_status !== 1"
             pButton
             pRipple
             icon="pi pi-check"
             class="p-button-rounded p-button-success"
             (click)="openApproveDialog(comment)"
-            *ngIf="comment.status !== 'approved'"
           ></button>
           <button
+            *ngIf="comment.comment_status !== 0"
             pButton
             pRipple
             icon="pi pi-times"
             class="p-button-rounded p-button-danger"
             (click)="openDenyDialog(comment)"
-            *ngIf="comment.status !== 'denied'"
           ></button>
         </div>
       </td>

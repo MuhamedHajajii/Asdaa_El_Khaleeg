@@ -18,9 +18,8 @@ export const loadingSpinnerInterceptor: HttpInterceptorFn = (req, next) => {
   return next(req).pipe(
     finalize(() => {
       if (isFirstLoad === false) {
-        setTimeout(() => {
-          spinner.hide();
-        }, 2000);
+        setTimeout(() => {}, 2000);
+        spinner.hide();
       }
     })
   );

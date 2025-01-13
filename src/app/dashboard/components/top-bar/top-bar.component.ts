@@ -1,5 +1,11 @@
-import { CommonModule } from '@angular/common';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import {
+  Component,
+  ElementRef,
+  Inject,
+  PLATFORM_ID,
+  ViewChild,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
@@ -28,8 +34,7 @@ import { AppLayoutServiceService } from '../../services/app.layout.service.servi
 })
 export class TopBarComponent {
   items!: MenuItem[];
-
-  name: string = 'محمد حجاجي';
+  name: string = '';
 
   @ViewChild('menubutton') menuButton!: ElementRef;
 
@@ -37,5 +42,17 @@ export class TopBarComponent {
 
   @ViewChild('topbarmenu') menu!: ElementRef;
 
-  constructor(public layoutService: AppLayoutServiceService) {}
+  constructor(
+    public layoutService: AppLayoutServiceService,
+    @Inject(PLATFORM_ID) private _PLATFORM_ID: Object
+  ) {}
+
+  ngOnInit(): void {
+    if (isPlatformBrowser(this._PLATFORM_ID)) {
+      let user = JSON.parse(localStorage.getItem('user') || '');
+      if (user.role == 'admin') {
+        this.name = 'سلمان بن أحمد العيد';
+      }
+    }
+  }
 }

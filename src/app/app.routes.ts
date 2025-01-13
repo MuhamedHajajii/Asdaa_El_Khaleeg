@@ -121,6 +121,13 @@ export const routes: Routes = [
           ).then((c) => c.NewsAddComponent),
       },
       {
+        path: 'news-add/:id',
+        loadComponent: () =>
+          import(
+            './dashboard/components/dashboard-home/news-control/news-add/news-add.component'
+          ).then((c) => c.NewsAddComponent),
+      },
+      {
         path: 'comments',
         loadComponent: () =>
           import(
@@ -155,6 +162,13 @@ export const routes: Routes = [
           import(
             './dashboard/components/dashboard-home/pages-control/privacy-policy/privacy-policy.component'
           ).then((c) => c.PrivacyPolicyComponent),
+      },
+      {
+        path: 'administrator',
+        loadComponent: () =>
+          import(
+            './dashboard/components/dashboard-home/pages-control/employees-control/employees-control.component'
+          ).then((c) => c.EmployeesControlComponent),
       },
       {
         path: 'contact-us',

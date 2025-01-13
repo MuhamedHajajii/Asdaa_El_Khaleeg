@@ -1,53 +1,78 @@
 import { Component } from '@angular/core';
+import { IPrivacyPolicyRow } from '../../../../../core/interfaces/IPrivacyPolicy';
+import { PrivacyPolicyService } from '../../../../services/privacy-policy.service';
+import { HijriDatePipe } from '../../../../../core/pipes/date-hijri.pipe';
+import { SafeHtmlPipe } from '../../../../../core/pipes/safe-html.pipe';
+import { MessagesModule } from 'primeng/messages';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { EditorModule } from 'primeng/editor';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-privacy-policy',
   standalone: true,
-  imports: [],
+  imports: [
+    HijriDatePipe,
+    SafeHtmlPipe,
+    MessagesModule,
+    ToastModule,
+    ButtonModule,
+    EditorModule,
+    FormsModule,
+  ],
   templateUrl: './privacy-policy.component.html',
   styleUrl: './privacy-policy.component.scss',
+  providers: [MessageService],
 })
 export class PrivacyPolicyComponent {
-  aboutUsContent: any = {
-    main: `صحيفة اخبارية سعودية تلتزم بثوابت الدين و الوطن و تعبر عن شرائح المجتمع
-      المختلفة دون تمييز لها رؤيتها الواضحة و رسالتها المحددة و منهجها المحافظ
-      تحرص على المهنية فى الاداء و الشفافية و الموضوعية فى الطرح كما نعمل جاهدين
-      بتوفيق الله على تلمس اختياجات المواطن و ايصال صوته الى المسؤول مباشرة
-      متخطين الروتين الممل و المعقد من اجل الوصول الى الهدغ المنشودبأقصر الطرق و
-      بمدة زمنية قصيرة و بما يحقق الرفاهيه للمواطن غى المدينة و القرية و الهجرة`,
-    slogan: `شعارنا منكم و اليكم`,
-    first_title: `رؤيتنا`,
-    first_title_content: `
-      النهوض بالمعارف الاعلامية و تحقيق الريادة و التمييز على كل الاصعدة اسهاما
-      فى النهضة الوطنية و التنمية الشاملة`,
-    second_title: `رسالتنا`,
-    second_title_content: `تنمية القطاع من خلال بناء القدرات العلمية فى مجال الاعلام و الاتصال
-      الجماهيري و تطوير الاداء من خلال تنشئة كوادر متميزة تسهم فى الحفاظ على
-      هوية الامة و ثقافة المجتمع و دعم المخترعين و المبتكرين من خلال ابراز
-      ابداعاتهم`,
-    third_title: `الاهداف`,
-    third_title_content: [
-      `المشاركة فى المناسبات الوطنية و المبادرات المحلية ز الانشطة المختلفة فى
-خدمة المجتمع`,
-      `تعزيز خطوط التواصل فى المجتمع`,
-      `تطوير المهارات بما يستحب للمتطلبات المهنية و الوظيفية`,
-      `الكشف عن المواهب الكتابية العامة و للشباب خاصة`,
-      `تفعيل دور الشراكة و جذب مؤسسات المجتمع المختلفة`,
-      `        ابراز الشباب السعودى المخترع و المبتكر و المبدع و دعمهم
-`,
-      `        تقديم برامج تسهم غر رفع الكفاءة و الفعالية العالية و تعزز روح التعاون
-        الايجابى و تنمى القدرة على تحمل المسئولية من خلال داء المهام المختلفة`,
-    ],
-  };
-  updateContent(field: string, event: Event) {
-    const newValue = (event.target as HTMLElement).innerText;
-    this.aboutUsContent[field] = newValue;
-    console.log(`${field} updated to:`, newValue);
+  privacy_policy!: IPrivacyPolicyRow;
+  editorModules: any;
+  isEditing: boolean = false; // Track whether we're in edit mode or not
+
+  constructor(
+    private _PrivacyPolicyService: PrivacyPolicyService,
+    private messageService: MessageService
+  ) {}
+
+  ngOnInit(): void {
+    this.editorModules = {
+      toolbar: [
+        [{ size: [] }],
+        ['bold', 'italic', 'underline'],
+        [{ align: [] }],
+        [{ list: 'ordered' }, { list: 'bullet' }],
+        ['blockquote'],
+      ],
+    };
+    this._PrivacyPolicyService.getPrivacyPolicy().subscribe({
+      next: (response) => {
+        this.privacy_policy = response.row;
+      },
+    });
+  }
+  toggleEditing() {
+    this.isEditing = !this.isEditing;
   }
 
-  updateListContent(index: number, event: Event) {
-    const newValue = (event.target as HTMLElement).innerText;
-    this.aboutUsContent.third_title_content[index] = newValue;
-    console.log(`List item ${index} updated to:`, newValue);
+  saveChanges() {
+    // Call your service to save the updated data
+    this._PrivacyPolicyService
+      .updatePrivacyPolicy(this.privacy_policy)
+      .subscribe({
+        next: () => {
+          console.log('Changes saved:', this.privacy_policy);
+          this.messageService.add({
+            severity: 'success',
+            summary: 'نجاح',
+            detail: 'تم حفظ التغييرات بنجاح',
+          });
+          this.isEditing = false;
+        },
+        error: (err) => {
+          console.error('Error saving changes:', err);
+        },
+      });
   }
 }

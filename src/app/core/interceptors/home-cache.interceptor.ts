@@ -13,6 +13,9 @@ export const homeCacheInterceptor: HttpInterceptorFn = (req, next) => {
   console.log(req.urlWithParams);
   if (req.url.includes('Writer_index')) return next(req);
   if (req.url.includes('blog_store')) return next(req);
+  if (req.url.includes('blog_index')) return next(req);
+  if (req.url.includes('blog_update_data')) return next(req);
+  if (req.url.includes('administrator_index')) return next(req);
   const cacheKey = req.urlWithParams;
   const cached = cache.get(cacheKey);
 

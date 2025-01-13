@@ -44,3 +44,25 @@ export interface INewsAddBody {
 export interface INewsAddResponse {
   success: string;
 }
+
+export interface IGetOneBlogResponse {
+  row: IGetOneBlogResponseRow;
+}
+
+export interface IGetOneBlogResponseRow {
+  id: number;
+  post_title: string;
+  post_date: string;
+  post_content: string;
+  post_image: string;
+  ar_slug: string;
+  meta_title: string;
+  meta_description: string;
+  publish_status: number;
+  draft_status: any;
+  blog_counder: number;
+  author_name: string;
+  created_at: string;
+  updated_at: string;
+  category: any[];
+}

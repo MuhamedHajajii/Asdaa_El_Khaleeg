@@ -1,8 +1,8 @@
-<div class="card mb-0">
+<div class="card mb-0 h-100">
   <div class="flex justify-content-between mb-3">
     <div>
       <span class="block text-500 font-medium mb-3">إجمالي زيارات الموقع</span>
-      <div class="text-900 font-medium text-xl">1,524</div>
+      <div class="text-900 font-medium text-xl">{{ totalViews }}</div>
     </div>
     <div
       class="flex align-items-center justify-content-center bg-blue-100 border-round"
@@ -11,7 +11,11 @@
       <i class="pi pi-eye text-blue-500 text-xl"></i>
     </div>
   </div>
-  <span class="text-green-500 font-medium">150 جديدة</span>
+  @if (message.length > 0) {
+  <span class="text-green-500 font-medium">{{ message }}</span>
+  } @else {
+  <span class="text-green-500 font-medium">لا يوجد تغيرات</span>
+  }
   <span class="text-500">
     <img
       class="ms-1 align-middle"

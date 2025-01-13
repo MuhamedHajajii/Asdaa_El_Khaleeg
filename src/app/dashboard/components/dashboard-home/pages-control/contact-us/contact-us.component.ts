@@ -7,6 +7,8 @@ import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 import { HijriDatePipe } from '../../../../../core/pipes/date-hijri.pipe';
 import { SlicePipe } from '@angular/common';
+import { IGetAllContactUsMessagesContact } from '../../../../../core/interfaces/IContactUs';
+import { ContactUsService } from '../../../../../core/services/content/contact-us.service';
 
 @Component({
   selector: 'app-contact-us',
@@ -26,33 +28,28 @@ import { SlicePipe } from '@angular/common';
   styleUrls: ['./contact-us.component.scss'],
 })
 export class ContactUsComponent {
-  emails = [
-    {
-      id: 1,
-      name: 'أحمد علي',
-      subject: 'استفسار عن المنتج',
-      date: new Date(),
-      email: 'ahmed@example.com',
-      message: 'أريد معرفة المزيد عن المنتج X...',
-      phone: '01000000001',
-    },
-    {
-      id: 2,
-      name: 'سارة حسين',
-      subject: 'طلب دعم فني',
-      date: new Date(),
-      email: 'sara@example.com',
-      message: 'لدي مشكلة في التطبيق، يرجى مساعدتي...',
-      phone: '01000000002',
-    },
-    // Add more email objects here...
-  ];
+  emails!: IGetAllContactUsMessagesContact[];
 
-  selectedEmail: any = null;
+  constructor(private _ContactUsService: ContactUsService) {}
+
+  ngOnInit(): void {
+    this._ContactUsService.getContactUs().subscribe({
+      next: (response) => {
+        this.emails = response.contacts;
+      },
+    });
+  }
+
+  selectedEmail!: IGetAllContactUsMessagesContact;
   emailDialogVisible: boolean = false;
 
-  showDetails(email: any) {
+  showDetails(email: IGetAllContactUsMessagesContact) {
     this.selectedEmail = email;
     this.emailDialogVisible = true;
+  }
+
+  // Filter table by name
+  onGlobalFilter(table: any, event: any): void {
+    table.filterGlobal(event.target.value, 'contains');
   }
 }

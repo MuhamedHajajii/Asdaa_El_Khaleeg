@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
+import { MostViewedBlog } from '../../../../../../core/interfaces/IStatics';
 import { HijriDatePipe } from '../../../../../../core/pipes/date-hijri.pipe';
-import { SlicePipe } from '@angular/common';
 @Component({
   selector: 'app-table-b-most-views-blogs',
   standalone: true,
@@ -14,12 +15,15 @@ import { SlicePipe } from '@angular/common';
     HijriDatePipe,
     ButtonModule,
     TooltipModule,
-    SlicePipe,
+
+    RouterLink,
   ],
   templateUrl: './table-b-most-views-blogs.component.html',
   styleUrl: './table-b-most-views-blogs.component.scss',
 })
 export class TableBMostViewsBlogsComponent {
+  @Input() mostViewedBlogs!: MostViewedBlog[];
+
   mostViewedArticles = [
     {
       title:

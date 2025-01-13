@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-a-total-views',
@@ -8,4 +8,7 @@ import { Component } from '@angular/core';
   templateUrl: './a-total-views.component.html',
   styleUrl: './a-total-views.component.scss',
 })
-export class ATotalViewsComponent {}
+export class ATotalViewsComponent {
+  @Input() totalViews: number = 0;
+  @Input() message: string = '';
+}

@@ -1,264 +1,74 @@
+import { CommonModule, SlicePipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { TableModule } from 'primeng/table';
-import { CommonModule } from '@angular/common';
-import { HijriDatePipe } from '../../../../../core/pipes/date-hijri.pipe';
 import { FormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
-
-interface Comment {
-  id: number;
-  title: string;
-  content: string;
-  date: string; // Use appropriate format, e.g., ISO date string
-  status: 'approved' | 'pending' | 'denied';
-}
+import { TableModule } from 'primeng/table';
+import { TooltipModule } from 'primeng/tooltip';
+import { Comment } from '../../../../../core/interfaces/IComments';
+import { HijriDatePipe } from '../../../../../core/pipes/date-hijri.pipe';
+import { CommentsService } from '../../../../services/comments.service';
+import { RouterLink } from '@angular/router';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-comments-control',
   standalone: true,
   imports: [
-    CommonModule,
     ButtonModule,
     TableModule,
     HijriDatePipe,
     FormsModule,
     DialogModule,
+    TooltipModule,
+    SlicePipe,
+    CommonModule,
+    RouterLink,
+    ToastModule,
+    FormsModule,
   ],
   templateUrl: './comments-control.component.html',
   styleUrls: ['./comments-control.component.scss'],
+  providers: [MessageService],
 })
 export class CommentsControlComponent {
-  comments: Comment[] = [
-    {
-      id: 1,
-      title: 'Great Post!',
-      content: 'Loved it.',
-      date: '2025-01-08',
-      status: 'pending',
-    },
-    {
-      id: 2,
-      title: 'Interesting Read',
-      content: 'Good insights.',
-      date: '2025-01-09',
-      status: 'pending',
-    },
-    {
-      id: 1,
-      title: 'Great Post!',
-      content: 'Loved it.',
-      date: '2025-01-08',
-      status: 'pending',
-    },
-    {
-      id: 2,
-      title: 'Interesting Read',
-      content: 'Good insights.',
-      date: '2025-01-09',
-      status: 'pending',
-    },
-    {
-      id: 1,
-      title: 'Great Post!',
-      content: 'Loved it.',
-      date: '2025-01-08',
-      status: 'pending',
-    },
-    {
-      id: 2,
-      title: 'Interesting Read',
-      content: 'Good insights.',
-      date: '2025-01-09',
-      status: 'pending',
-    },
-    {
-      id: 1,
-      title: 'Great Post!',
-      content: 'Loved it.',
-      date: '2025-01-08',
-      status: 'pending',
-    },
-    {
-      id: 2,
-      title: 'Interesting Read',
-      content: 'Good insights.',
-      date: '2025-01-09',
-      status: 'pending',
-    },
-    {
-      id: 1,
-      title: 'Great Post!',
-      content: 'Loved it.',
-      date: '2025-01-08',
-      status: 'pending',
-    },
-    {
-      id: 2,
-      title: 'Interesting Read',
-      content: 'Good insights.',
-      date: '2025-01-09',
-      status: 'pending',
-    },
-    {
-      id: 1,
-      title: 'Great Post!',
-      content: 'Loved it.',
-      date: '2025-01-08',
-      status: 'pending',
-    },
-    {
-      id: 2,
-      title: 'Interesting Read',
-      content: 'Good insights.',
-      date: '2025-01-09',
-      status: 'pending',
-    },
-    {
-      id: 1,
-      title: 'Great Post!',
-      content: 'Loved it.',
-      date: '2025-01-08',
-      status: 'pending',
-    },
-    {
-      id: 2,
-      title: 'Interesting Read',
-      content: 'Good insights.',
-      date: '2025-01-09',
-      status: 'pending',
-    },
-    {
-      id: 1,
-      title: 'Great Post!',
-      content: 'Loved it.',
-      date: '2025-01-08',
-      status: 'pending',
-    },
-    {
-      id: 2,
-      title: 'Interesting Read',
-      content: 'Good insights.',
-      date: '2025-01-09',
-      status: 'pending',
-    },
-    {
-      id: 1,
-      title: 'Great Post!',
-      content: 'Loved it.',
-      date: '2025-01-08',
-      status: 'pending',
-    },
-    {
-      id: 2,
-      title: 'Interesting Read',
-      content: 'Good insights.',
-      date: '2025-01-09',
-      status: 'pending',
-    },
-    {
-      id: 1,
-      title: 'Great Post!',
-      content: 'Loved it.',
-      date: '2025-01-08',
-      status: 'pending',
-    },
-    {
-      id: 2,
-      title: 'Interesting Read',
-      content: 'Good insights.',
-      date: '2025-01-09',
-      status: 'pending',
-    },
-    {
-      id: 1,
-      title: 'Great Post!',
-      content: 'Loved it.',
-      date: '2025-01-08',
-      status: 'pending',
-    },
-    {
-      id: 2,
-      title: 'Interesting Read',
-      content: 'Good insights.',
-      date: '2025-01-09',
-      status: 'pending',
-    },
-    {
-      id: 1,
-      title: 'Great Post!',
-      content: 'Loved it.',
-      date: '2025-01-08',
-      status: 'pending',
-    },
-    {
-      id: 2,
-      title: 'Interesting Read',
-      content: 'Good insights.',
-      date: '2025-01-09',
-      status: 'pending',
-    },
-    {
-      id: 1,
-      title: 'Great Post!',
-      content: 'Loved it.',
-      date: '2025-01-08',
-      status: 'pending',
-    },
-    {
-      id: 2,
-      title: 'Interesting Read',
-      content: 'Good insights.',
-      date: '2025-01-09',
-      status: 'pending',
-    },
-    {
-      id: 1,
-      title: 'Great Post!',
-      content: 'Loved it.',
-      date: '2025-01-08',
-      status: 'pending',
-    },
-    {
-      id: 2,
-      title: 'Interesting Read',
-      content: 'Good insights.',
-      date: '2025-01-09',
-      status: 'pending',
-    },
-    {
-      id: 1,
-      title: 'Great Post!',
-      content: 'Loved it.',
-      date: '2025-01-08',
-      status: 'pending',
-    },
-    {
-      id: 2,
-      title: 'Interesting Read',
-      content: 'Good insights.',
-      date: '2025-01-09',
-      status: 'pending',
-    },
-    {
-      id: 1,
-      title: 'Great Post!',
-      content: 'Loved it.',
-      date: '2025-01-08',
-      status: 'pending',
-    },
-    {
-      id: 2,
-      title: 'Interesting Read',
-      content: 'Good insights.',
-      date: '2025-01-09',
-      status: 'pending',
-    },
-  ];
-
+  comments: Comment[] = [];
+  searchTerm: string = ''; // This binds to the global search input
+  cols: any[] = []; // Define columns for the table
   approveDialogVisible = false;
   denyDialogVisible = false;
   selectedComment: Comment | null = null;
+
+  constructor(
+    private _CommentsService: CommentsService,
+    private _MessageService: MessageService
+  ) {}
+  // Filter table by name
+  onGlobalFilter(table: any, event: any): void {
+    table.filterGlobal(event.target.value, 'contains');
+  }
+  ngOnInit() {
+    // Define columns to be used in the table
+    this.cols = [
+      { field: 'id', header: 'الرقم' },
+      { field: 'blog_title', header: 'العنوان' },
+      { field: 'comment_name', header: 'الاسم' },
+      { field: 'comment_text', header: 'التعليق' },
+      { field: 'comment_date', header: 'التاريخ' },
+      { field: 'actions', header: 'التحكم' },
+    ];
+
+    this.loadComments();
+  }
+
+  loadComments() {
+    this._CommentsService.getAllComments().subscribe({
+      next: (response) => {
+        this.comments = response.comments;
+      },
+    });
+  }
 
   openApproveDialog(comment: Comment) {
     this.selectedComment = comment;
@@ -272,14 +82,38 @@ export class CommentsControlComponent {
 
   approveComment() {
     if (this.selectedComment) {
-      this.selectedComment.status = 'approved';
+      this.selectedComment.comment_status = 1;
+      this._CommentsService
+        .updateCommentsStatus(this.selectedComment.id)
+        .subscribe({
+          next: () => {
+            this.loadComments();
+            this._MessageService.add({
+              severity: 'success',
+              summary: 'نجاح',
+              detail: 'تم تحديث التعليق',
+            });
+          },
+        });
       this.approveDialogVisible = false;
     }
   }
 
   denyComment() {
     if (this.selectedComment) {
-      this.selectedComment.status = 'denied';
+      this.selectedComment.comment_status = 0;
+      this._CommentsService
+        .updateCommentsStatus(this.selectedComment.id)
+        .subscribe({
+          next: () => {
+            this.loadComments();
+            this._MessageService.add({
+              severity: 'success',
+              summary: 'نجاح',
+              detail: 'تم تحديث التعليق',
+            });
+          },
+        });
       this.denyDialogVisible = false;
     }
   }

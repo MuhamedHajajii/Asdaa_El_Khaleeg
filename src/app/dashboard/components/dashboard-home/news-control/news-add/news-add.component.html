@@ -1,11 +1,13 @@
 <p-card header="إضافة موضوع جديد" class="p-mb-3">
-  <form [formGroup]="addArticleForm" (ngSubmit)="onSubmit()">
+  <p-toast />
+  <form [formGroup]="addArticleForm" (ngSubmit)="approveBlog()">
     <div class="row g-3">
       <!-- Image Upload with Drag and Drop -->
       <div class="col-12">
         <div>
           <div class="p-field mb-3">
             <p-fileUpload
+              #fileUpload
               name="post_image"
               accept="image/*"
               [auto]="true"
@@ -17,7 +19,8 @@
               [customUpload]="true"
               (onSelect)="onFileSelect($event)"
               [draggable]="true"
-            ></p-fileUpload>
+            >
+            </p-fileUpload>
           </div>
         </div>
       </div>
@@ -34,6 +37,7 @@
             [filter]="true"
             appendTo="body"
             display="chip"
+            [maxSelectedLabels]="10"
           ></p-multiSelect>
         </div>
       </div>
@@ -42,6 +46,7 @@
       <div class="col-12">
         <div class="p-field">
           <input
+            #post_title
             id="post_title"
             type="text"
             pInputText
@@ -49,11 +54,32 @@
             placeholder="أدخل عنوان المقال"
             class="p-inputtext-lg"
           />
+          <div class="d-flex justify-content-between align-items-center">
+            <small>
+              <small
+                class="p-error"
+                *ngIf="
+                  addArticleForm.get('post_title')?.hasError('seoTitle') &&
+                  addArticleForm.get('post_title')?.touched
+                "
+              >
+                {{ addArticleForm.get("post_title")?.getError("seoTitle") }}
+              </small>
+            </small>
+            <small
+              [ngClass]="{
+                'p-error':
+                  addArticleForm.get('post_title')?.hasError('seoTitle') &&
+                  addArticleForm.get('post_title')?.touched
+              }"
+              >{{ post_title.value.length }}/60</small
+            >
+          </div>
         </div>
       </div>
 
       <!-- Author Dropdown -->
-      <div class="col-12">
+      <div class="col-6">
         <div class="p-field">
           <p-dropdown
             [options]="authors"
@@ -69,19 +95,16 @@
       </div>
 
       <!-- Date Input -->
-      <div class="col-12">
-        <div class="my-3 position-relative">
-          <ngx-hijri-datepicker
+      <div class="col-6">
+        <div class="position-relative">
+          <p-calendar
             formControlName="post_date"
-            [locale]="'ar-SA'"
-            [storageLocale]="'en'"
-            [placeholder]="'اختر تاريخ'"
-            [width]="'100%'"
-            class="mb-0"
-            [InputColor]="'#000'"
-            [IconColor]="'#fff'"
-            (valueChange)="onDateSelected($event)"
-          ></ngx-hijri-datepicker>
+            (onSelect)="onDateSelect($event)"
+            [dateFormat]="'yy-mm-dd'"
+            [showIcon]="true"
+            styleClass="w-full"
+            placeholder="اختر تاريخ المقال"
+          ></p-calendar>
         </div>
       </div>
 
@@ -93,28 +116,87 @@
             [options]="options"
             #ngxJodit
           ></ngx-jodit>
+          <small
+            class="p-error"
+            *ngIf="
+              addArticleForm
+                .get('post_content')
+                ?.hasError('minContentLength') &&
+              addArticleForm.get('post_content')?.touched
+            "
+          >
+            {{
+              addArticleForm.get("post_content")?.getError("minContentLength")
+            }}
+          </small>
+          <small
+            class="p-error"
+            *ngIf="
+              addArticleForm.get('post_content')?.hasError('invalidArabic') &&
+              addArticleForm.get('post_content')?.touched
+            "
+          >
+            {{ addArticleForm.get("post_content")?.getError("invalidArabic") }}
+          </small>
         </div>
       </div>
-
-      <!-- Preview Button -->
-      <div class="p-md-6">
-        <div class="p-field mb-3">
-          <button
-            pButton
-            type="button"
-            label="عرض المقال"
-            (click)="previewArticle()"
-          ></button>
-        </div>
-      </div>
-
       <!-- Submit Button -->
       <div class="p-md-6">
         <div class="p-field">
-          <button pButton type="submit" label="نشر المقال"></button>
-          <!-- [disabled]="!addArticleForm.valid" -->
+          <button
+            pButton
+            type="submit"
+            label="نشر المقال"
+            [disabled]="!addArticleForm.valid"
+          ></button>
         </div>
       </div>
     </div>
   </form>
 </p-card>
+
+<!-- Confirmation Dialog for Approve -->
+@if(currentBlog) {
+<p-dialog
+  [draggable]="false"
+  [(visible)]="approveDialogVisible"
+  header="تأكيد الموافقة"
+  [modal]="true"
+  [style]="{ maxwidth: '90vw' }"
+>
+  <app-privew-blog [IBlogs]="currentBlog" />
+  <div>
+    <span>هل أنت متأكد أنك تريد الموافقة على الموضوع؟</span>
+  </div>
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="إلغاء"
+      icon="pi pi-times"
+      class="p-button-text"
+      (click)="approveDialogVisible = false"
+    ></button>
+    <button
+      pButton
+      pRipple
+      label="موافقة"
+      icon="pi pi-check"
+      class="p-button-text"
+      (click)="onSubmit(); approveDialogVisible = false; fileUpload.clear()"
+    ></button>
+  </ng-template>
+</p-dialog>
+}
+
+<ngx-spinner
+  bdColor="rgba(255, 255, 255, 0.75)"
+  size="default"
+  color="var(--secondary-color-green)"
+  type="ball-beat"
+  [showSpinner]="false"
+  [disableAnimation]="true"
+  [fullScreen]="true"
+>
+  <span class="d-block d-block mx-auto text-center translate-middle-y"> </span
+></ngx-spinner>

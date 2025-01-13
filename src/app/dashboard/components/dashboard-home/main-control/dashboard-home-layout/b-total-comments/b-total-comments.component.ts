@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-b-total-comments',
@@ -8,4 +8,7 @@ import { Component } from '@angular/core';
   templateUrl: './b-total-comments.component.html',
   styleUrl: './b-total-comments.component.scss',
 })
-export class BTotalCommentsComponent {}
+export class BTotalCommentsComponent {
+  @Input() totalComments: number = 0;
+  @Input() message: string = '';
+}

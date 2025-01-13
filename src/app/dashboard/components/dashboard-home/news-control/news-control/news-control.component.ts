@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { SlicePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Message, MessageService } from 'primeng/api';
@@ -16,6 +16,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { Category, IBlog } from '../../../../../core/interfaces/INewsControl';
 import { HijriDatePipe } from '../../../../../core/pipes/date-hijri.pipe';
 import { NewsControlService } from '../../../../services/news-control.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-news-control',
@@ -31,10 +32,11 @@ import { NewsControlService } from '../../../../services/news-control.service';
     InputNumberModule,
     RatingModule,
     FormsModule,
-    CommonModule,
     HijriDatePipe,
     TooltipModule,
     InputSwitchModule,
+    SlicePipe,
+    RouterLink,
   ],
   templateUrl: './news-control.component.html',
   styleUrls: ['./news-control.component.scss'],
@@ -140,7 +142,7 @@ export class NewsControlComponent {
           this.messageService.add({
             severity: 'success',
             summary: 'نجاح',
-            detail: 'تم تحديث حالة الكاتب بنجاح',
+            detail: 'تم تحديث المدونة',
           });
         },
       });
@@ -150,27 +152,10 @@ export class NewsControlComponent {
           this.messageService.add({
             severity: 'success',
             summary: 'نجاح',
-            detail: 'تم تحديث حالة الكاتب بنجاح',
+            detail: 'تم تحديث المدونة',
           });
         },
       });
     }
-    // const status = blog.isPublished ? 'Published' : 'Archived';
-    // this._NewsControlService.updateBlogStatus(blog.post_id, status).subscribe({
-    //   next: () => {
-    //     this.messageService.add({
-    //       severity: 'success',
-    //       summary: 'تم التحديث',
-    //       detail: `تم ${status === 'Published' ? 'نشر' : 'أرشفة'} المقال بنجاح.`,
-    //     });
-    //   },
-    //   error: () => {
-    //     this.messageService.add({
-    //       severity: 'error',
-    //       summary: 'خطأ',
-    //       detail: 'حدث خطأ أثناء تحديث حالة المقال.',
-    //     });
-    //   },
-    // });
   }
 }

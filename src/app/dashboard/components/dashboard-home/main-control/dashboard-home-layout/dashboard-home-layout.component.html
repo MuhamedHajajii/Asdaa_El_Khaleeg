@@ -1,29 +1,43 @@
+@if (statics) {
 <div class="text-500 mb-4">
   <img
     class="ms-1 align-middle"
     src="./assets/images/pages/home/loca_news/clock-rotate-left-solid.png"
   />
-  آخر زيارة في - <span class="text-main"> 1 جامدي الاول </span>
+  آخر زيارة في -
+  <span class="text-main"> {{ lastVisitData.lastVisit | hijriDate }}</span>
 </div>
 <div class="grid">
   <!-- Total Views -->
   <div class="col-12 lg:col-6 xl:col-3">
-    <app-a-total-views />
+    <app-a-total-views
+      [totalViews]="statics.counters"
+      [message]="countersIncrementMessage"
+    />
   </div>
 
   <!-- Total Comments -->
   <div class="col-12 lg:col-6 xl:col-3">
-    <app-b-total-comments />
+    <app-b-total-comments
+      [totalComments]="statics.comments"
+      [message]="commentsIncrementMessage"
+    />
   </div>
 
   <!-- Total Articles -->
   <div class="col-12 lg:col-6 xl:col-3">
-    <app-c-total-articles />
+    <app-c-total-articles
+      [totalArticles]="statics.totalblogs"
+      [message]="blogsIncrementMessage"
+    />
   </div>
 
   <!-- Monthly Views -->
   <div class="col-12 lg:col-6 xl:col-3">
-    <app-d-total-monthly-views />
+    <app-d-total-monthly-views
+      [lastWeekCounters]="statics.lastWeekCounters"
+      [lastTwoWeeksCounters]="statics.lastTwoWeeksCounters"
+    />
   </div>
 </div>
 
@@ -31,30 +45,42 @@
 <div class="grid">
   <!-- Most Viewed Articles Table -->
   <div class="col-8">
-    <app-table-b-most-views-blogs />
+    <app-table-b-most-views-blogs [mostViewedBlogs]="statics.mostViewedBlogs" />
   </div>
   <!-- Most Viewed Articles Chart -->
   <div class="col-4">
-    <app-table-a-most-views-blog-chart />
+    <app-table-a-most-views-blog-chart
+      [mostViewedBlogs]="statics.mostViewedBlogs"
+    />
   </div>
 
   <!-- Most Viewed Blog Categories Table -->
   <div class="col-12 md:col-6 lg:col-6">
-    <app-table-c-most-views-categories />
+    <app-table-c-most-views-categories
+      [mostViewedCategoriesBlog]="statics.mostViewedCategoriesBlog"
+    />
   </div>
 
   <!-- Recent Articles Table -->
   <div class="col-12 md:col-6 lg:col-6">
-    <app-table-a-recent-articles />
+    <app-table-a-recent-articles [latestBlogs]="statics.latestBlogs" />
   </div>
 
   <!-- Recent Comments Table -->
   <div class="col-12 md:col-6 lg:col-6">
-    <app-table-d-most-commented />
+    <app-table-d-most-commented
+      [mostCommentedBlogs]="statics.mostCommentedBlogs"
+    />
   </div>
 
   <!-- Recent Contact Us Emails Table -->
   <div class="col-12 md:col-6 lg:col-6">
-    <app-table-e-recent-messages />
+    <app-table-e-recent-messages [latestContact]="statics.latestContact" />
   </div>
 </div>
+
+} @else {
+<div class="w-100 min-h-50vh d-flex justify-content-center align-items-center">
+  جار تحميل البيانات ... <i class="pi pi-spin pi-spinner"></i>
+</div>
+}

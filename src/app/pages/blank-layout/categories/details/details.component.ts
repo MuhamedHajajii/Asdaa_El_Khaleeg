@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   Inject,
+  Input,
   PLATFORM_ID,
   ViewChild,
 } from '@angular/core';
@@ -12,7 +13,12 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Router,
+  RouterLink,
+} from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BlankNavbarComponent } from '../../../../core/components/blank-navbar/blank-navbar.component';
 import { IBlog } from '../../../../core/interfaces/IBlog';
@@ -23,6 +29,8 @@ import { AdvertisingAreaComponent } from '../../../../shared/components/advertis
 import { RelatedContentComponent } from '../related-content/related-content.component';
 import { ImagesSrcPipe } from '../../../../core/pipes/images-src.pipe';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { Meta, Title } from '@angular/platform-browser';
+import { filter, map } from 'rxjs';
 
 @Component({
   selector: 'app-details',
@@ -36,7 +44,8 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     CommonModule,
     HijriDatePipe,
     SafeHtmlPipe,
-    ImagesSrcPipe,RouterLink
+    ImagesSrcPipe,
+    RouterLink,
   ],
   templateUrl: './details.component.html',
   styleUrl: './details.component.scss',
@@ -47,7 +56,7 @@ export class DetailsComponent {
   userComments: string = '';
   isStoreData: boolean = false;
   isShowSkeleton = true;
-  masterBlog!:any;
+  masterBlog!: any;
 
   @ViewChild('isStoreDataInput') isStoreDataInput!: ElementRef;
   @ViewChild('stickySection') stickySection!: ElementRef;
@@ -56,12 +65,15 @@ export class DetailsComponent {
     private _Router: Router,
     private _ActivatedRoute: ActivatedRoute,
     @Inject(PLATFORM_ID) private _PLATFORM_ID: object,
-    private _ToastrService: ToastrService
+    private _ToastrService: ToastrService,
+    private titleService: Title,
+    private metaService: Meta,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.getInitialId();
-    this.onClickGetLastEditorNewsId()
+    this.onClickGetLastEditorNewsId();
   }
 
   ngAfterContentInit(): void {
@@ -96,7 +108,7 @@ export class DetailsComponent {
   onClickGetLastEditorNewsId(): void {
     this._CategoriesService.getEditorBlog().subscribe({
       next: (response) => {
-        this.masterBlog = response
+        this.masterBlog = response;
         console.log(response.blogs[0].post_id);
         console.log(response.blogs[0].post_title);
         // this._Router.navigate([`/details`, response.blogs[0].post_id]);
@@ -186,4 +198,30 @@ export class DetailsComponent {
   get userCommentForm() {
     return this.userDataForm.get('userComment');
   }
+
+  // changeMeta(): void {
+  //   this.router.events
+  //   .pipe(
+  //     filter((event) => event instanceof NavigationEnd),
+  //     map(() => this.activatedRoute),
+  //     map((route) => {
+  //       while (route.firstChild) {
+  //         route = route.firstChild;
+  //       }
+  //       return route;
+  //     }),
+  //     mergeMap((route) => route.data)
+  //   )
+  //   .subscribe((data) => {
+  //     this.titleService.setTitle(
+  //       data['title'] || 'SUMMIT Online School - ساميت اونلاين سكول'
+  //     );
+  //     this.metaService.updateTag({
+  //       name: 'description',
+  //       content:
+  //         data['description'] ||
+  //         'تقدم الشركة خدماتها و تساعد الأفراد من مختلف الأعمار في تحقيق رؤيتهم بتوفير تعليم وتدريب عالي الجودة  مقر الشركة في الرياض بالمملكة العربية السعودية',
+  //     });
+  //   });
+  // }
 }

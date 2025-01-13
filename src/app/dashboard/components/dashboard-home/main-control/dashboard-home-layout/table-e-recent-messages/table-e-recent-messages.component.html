@@ -1,5 +1,5 @@
 <p-card header=" أحدث رسائل اتصل بنا">
-  <p-table [value]="recentEmails" [rows]="5">
+  <p-table [value]="latestContact" [rows]="5">
     <ng-template pTemplate="header">
       <tr>
         <th><i class="pi pi-user"></i> الاسم</th>
@@ -13,14 +13,14 @@
         <td class="col-3">
           <strong>{{ email.name }}</strong>
         </td>
-        <td class="col-3" pTooltip="{{ email.subject }}" tooltipPosition="top">
-          {{ email.subject }}
+        <td class="col-3" pTooltip="{{ email.message }}" tooltipPosition="top">
+          {{ email.message }}
         </td>
-        <td class="col-3 text-center">{{ email.date | hijriDate }}</td>
+        <td class="col-3 text-center">{{ email.created_at | hijriDate }}</td>
         <td class="col-3 text-center">
           <button
+            (click)="showDetails(email)"
             class="p-button p-component p-button-text p-button-icon-only email-icon-button"
-            (click)="viewEmailDetails(email)"
             pTooltip="عرض الرسالة"
             tooltipPosition="top"
           >
@@ -31,3 +31,32 @@
     </ng-template>
   </p-table>
 </p-card>
+<!-- Modal for Email Details -->
+<p-dialog
+  [(visible)]="emailDialogVisible"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  header="تفاصيل الرسالة"
+  [closable]="true"
+  [responsive]="true"
+  [closeOnEscape]="true"
+>
+  @if (selectedEmail) {
+  <div>
+    <h3>الاسم: {{ selectedEmail.name }}</h3>
+    <h5>البريد الإلكتروني: {{ selectedEmail.email }}</h5>
+    <p><strong>التاريخ:</strong> {{ selectedEmail.created_at | hijriDate }}</p>
+    <p><strong>رقم الهاتف:</strong> {{ selectedEmail.phone }}</p>
+    <p><strong>المحتوى:</strong></p>
+    <p>{{ selectedEmail.message }}</p>
+    <p-footer>
+      <button
+        pButton
+        label="إغلاق"
+        icon="pi pi-times"
+        (click)="emailDialogVisible = false"
+      ></button>
+    </p-footer>
+  </div>
+  }
+</p-dialog>

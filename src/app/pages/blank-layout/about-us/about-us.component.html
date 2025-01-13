@@ -1,23 +1,28 @@
 <app-blank-navbar />
 <section id="Contact__Us" class="py-5">
   <div class="container">
-    <p class="fs-20">
-      {{ aboutUsContent.main }}
-    </p>
-    <h2 class="text-main fw-bold my-4">{{ aboutUsContent.slogan }}</h2>
-    <h3 class="fw-bold my-4">{{ aboutUsContent.first_title }}</h3>
-    <p class="fs-20">
-      {{ aboutUsContent.first_title_content }}
-    </p>
-    <h4 class="fw-bold my-4">{{ aboutUsContent.first_title_content }}</h4>
-    <P>{{ aboutUsContent.second_title }}</P>
-    <h5 class="fw-bold my-4">{{ aboutUsContent.third_title }}</h5>
-    <ol class="p-0 pe-3 m-0">
-      @for (item of aboutUsContent.third_title_content; track $index) {
-      <li class="fs-20">
-        {{ item }}
-      </li>
-      }
-    </ol>
+    <h1
+      class="fs-20 text-main"
+      [innerHTML]="aboutUsContent.about_title | safeHtml"
+    ></h1>
+    <h2 class="my-4" [innerHTML]="aboutUsContent.about_text | safeHtml"></h2>
+    <h3
+      class="fw-bold my-4 text-main"
+      [innerHTML]="aboutUsContent.about_second_title | safeHtml"
+    ></h3>
+    <p
+      class="fs-20"
+      [innerHTML]="aboutUsContent.about_second_text | safeHtml"
+    ></p>
+    <h4
+      class="fw-bold my-4 text-main"
+      [innerHTML]="aboutUsContent.about_third_title | safeHtml"
+    ></h4>
+    <P [innerHTML]="aboutUsContent.about_third_text | safeHtml"></P>
+    <h6
+      class="fw-bold my-4 text-main"
+      [innerHTML]="aboutUsContent.about_fourth_title | safeHtml"
+    ></h6>
+    <p [innerHTML]="aboutUsContent.about_fourth_text | safeHtml"></p>
   </div>
 </section>

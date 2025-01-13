@@ -1,7 +1,7 @@
 <!-- Most Viewed Articles Table -->
 <p-card header="اكثر المواضيع تفاعلاً">
   <p-table
-    [value]="mostViewedArticles"
+    [value]="mostCommentedBlogs"
     [rows]="5"
     scrollable="true"
     [style]="{ 'max-width': '100%' }"
@@ -15,7 +15,7 @@
         </th>
         <th class="text-center">
           <i class="pi pi-comments align-middle" style="margin-right: 5px"></i
-          ><span class="align-middle"> عدد التعليقات</span>
+          ><span class="align-middle"> التعليقات</span>
         </th>
         <th class="text-center">
           <i class="pi pi-calendar align-middle" style="margin-right: 5px"></i
@@ -23,7 +23,7 @@
         </th>
         <th class="text-center">
           <i class="pi pi-eye align-middle" style="margin-right: 5px"></i
-          ><span class="align-middle"> معاينة</span>
+          ><span class="align-middle"> </span>
         </th>
       </tr>
     </ng-template>
@@ -37,18 +37,18 @@
             overflow: hidden;
             text-overflow: ellipsis;
           "
-          pTooltip="{{ article.title }}"
+          pTooltip="{{ article.post_title }}"
           tooltipPosition="top"
         >
-          {{ article.title }}
+          {{ article.post_title }}
         </td>
         <td
           class="col-3 text-center"
           style="max-width: 150px"
-          pTooltip="{{ article.views }} تعليقات"
+          pTooltip="{{ article.blog_counder }} تعليقات"
           tooltipPosition="top"
         >
-          {{ article.views }}
+          {{ article.blog_counder }}
         </td>
         <td
           class="col-3 text-center"
@@ -56,7 +56,7 @@
           pTooltip="{{ article.publishedDate | hijriDate }} تاريخ النشر"
           tooltipPosition="top"
         >
-          {{ article.publishedDate | hijriDate }}
+          {{ article.created_at | hijriDate }}
         </td>
         <td class="col-2 text-center" style="width: 15%">
           <button
@@ -68,6 +68,7 @@
             aria-label="Preview Article"
             pTooltip="معاينة المقال"
             tooltipPosition="top"
+            [routerLink]="['/details', article.id]"
           ></button>
         </td>
       </tr>
