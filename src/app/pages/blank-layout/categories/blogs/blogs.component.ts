@@ -103,7 +103,7 @@ export class BlogsComponent implements OnInit, OnDestroy {
       .subscribe((data) => {
         this.titleService.setTitle(
           data['title'] ||
-            `أصداء الخليج - ${this.specificCategories?.category.name}` ||
+            `الأرشيف | صحيفة أصداء الخليج ${this.specificCategories?.category.name}` ||
             'أصداء الخليج'
         );
         // this.metaService.updateTag({

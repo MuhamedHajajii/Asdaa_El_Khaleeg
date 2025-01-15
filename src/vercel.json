@@ -1,8 +1,18 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }],
-  "functions": {
-    "api/*": {
-      "runtime": "nodejs18.x"
+  "builds": [
+    {
+      "src": "dist/asdaa-el-khaleeg/browser/**/*",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "dist/asdaa-el-khaleeg/server/main.js",
+      "use": "@vercel/node"
     }
-  }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "dist/asdaa-el-khaleeg/server/main.js"
+    }
+  ]
 }

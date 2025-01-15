@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { loginGuard } from './auth/gurd/login.guard';
+import { title } from 'process';
 
 export const routes: Routes = [
   {
@@ -15,6 +16,12 @@ export const routes: Routes = [
           import('./pages/blank-layout/home/home.component').then(
             (c) => c.HomeComponent
           ),
+        data: {
+          title:
+            'صحيفة أصداء الخليج | صحيفة سعودية مرخصة .. رئيس تحريرها سلمان بن أحمد العيد ',
+          description:
+            'صحيفة أصداء الخليج | صحيفة سعودية مرخصة .. رئيس تحريرها سلمان بن أحمد العيد ج',
+        },
       },
       {
         path: 'archives',
@@ -60,6 +67,10 @@ export const routes: Routes = [
           import('./pages/blank-layout/contact-us/contact-us.component').then(
             (c) => c.ContactUsComponent
           ),
+        data: {
+          title: 'تواصل معنا | صحيفة أصداء الخليج',
+          description: 'تواصل معنا | صحيفة أصداء الخليجج',
+        },
       },
       {
         path: 'about-us',
@@ -67,6 +78,10 @@ export const routes: Routes = [
           import('./pages/blank-layout/about-us/about-us.component').then(
             (c) => c.AboutUsComponent
           ),
+        data: {
+          title: 'من نحن | صحيفة أصداء الخليج',
+          description: 'من نحن | صحيفة أصداء الخليجج',
+        },
       },
       {
         path: 'administrative-structure',
@@ -74,6 +89,10 @@ export const routes: Routes = [
           import(
             './pages/blank-layout/administrative-structure/administrative-structure.component'
           ).then((c) => c.AdministrativeStructureComponent),
+        data: {
+          title: 'الهيكلة الإدارية | صحيفة أصداء الخليج',
+          description: 'الهيكلة الإدارية | صحيفة أصداء الخليج',
+        },
       },
       {
         path: 'privacy-policy',
