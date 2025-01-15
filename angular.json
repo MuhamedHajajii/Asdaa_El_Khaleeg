@@ -30,8 +30,7 @@
             },
             "assets": [
               "src/favicon.ico",
-              "src/assets",
-              "src/sitemap.xml"
+              "src/assets"
             ],
             "styles": [
               "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
