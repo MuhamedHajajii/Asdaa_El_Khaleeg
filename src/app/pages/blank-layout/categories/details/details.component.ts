@@ -3,7 +3,6 @@ import {
   Component,
   ElementRef,
   Inject,
-  Input,
   PLATFORM_ID,
   ViewChild,
 } from '@angular/core';
@@ -13,24 +12,24 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Meta, Title } from '@angular/platform-browser';
 import {
   ActivatedRoute,
   NavigationEnd,
   Router,
   RouterLink,
 } from '@angular/router';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { ToastrService } from 'ngx-toastr';
+import { filter, map, switchMap } from 'rxjs';
 import { BlankNavbarComponent } from '../../../../core/components/blank-navbar/blank-navbar.component';
 import { IBlog } from '../../../../core/interfaces/IBlog';
 import { HijriDatePipe } from '../../../../core/pipes/date-hijri.pipe';
+import { ImagesSrcPipe } from '../../../../core/pipes/images-src.pipe';
 import { SafeHtmlPipe } from '../../../../core/pipes/safe-html.pipe';
 import { CategoriesService } from '../../../../core/services/content/categories.service';
 import { AdvertisingAreaComponent } from '../../../../shared/components/advertising-area/advertising-area.component';
 import { RelatedContentComponent } from '../related-content/related-content.component';
-import { ImagesSrcPipe } from '../../../../core/pipes/images-src.pipe';
-import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
-import { Meta, Title } from '@angular/platform-browser';
-import { filter, map } from 'rxjs';
 
 @Component({
   selector: 'app-details',
@@ -62,7 +61,6 @@ export class DetailsComponent {
   @ViewChild('stickySection') stickySection!: ElementRef;
   constructor(
     private _CategoriesService: CategoriesService,
-    private _Router: Router,
     private _ActivatedRoute: ActivatedRoute,
     @Inject(PLATFORM_ID) private _PLATFORM_ID: object,
     private _ToastrService: ToastrService,
@@ -73,6 +71,7 @@ export class DetailsComponent {
 
   ngOnInit(): void {
     this.getInitialId();
+    this.changeMeta();
     this.onClickGetLastEditorNewsId();
   }
 
@@ -100,6 +99,9 @@ export class DetailsComponent {
         console.log(response, 'current blog details');
         this.IBlogs = response as IBlog;
         this.isShowSkeleton = false;
+
+        // Update meta tags after the blog data is loaded
+        this.changeMeta();
       },
       error: (err) => console.error('Error fetching category:', err),
     });
@@ -199,29 +201,51 @@ export class DetailsComponent {
     return this.userDataForm.get('userComment');
   }
 
-  // changeMeta(): void {
-  //   this.router.events
-  //   .pipe(
-  //     filter((event) => event instanceof NavigationEnd),
-  //     map(() => this.activatedRoute),
-  //     map((route) => {
-  //       while (route.firstChild) {
-  //         route = route.firstChild;
-  //       }
-  //       return route;
-  //     }),
-  //     mergeMap((route) => route.data)
-  //   )
-  //   .subscribe((data) => {
-  //     this.titleService.setTitle(
-  //       data['title'] || 'SUMMIT Online School - ساميت اونلاين سكول'
-  //     );
-  //     this.metaService.updateTag({
-  //       name: 'description',
-  //       content:
-  //         data['description'] ||
-  //         'تقدم الشركة خدماتها و تساعد الأفراد من مختلف الأعمار في تحقيق رؤيتهم بتوفير تعليم وتدريب عالي الجودة  مقر الشركة في الرياض بالمملكة العربية السعودية',
-  //     });
-  //   });
-  // }
+  changeMeta(): void {
+    if (this.IBlogs?.blog?.post_title && this.IBlogs?.blog?.post_content) {
+      this.titleService.setTitle(this.IBlogs.blog.post_title);
+
+      // Use the first 150 characters of the post content for the description
+      // Clean and decode the post content
+      const metaDescription = this.decodeHtml(
+        this.IBlogs.blog.post_content.replace(/<[^>]+>/g, '').slice(0, 150)
+      );
+
+      this.metaService.updateTag({
+        name: 'description',
+        content: metaDescription,
+      });
+    }
+
+    this.router.events
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
+        map(() => this._ActivatedRoute),
+        map((route) => {
+          while (route.firstChild) route = route.firstChild;
+          return route;
+        }),
+        switchMap((route) => route.data)
+      )
+      .subscribe((data) => {
+        const metaDescription =
+          data['description'] ||
+          this.IBlogs?.blog?.post_content
+            ?.replace(/<[^>]+>/g, '')
+            .slice(0, 150);
+
+        this.titleService.setTitle(
+          data['title'] || this.IBlogs?.blog?.post_title
+        );
+        this.metaService.updateTag({
+          name: 'description',
+          content: metaDescription,
+        });
+      });
+  }
+  decodeHtml(html: string): string {
+    const txt = document.createElement('textarea');
+    txt.innerHTML = html;
+    return txt.value;
+  }
 }

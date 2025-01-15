@@ -15,6 +15,8 @@ import { TableERecentMessagesComponent } from './table-e-recent-messages/table-e
 import { StaticsService } from '../../../../services/statics.service';
 import { IStatics } from '../../../../../core/interfaces/IStatics';
 import { HijriDatePipe } from '../../../../../core/pipes/date-hijri.pipe';
+import { NgxSpinnerModule } from 'ngx-spinner';
+
 @Component({
   selector: 'app-dashboard-home-layout',
   standalone: true,
@@ -33,6 +35,7 @@ import { HijriDatePipe } from '../../../../../core/pipes/date-hijri.pipe';
     TableARecentArticlesComponent,
     TableDMostCommentedComponent,
     TableAMostViewsBlogChartComponent,
+    NgxSpinnerModule,
   ],
   templateUrl: './dashboard-home-layout.component.html',
   styleUrl: './dashboard-home-layout.component.scss',

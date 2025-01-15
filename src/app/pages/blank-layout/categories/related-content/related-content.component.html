@@ -16,17 +16,16 @@
         <div class="bg-third border-radius-10 p-2">
           <app-advertising-area
             [positionClasses]="
-              'd-flex flex-column justify-content-center gap-3 h-250 mb-3 p-5 fs-5 fw-semibold'
+              'd-flex flex-column justify-content-center gap-3 h-300 mb-3 p-5 fs-5 fw-semibold'
             "
           />
 
           <div
-            class="mt-2"
             [routerLink]="['/details', relatedContent.blogs.data[3].post_id]"
           >
-            <figure class="cr Logo_Water_Mark small">
+            <figure class="cr Logo_Water_Mark mb-0 small">
               <img
-                class="w-100 object-fit-cover h-250 border-radius-10"
+                class="w-100 object-fit-cover h-300 border-radius-10"
                 [src]="
                   relatedContent.blogs.data[3].post_image ||
                     './assets/images/not_found_image.jpg' | imagesSrc
@@ -34,28 +33,21 @@
                 [alt]="relatedContent.blogs.data[3].post_title"
               />
             </figure>
-            <h3 class="fs-13 fw-bold mb-1 cr">
+            <h3 class="my-0 fs-13 fw-bold mb-1 cr">
               {{ relatedContent.blogs.data[3].post_title }}
             </h3>
-            <div>
-              <p
-                class="mb-0 fs-13 desc_color"
-                [innerHTML]="
-                  relatedContent.blogs.data[3].post_content
-                    | stringSlice
-                    | safeHtml
-                "
-              ></p>
-            </div>
           </div>
         </div>
       </div>
 
       <div class="col-12 col-lg-3">
-        <div [routerLink]="['/details', relatedContent.blogs.data[1].post_id]">
-          <figure class="Logo_Water_Mark small cr">
+        <div
+          class="mb-3"
+          [routerLink]="['/details', relatedContent.blogs.data[1].post_id]"
+        >
+          <figure class="Logo_Water_Mark small cr mb-0">
             <img
-              class="w-100 object-fit-cover border-radius-10 h-250 cr"
+              class="w-100 object-fit-cover border-radius-10 h-285 cr"
               [src]="
                 relatedContent.blogs.data[1].post_image ||
                   './assets/images/not_found_image.jpg' | imagesSrc
@@ -63,24 +55,14 @@
               [alt]="relatedContent.blogs.data[1].post_title"
             />
           </figure>
-          <h3 class="fs-13 fw-bold mb-1 cr">
+          <h3 class="my-0 fs-13 fw-bold mb-1 cr">
             {{ relatedContent.blogs.data[1].post_title }}
           </h3>
-          <div>
-            <p
-              class="mb-0 fs-13 desc_color"
-              [innerHTML]="
-                relatedContent.blogs.data[1].post_content
-                  | stringSlice : 70
-                  | safeHtml
-              "
-            ></p>
-          </div>
         </div>
         <div [routerLink]="['/details', relatedContent.blogs.data[2].post_id]">
-          <figure class="Logo_Water_Mark small cr">
+          <figure class="Logo_Water_Mark small cr mb-0">
             <img
-              class="w-100 object-fit-cover h-250 border-radius-10"
+              class="w-100 object-fit-cover h-285 border-radius-10"
               [src]="
                 relatedContent.blogs.data[2].post_image ||
                   './assets/images/not_found_image.jpg' | imagesSrc
@@ -88,25 +70,15 @@
               [alt]="relatedContent.blogs.data[2].post_title"
             />
           </figure>
-          <h3 class="fs-13 fw-bold mb-1 cr">
+          <h3 class="my-0 fs-13 fw-bold mb-1 cr">
             {{ relatedContent.blogs.data[2].post_title }}
           </h3>
-          <div>
-            <p
-              class="mb-0 fs-13 desc_color text-nowrap overflow-hidden"
-              [innerHTML]="
-                relatedContent.blogs.data[2].post_content
-                  | stringSlice : 50
-                  | safeHtml
-              "
-            ></p>
-          </div>
         </div>
       </div>
 
       <div class="col-12 col-lg-6">
         <div [routerLink]="['/details', relatedContent.blogs.data[0].post_id]">
-          <figure class="Logo_Water_Mark small cr">
+          <figure class="Logo_Water_Mark small cr mb-0">
             <img
               class="w-100 object-fit-cover border-radius-10 h-620"
               [src]="
@@ -116,19 +88,9 @@
               [alt]="relatedContent.blogs.data[0].post_title"
             />
           </figure>
-          <h3 class="fs-13 fw-bold mb-1 cr">
+          <h3 class="my-0 fs-13 fw-bold mb-1 cr">
             {{ relatedContent.blogs.data[0].post_title }}
           </h3>
-          <div>
-            <p
-              class="mb-0 fs-13 desc_color"
-              [innerHTML]="
-                relatedContent.blogs.data[0].post_content
-                  | stringSlice
-                  | safeHtml
-              "
-            ></p>
-          </div>
         </div>
       </div>
     </div>
@@ -147,38 +109,30 @@
         <div class="bg-third border-radius-10 p-2">
           <app-advertising-area
             [positionClasses]="
-              'd-flex flex-column justify-content-center gap-3 h-250 p-5 fs-5 fw-semibold'
+              'd-flex flex-column justify-content-center mb-3 gap-3 h-300 p-5 fs-5 fw-semibold'
             "
           />
 
-          <div class="mt-2">
-            <figure class="cr Logo_Water_Mark small">
+          <div>
+            <figure class="cr Logo_Water_Mark mb-0 small">
               <ngx-skeleton-loader
                 [theme]="{
                   width: '100%',
-                  height: '250px',
+                  height: '285px',
                   background: 'lightgray'
                 }"
               />
             </figure>
-            <h3 class="fs-13 fw-bold mb-1">
+            <h3 class="my-0 fs-13 fw-bold mb-1">
               <ngx-skeleton-loader
                 [theme]="{
                   width: '100%',
                   height: '20px',
-                  background: 'lightgray'
+                  background: 'lightgray',
+                  marginTop: '4px'
                 }"
               />
             </h3>
-            <div>
-              <ngx-skeleton-loader
-                [theme]="{
-                  width: '100%',
-                  height: '20px',
-                  background: 'lightgray'
-                }"
-              />
-            </div>
           </div>
         </div>
       </div>
@@ -189,58 +143,42 @@
             <ngx-skeleton-loader
               [theme]="{
                 width: '100%',
-                height: '250px',
+                height: '285px',
                 background: 'lightgray'
               }"
             />
           </figure>
-          <h3 class="fs-13 fw-bold mb-1">
+          <h3 class="my-0 fs-13 fw-bold mb-1">
             <ngx-skeleton-loader
               [theme]="{
                 width: '100%',
                 height: '20px',
-                background: 'lightgray'
+                background: 'lightgray',
+                marginTop: '4px'
               }"
             />
           </h3>
-          <div>
-            <ngx-skeleton-loader
-              [theme]="{
-                width: '100%',
-                height: '20px',
-                background: 'lightgray'
-              }"
-            />
-          </div>
         </div>
         <div>
           <figure class="Logo_Water_Mark small cr">
             <ngx-skeleton-loader
               [theme]="{
                 width: '100%',
-                height: '250px',
+                height: '285px',
                 background: 'lightgray'
               }"
             />
           </figure>
-          <h3 class="fs-13 fw-bold mb-1">
+          <h3 class="my-0 fs-13 fw-bold mb-1">
             <ngx-skeleton-loader
               [theme]="{
                 width: '100%',
                 height: '20px',
-                background: 'lightgray'
+                background: 'lightgray',
+                marginTop: '4px'
               }"
             />
           </h3>
-          <div>
-            <ngx-skeleton-loader
-              [theme]="{
-                width: '100%',
-                height: '20px',
-                background: 'lightgray'
-              }"
-            />
-          </div>
         </div>
       </div>
 
@@ -250,29 +188,21 @@
             <ngx-skeleton-loader
               [theme]="{
                 width: '100%',
-                height: '600px',
+                height: '620px',
                 background: 'lightgray'
               }"
             />
           </figure>
-          <h3 class="fs-13 fw-bold mb-1">
+          <h3 class="my-0 fs-13 fw-bold mb-1">
             <ngx-skeleton-loader
               [theme]="{
                 width: '100%',
                 height: '20px',
-                background: 'lightgray'
+                background: 'lightgray',
+                marginTop: '4px'
               }"
             />
           </h3>
-          <div>
-            <ngx-skeleton-loader
-              [theme]="{
-                width: '100%',
-                height: '20px',
-                background: 'lightgray'
-              }"
-            />
-          </div>
         </div>
       </div>
     </div>

@@ -21,6 +21,7 @@ import { LoginService } from '../services/login.service';
 import { IUserData } from '../../interfaces/ILoginResponse';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-login',
@@ -29,7 +30,7 @@ import { ToastrService } from 'ngx-toastr';
     FooterComponent,
     BlankNavbarComponent,
     CommonModule,
-
+    NgxSpinnerModule,
     ButtonModule,
     CheckboxModule,
     InputTextModule,
@@ -65,7 +66,10 @@ export class LoginComponent {
 
   ngOnInit() {
     if (isPlatformBrowser(this._PLATFORM_ID)) {
-      localStorage.removeItem('user');
+      let userToken = localStorage.getItem('user');
+      if (userToken) {
+        this._Router.navigate(['/dashboard']);
+      }
     }
     // Check if email is stored in localStorage
     if (isPlatformBrowser(this._PLATFORM_ID)) {

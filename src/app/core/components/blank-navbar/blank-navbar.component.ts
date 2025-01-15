@@ -3,7 +3,6 @@ import { Router, RouterLink } from '@angular/router';
 import { Contact } from '../../interfaces/ISocialMedia';
 import { HijriDatePipe } from '../../pipes/date-hijri.pipe';
 import { SocialMediaService } from '../../services/content/social-media.service';
-import { StaticCategoriesService } from '../../services/content/static-categories.service';
 
 @Component({
   selector: 'app-blank-navbar',
@@ -18,18 +17,12 @@ export class BlankNavbarComponent {
   socialLinks: { label: string; url: string; icon: string; alt: string }[] = [];
 
   constructor(
-    private _StaticCategoriesService: StaticCategoriesService,
     private _Router: Router,
     private _SocialMediaService: SocialMediaService
   ) {}
 
   ngOnInit(): void {
     this.getSocialMediaLinks();
-    this._StaticCategoriesService.increaseView().subscribe({
-      next: (response) => {
-        console.log(response);
-      },
-    });
   }
 
   searchResults(searchResult: string): void {

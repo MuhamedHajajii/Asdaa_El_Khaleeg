@@ -27,3 +27,12 @@ td {
   overflow: hidden; /* Hides overflow */
   text-overflow: ellipsis; /* Adds ellipsis (...) */
 }
+
+::ng-deep .p-dropdown .p-dropdown-clear-icon {
+  right: auto !important;
+  right: calc(100% + 10px) !important;
+}
+
+::ng-deep .p-datatable > .p-datatable-wrapper {
+  max-height: 62vh;
+}

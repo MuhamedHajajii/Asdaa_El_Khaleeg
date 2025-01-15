@@ -1,23 +1,22 @@
-import { isPlatformBrowser } from '@angular/common';
 import { inject, PLATFORM_ID } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
+import { isPlatformBrowser } from '@angular/common';
 
 export const loginGuard: CanActivateFn = (route, state) => {
   const _Router = inject(Router);
+  const platformId = inject(PLATFORM_ID);
 
-  const platformId = inject(PLATFORM_ID); // Correctly inject PLATFORM_ID
-
-  let userToken: string | null = null;
-
-  // Check if running on a browser platform
+  // Check if running in the browser
   if (isPlatformBrowser(platformId)) {
-    userToken = localStorage.getItem('user'); // Only access localStorage in the browser
+    const userToken = localStorage.getItem('user');
+    if (userToken) {
+      return true; // Allow access if token exists
+    } else {
+      _Router.navigate(['/login']);
+      return false; // Deny access if token is absent
+    }
   }
 
-  if (userToken) {
-    return true; // Allow access if token exists
-  } else {
-    _Router.navigate(['/login']); // Navigate to login
-    return false; // Deny access
-  }
+  // If running on the server or any other platform, allow navigation without checking token
+  return true; // Allow access for SSR rendering or other platforms
 };

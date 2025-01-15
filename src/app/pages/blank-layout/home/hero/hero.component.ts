@@ -56,21 +56,18 @@ export class HeroComponent {
       },
     });
   }
-
   /** Carousel Options */
   customOptions: OwlOptions = {
     loop: true,
     mouseDrag: true,
     touchDrag: true,
     pullDrag: true,
-    // margin: 15,
     dots: true,
     rtl: true,
     autoplay: true,
     autoplaySpeed: 500,
     navSpeed: 700,
     items: 1,
-    // rewind: true,
     nav: false,
   };
 }

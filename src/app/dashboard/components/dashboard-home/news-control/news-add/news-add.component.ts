@@ -18,7 +18,20 @@ import 'jodit/esm/plugins/bold/bold.js';
 import 'jodit/esm/plugins/fullsize/fullsize.js';
 import 'jodit/esm/plugins/indent/indent.js';
 import 'jodit/esm/plugins/resizer/resizer.js';
+import 'jodit/esm/plugins/color/color.js';
+import 'jodit/esm/plugins/iframe/iframe.js';
+import 'jodit/esm/plugins/justify/justify.js';
 import 'jodit/esm/plugins/source/source.js';
+import 'jodit/esm/plugins/drag-and-drop/drag-and-drop.js';
+import 'jodit/esm/plugins/search/search.js';
+import 'jodit/esm/plugins/line-height/line-height.js';
+import 'jodit/esm/plugins/video/video.js';
+import 'jodit/esm/plugins/file/file.js';
+import 'jodit/esm/plugins/copy-format/copy-format.js';
+import 'jodit/esm/plugins/select/select.js';
+import 'jodit/esm/plugins/symbols/symbols.js';
+import 'jodit/esm/plugins/preview/preview.js';
+
 import moment from 'moment-hijri'; // Import the Hijri moment library
 import { JoditConfig, NgxJoditComponent } from 'ngx-jodit';
 import { MessageService, PrimeNGConfig } from 'primeng/api';
@@ -38,6 +51,7 @@ import { NewsControlService } from '../../../../services/news-control.service';
 import { WritersService } from '../../../../services/writers.service';
 import { PrivewBlogComponent } from './privew-blog/privew-blog.component';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
+import { Jodit } from 'jodit';
 
 @Component({
   selector: 'app-news-add',
@@ -69,7 +83,6 @@ export class NewsAddComponent implements OnInit {
   articleContent: string = ''; // Used for the editor content
   currenBlogId: number = 0;
   isPreview: boolean = false; // Toggle preview mode
-
   hijriDate!: string;
   hijriMonthNames: string[] = [
     'محرم',
@@ -95,33 +108,38 @@ export class NewsAddComponent implements OnInit {
     'السبت',
   ];
   value = '';
-
   _optionsStr = '';
-
   authors: any[] = [];
-
   categories: any[] = [];
+  currentImageSrc: string = '';
+  currentDate = '';
+  approveDialogVisible = false;
+  currentBlog!: IBlog;
 
   addArticleForm: FormGroup = new FormGroup({
     post_image: new FormControl('', [Validators.required]),
-
-    post_title: new FormControl('', [
-      Validators.required,
-      this.seoTitleValidator(), // Custom validator for Arabic SEO title
-    ]),
-
+    post_title: new FormControl('', [Validators.required]),
     author_name: new FormControl('', [Validators.required]),
-
     post_date: new FormControl('', [Validators.required]),
-
-    post_content: new FormControl('', [
-      Validators.required,
-      this.minContentLengthValidator(300), // Custom validator for minimum word count
-      this.arabicTextValidator(), // Custom validator to ensure content is in Arabic
-    ]),
-
+    post_content: new FormControl('', [Validators.required]),
     categories: new FormControl([], [Validators.required]),
   });
+  // addArticleForm: FormGroup = new FormGroup({
+  //   post_image: new FormControl('', [Validators.required]),
+  //   post_title: new FormControl('', [
+  //     Validators.required,
+  //     this.seoTitleValidator(),
+  //     this.titleDuplicateWordsValidator(), // Add the new validator
+  //   ]),
+  //   author_name: new FormControl('', [Validators.required]),
+  //   post_date: new FormControl('', [Validators.required]),
+  //   post_content: new FormControl('', [
+  //     Validators.required,
+  //     this.minContentLengthValidator(300),
+  //     this.arabicTextValidator(),
+  //   ]),
+  //   categories: new FormControl([], [Validators.required]),
+  // });
 
   constructor(
     private _CategoriesService: CategoriesService,
@@ -136,13 +154,11 @@ export class NewsAddComponent implements OnInit {
   ngOnInit(): void {
     this.getAllAuthors();
     this.getAllCategories();
-
     this.primengConfig.setTranslation({
       accept: 'تأكيد',
       reject: 'إلغاء',
       cancel: 'إلغاء',
       dayNames: this.hijriDayNames,
-
       dayNamesShort: ['أحد', 'اثن', 'ثلا', 'أرب', 'خمي', 'جمع', 'سبت'],
       dayNamesMin: this.hijriDayNames,
       monthNames: this.hijriMonthNames,
@@ -163,7 +179,6 @@ export class NewsAddComponent implements OnInit {
       today: 'اليوم',
       clear: 'مسح',
     });
-
     // Set the initial Hijri date
     this.hijriDate = moment().format('iYYYY-iMM-iDD'); // Current Hijri date
     this.addArticleForm.get('post_date')?.setValue(this.hijriDate);
@@ -172,7 +187,34 @@ export class NewsAddComponent implements OnInit {
     );
   }
 
-  currentImageSrc: string = '';
+  getAllAuthors(): void {
+    this._WritersService.getAllWriters().subscribe({
+      next: (response) => {
+        this.authors = response.rows
+          .filter((e) => e.writer_status === 1)
+          .map((e) => {
+            return {
+              label: e.writer_name,
+              value: e.writer_name,
+            };
+          });
+      },
+    });
+  }
+
+  getAllCategories(): void {
+    this._CategoriesService.getAllCategories().subscribe({
+      next: (response) => {
+        this.categories = response.rows.map((e) => {
+          return {
+            label: e.name,
+            value: e.slug.toString(),
+          };
+        });
+        this.inOpenCheckCurrentBlog();
+      },
+    });
+  }
 
   inOpenCheckCurrentBlog() {
     this._ActivatedRoute.paramMap.subscribe({
@@ -180,10 +222,8 @@ export class NewsAddComponent implements OnInit {
         let id = params.get('id');
         if (id) {
           this.currenBlogId = +id;
-          console.log('Checking');
           this._NewsControlService.getNewsById(+id).subscribe({
             next: (response) => {
-              console.log(response);
               let Data = response.row;
               this.addArticleForm.get('post_title')?.setValue(Data.post_title);
               this.addArticleForm
@@ -195,19 +235,8 @@ export class NewsAddComponent implements OnInit {
               this.addArticleForm
                 .get('post_content')
                 ?.setValue(Data.post_content);
-              console.log(
-                Data.category.map((e) => {
-                  return { value: e.category_slug, label: e.category_name };
-                })
-              );
-
               this.currentImageSrc = `https://www.asda-alkhaleej.com/blogs/${Data.post_image}`;
               this.addArticleForm.get('post_image')?.setErrors(null);
-              // this.downloadAndUploadImage(
-              //   `https://www.asda-alkhaleej.com/blogs/${Data.post_image}`,
-              //   Data.post_image
-              // );
-
               this.addArticleForm.get('categories')?.setValue(
                 Data.category.map((e) => {
                   const foundCategory = this.categories.find(
@@ -222,53 +251,14 @@ export class NewsAddComponent implements OnInit {
       },
     });
   }
-  getAllAuthors(): void {
-    this._WritersService.getAllWriters().subscribe({
-      next: (response) => {
-        console.log(response);
-        this.authors = response.rows
-          .filter((e) => e.writer_status === 1)
-          .map((e) => {
-            return {
-              label: e.writer_name,
-              value: e.writer_name,
-            };
-          });
-      },
-    });
-  }
-  getAllCategories(): void {
-    this._CategoriesService.getAllCategories().subscribe({
-      next: (response) => {
-        console.log(response);
-        this.categories = response.rows.map((e) => {
-          return {
-            label: e.name,
-            value: e.slug.toString(),
-          };
-        });
-        console.log(this.categories);
-        this.inOpenCheckCurrentBlog();
-      },
-    });
-  }
-  currentDate = '';
-  // Handle date selection from PrimeNG Calendar
-  onDateSelect(event: any) {
-    // Check if the event is a Date object
 
-    // Convert Gregorian date to Hijri using moment-hijri
+  onDateSelect(event: any) {
     const selectedHijriDate = moment(event).format('YYYY-MM-DD'); // Convert Gregorian to Hijri
-    console.log(
-      'Converted Hijri Date: ',
-      moment(selectedHijriDate, 'iYYYY-iMM-iDD').format('YYYY-MM-DD')
-    ); // Log Hijri date
   }
-  // Handle the form submission
+
   onSubmit(): void {
     if (this.addArticleForm.valid) {
       const formValues = this.addArticleForm.value;
-      // Create FormData object
       const formData = new FormData();
       formData.append('post_title', formValues.post_title);
       formData.append('post_content', formValues.post_content);
@@ -284,61 +274,51 @@ export class NewsAddComponent implements OnInit {
           formValues.post_image.name
         );
       }
-      console.log(formValues);
       formValues.categories.forEach((element: any) => {
         formData.append('categoryIDS[]', element);
       });
 
-      formData.forEach((value, key) => {
-        console.log(`${key}: ${value}`);
-      });
       this._NgxSpinnerService.show();
       if (this.currenBlogId == 0) {
-        // Send the form data to your API
         this._NewsControlService.addNews(formData).subscribe({
           next: (response) => {
-            console.log(response);
             this._MessageService.add({
               severity: 'success',
               summary: 'تم النشر بنجاح',
-              detail: 'تمت إضافة المقال بنجاح!',
+              detail: 'تمت إضافة الموضوع بنجاح!',
             });
             this.addArticleForm.reset();
             this.addArticleForm.get('post_content')?.setValue('');
             this._NgxSpinnerService.hide();
           },
           error: (err) => {
-            console.log(err);
             this._MessageService.add({
               severity: 'error',
               summary: 'خطأ في النشر',
-              detail: 'حدث خطأ أثناء محاولة نشر المقال.',
+              detail: 'حدث خطأ أثناء محاولة نشر الموضوع.',
             });
             this._NgxSpinnerService.hide();
           },
         });
       } else {
-        // Send the form data to your API
         this._NewsControlService
           .updateNews(this.currenBlogId, formData)
           .subscribe({
             next: (response) => {
-              console.log(response);
               this._MessageService.add({
                 severity: 'success',
                 summary: 'تم النشر بنجاح',
-                detail: 'تمت إضافة المقال بنجاح!',
+                detail: 'تمت إضافة الموضوع بنجاح!',
               });
               this.addArticleForm.reset();
               this.addArticleForm.get('post_content')?.setValue('');
               this._NgxSpinnerService.hide();
             },
             error: (err) => {
-              console.log(err);
               this._MessageService.add({
                 severity: 'error',
                 summary: 'خطأ في النشر',
-                detail: 'حدث خطأ أثناء محاولة نشر المقال.',
+                detail: 'حدث خطأ أثناء محاولة نشر الموضوع.',
               });
               this._NgxSpinnerService.hide();
             },
@@ -348,7 +328,10 @@ export class NewsAddComponent implements OnInit {
       console.log('Form is invalid!');
     }
   }
-
+  clearInputs(): void {
+    this.addArticleForm.reset();
+    this.addArticleForm.get('post_content')?.setValue('');
+  }
   onFileSelect(event: any): void {
     const file = event.files[0];
     if (file) {
@@ -372,9 +355,7 @@ export class NewsAddComponent implements OnInit {
           insertImageAsBase64URI: true,
         } as any,
       };
-    } catch (e) {
-      // ignore
-    }
+    } catch (e) {}
   }
 
   options: JoditConfig = {
@@ -386,11 +367,26 @@ export class NewsAddComponent implements OnInit {
     minHeight: 600,
   };
 
-  approveDialogVisible = false;
-  currentBlog!: IBlog;
+  @ViewChild('ngxJodit') ngxJodit!: any;
+
+  ngAfterViewInit(): void {
+    if (this.ngxJodit) {
+      console.log(this.ngxJodit);
+      console.log(
+        this.ngxJodit.jodit.registeredButtons.add({
+          22: { group: 'source', name: 'left' },
+        })
+      );
+    }
+    this.addArticleForm.get('post_title')?.valueChanges.subscribe((value) => {
+      this.arabicWarning = this.checkArabicText(value);
+      this.seoTitleWarning = this.checkSeoTitle(value);
+      this.duplicateWordWarning = this.checkDuplicateWords(value);
+    });
+  }
+
   approveBlog() {
     const formValues = this.addArticleForm.value;
-    // If the image is available in formValues, create a URL for the preview
     const imageURL = formValues.post_image
       ? URL.createObjectURL(formValues.post_image)
       : '';
@@ -411,39 +407,43 @@ export class NewsAddComponent implements OnInit {
 
     this.approveDialogVisible = true;
   }
-
-  // Mixed content validator (allows text, images, and links)
-  arabicTextValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const value = control.value || '';
-
-      // Allow text with Arabic words, numbers, and common HTML tags
-      const arabicWordRegex = /[\u0600-\u06FF]/;
-      if (!value.includes('<img') && !arabicWordRegex.test(value)) {
-        return { invalidArabic: 'يجب أن يحتوي النص على كلمات باللغة العربية' };
-      }
-
-      return null;
-    };
+  arabicWarning: string | null = null;
+  seoTitleWarning: string | null = null;
+  duplicateWordWarning: string | null = null;
+  checkArabicText(value: string): string | null {
+    const arabicWordRegex = /[\u0600-\u06FF]/;
+    if (!value.includes('<img') && !arabicWordRegex.test(value)) {
+      return 'من الأفضل أن يتضمن النص كلمات باللغة العربية لتحسين الفهم والتفاعل.';
+    }
+    return null;
   }
 
-  // SEO title validator
-  seoTitleValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const value = control.value || '';
-      if (value.length < 50 || value.length > 60) {
-        return { seoTitle: 'يجب أن يتراوح طول العنوان بين 50 و 60 حرفًا' };
-      }
-      if (!/[\u0600-\u06FF]/.test(value)) {
-        return {
-          seoTitle: 'يجب أن يحتوي العنوان على كلمات رئيسية باللغة العربية',
-        };
-      }
-      return null;
-    };
+  checkSeoTitle(value: string): string | null {
+    if (value.length < 60 || value.length > 80) {
+      return 'ينصح بأن يتراوح طول العنوان بين 60 و 80 حرفًا لضمان جاذبية أفضل لمحركات البحث.';
+    }
+    if (!/[\u0600-\u06FF]/.test(value)) {
+      return 'يفضل أن يتضمن العنوان كلمات رئيسية باللغة العربية لتسهيل البحث عنها.';
+    }
+    return null;
   }
 
-  // Minimum content length validator
+  checkDuplicateWords(value: string): string | null {
+    const words = value.split(' ');
+    const wordCount = words.reduce((acc: any, word: any) => {
+      acc[word] = (acc[word] || 0) + 1;
+      return acc;
+    }, {} as { [key: string]: number });
+
+    const duplicateWords = Object.values(wordCount).filter(
+      (count: any) => count > 1
+    );
+    if (duplicateWords.length > 0) {
+      return 'ينصح بتجنب تكرار الكلمات للحصول على عنوان أكثر وضوحًا.';
+    }
+    return null;
+  }
+
   minContentLengthValidator(minLength: number): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const value = control.value || '';
@@ -453,8 +453,53 @@ export class NewsAddComponent implements OnInit {
       return wordCount >= minLength
         ? null
         : {
-            minContentLength: `يجب أن يحتوي المقال على الأقل على ${minLength} كلمة`,
+            minContentLength: `يجب أن يحتوي الموضوع على الأقل على ${minLength} كلمة`,
           };
     };
+  }
+  contentLengthWarning: string | null = null;
+  contentArabicWarning: string | null = null;
+  isContentEmpty: boolean = true; // Track if the content is empty
+
+  // This method will be called whenever the user changes the editor content
+  onEditorInput(value: any): void {
+    const cleanContent = this.stripHtml(value.target.value); // Clean the HTML content
+    this.isContentEmpty = cleanContent.trim() === ''; // Check if content is empty
+
+    if (!this.isContentEmpty) {
+      this.checkContentLength(cleanContent); // Check length of the cleaned content
+      this.checkContentArabic(cleanContent); // Check if the cleaned content contains Arabic text
+    } else {
+      this.contentLengthWarning = null; // Clear warnings when content is empty
+      this.contentArabicWarning = null; // Clear warnings when content is empty
+    }
+    console.log(cleanContent); // Log the cleaned content for debugging
+  }
+
+  // Method to remove HTML tags from the content
+  stripHtml(value: string): string {
+    const doc = new DOMParser().parseFromString(value, 'text/html');
+    return doc.body.textContent || ''; // Return the raw text content
+  }
+
+  // Method to check content length
+  checkContentLength(value: string): void {
+    if (value.length < 200) {
+      this.contentLengthWarning =
+        'من الأفضل أن يتضمن النص ما لا يقل عن 200 حرف لزيادة جودة المقال.';
+    } else {
+      this.contentLengthWarning = null;
+    }
+  }
+
+  // Method to check if content contains Arabic text
+  checkContentArabic(value: string): void {
+    const arabicWordRegex = /[\u0600-\u06FF]/;
+    if (!arabicWordRegex.test(value)) {
+      this.contentArabicWarning =
+        'يفضل أن يحتوي النص على كلمات باللغة العربية لزيادة التفاعل.';
+    } else {
+      this.contentArabicWarning = null;
+    }
   }
 }

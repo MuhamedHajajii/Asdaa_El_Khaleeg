@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /dashboard/
+Disallow: /login
+Allow: /
+
+Sitemap: https://digitalbondmena.com/El_Khaleeg/sitemap.xml

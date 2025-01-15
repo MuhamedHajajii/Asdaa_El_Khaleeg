@@ -1,6 +1,7 @@
 import { SlicePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { Message, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -15,8 +16,14 @@ import { ToastModule } from 'primeng/toast';
 import { TooltipModule } from 'primeng/tooltip';
 import { Category, IBlog } from '../../../../../core/interfaces/INewsControl';
 import { HijriDatePipe } from '../../../../../core/pipes/date-hijri.pipe';
+import { CategoriesService } from '../../../../services/categories.service';
 import { NewsControlService } from '../../../../services/news-control.service';
-import { RouterLink } from '@angular/router';
+import moment from 'moment-hijri'; // Import the Hijri moment library
+
+interface categories {
+  label: string;
+  value: string;
+}
 
 @Component({
   selector: 'app-news-control',
@@ -32,7 +39,6 @@ import { RouterLink } from '@angular/router';
     InputNumberModule,
     RatingModule,
     FormsModule,
-    HijriDatePipe,
     TooltipModule,
     InputSwitchModule,
     SlicePipe,
@@ -44,17 +50,43 @@ import { RouterLink } from '@angular/router';
 })
 export class NewsControlComponent {
   blogs: IBlog[] = [];
+
   selectedBlogs: IBlog[] = [];
+
   blog: IBlog = {} as IBlog;
+
   blogDialog: boolean = false;
+
   submitted: boolean = false;
+
   statuses: any[] = [];
+
   cols!: any[];
+
   messages: Message[] | undefined;
+
+  categories: categories[] = [];
+
+  selectedStatus: string = '';
+
+  onFilterChange(value: string): void {
+    if (value) {
+      // Filter the blogs based on the selected category
+      this.selectedBlogs = this.blogs.filter((blog) =>
+        blog.category.some((cat) => cat.category_name.includes(value))
+      );
+    } else {
+      // Reset to original data if no category is selected
+      this.selectedBlogs = [...this.blogs];
+    }
+    console.log(value);
+    console.log(this.selectedBlogs);
+  }
 
   constructor(
     private _NewsControlService: NewsControlService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private _CategoriesService: CategoriesService
   ) {}
 
   ngOnInit(): void {
@@ -67,16 +99,37 @@ export class NewsControlComponent {
       { field: 'post_image', header: 'صورة المدونة' },
     ];
     this.getNewsData();
+    this.getAllCategories();
   }
 
   formatToolTip(categoryArr: Category[]): string {
     return categoryArr.map((e) => e.category_name).join(' - ');
   }
 
+  getAllCategories(): void {
+    this._CategoriesService.getAllCategories().subscribe({
+      next: (response) => {
+        console.log(response);
+        this.categories = response.rows.map((e) => {
+          return {
+            label: e.name,
+            value: e.slug.toString(),
+          };
+        });
+        console.log(this.categories);
+      },
+    });
+  }
   getNewsData(): void {
     this._NewsControlService.getAllNews().subscribe({
       next: (response) => {
-        this.blogs = response.rows;
+        let newData = (response.rows = response.rows.map((e) => {
+          // Modify the post_date and return the updated object
+          e.post_date = moment(e.post_date).format('iDD iMMMM iYYYY');
+          return e; // Return the updated object
+        }));
+        this.blogs = newData;
+        this.selectedBlogs = newData;
         console.log(response.rows);
       },
       error: (err) => {
@@ -133,6 +186,7 @@ export class NewsControlComponent {
   onGlobalFilter(dt: any, event: any): void {
     dt.filterGlobal(event.target.value, 'contains');
   }
+
   toggleBlogStatus(blog: IBlog): void {
     console.log(blog.id);
     console.log(blog.publish_status);

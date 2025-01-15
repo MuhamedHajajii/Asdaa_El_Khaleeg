@@ -1,7 +1,11 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Router,
+  RouterLink,
+} from '@angular/router';
 import { CategoriesService } from '../../../../core/services/content/categories.service';
-
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ISpecificCategory } from '../../../../core/interfaces/ISpecificCategory';
 import { HijriDatePipe } from '../../../../core/pipes/date-hijri.pipe';
@@ -9,6 +13,8 @@ import { StringSlicePipe } from '../../../../core/pipes/string-slice.pipe';
 import { ImagesSrcPipe } from '../../../../core/pipes/images-src.pipe';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { SafeHtmlPipe } from '../../../../core/pipes/safe-html.pipe';
+import { filter, map, switchMap, Subject, takeUntil } from 'rxjs';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-blogs',
@@ -23,76 +29,106 @@ import { SafeHtmlPipe } from '../../../../core/pipes/safe-html.pipe';
     SafeHtmlPipe,
   ],
   templateUrl: './blogs.component.html',
-  styleUrl: './blogs.component.scss',
+  styleUrls: ['./blogs.component.scss'],
 })
-export class BlogsComponent {
+export class BlogsComponent implements OnInit, OnDestroy {
   currentId!: string;
-  specificCategories!: ISpecificCategory | null;
+  specificCategories: ISpecificCategory | null = null;
   imageLoadedFlag = false;
-  currentPage: number = 1;
-  totalItems: number = 0;
+  currentPage = 1;
+  totalItems = 0;
   isShowSkeleton = true;
-  pageChanged(e: number) {
+  private destroy$ = new Subject<void>();
+
+  constructor(
+    private _CategoriesService: CategoriesService,
+    private _Router: Router,
+    private _ActivatedRoute: ActivatedRoute,
+    private titleService: Title,
+    private metaService: Meta
+  ) {}
+
+  ngOnInit(): void {
+    this.listenToRouteChanges();
+    this.getInitialId();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  pageChanged(page: number): void {
     this.isShowSkeleton = true;
     window.scrollTo(0, 0);
-    this.currentPage = e;
-    console.log(this.currentPage);
+    this.currentPage = page;
+    this.loadCategoryData(this.currentId, page);
+  }
+
+  getInitialId(): void {
+    this._ActivatedRoute.paramMap
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((params) => {
+        const id = params.get('id');
+        if (id) {
+          this.currentId = id;
+          this.loadCategoryData(id, this.currentPage);
+        }
+      });
+  }
+
+  loadCategoryData(categoryId: string, page: number): void {
+    this.isShowSkeleton = true;
     this._CategoriesService
-      .getCurrentCategories(this.currentId, this.currentPage)
+      .getCurrentCategories(categoryId, page)
+      .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (response) => {
           this.specificCategories = response as ISpecificCategory;
-          this.totalItems = response?.blogs.total as number;
+          this.totalItems = response?.blogs?.total || 0;
           this.isShowSkeleton = false;
+          this.updateMeta();
         },
         error: (err) => console.error('Error fetching category:', err),
       });
   }
 
-  constructor(
-    private _CategoriesService: CategoriesService,
-    private _Router: Router,
-    private _ActivatedRoute: ActivatedRoute
-  ) {}
-
-  ngOnInit(): void {
-    // Handle the active route on reload
-    this.getInitialId();
+  listenToRouteChanges(): void {
+    this._Router.events
+      .pipe(
+        takeUntil(this.destroy$),
+        filter((event) => event instanceof NavigationEnd),
+        switchMap(() => this._ActivatedRoute.data)
+      )
+      .subscribe((data) => {
+        this.titleService.setTitle(
+          data['title'] ||
+            `أصداء الخليج - ${this.specificCategories?.category.name}` ||
+            'أصداء الخليج'
+        );
+        // this.metaService.updateTag({
+        //   name: 'description',
+        //   content:
+        //     data['description'] ||
+        //     'تقدم الشركة خدماتها و تساعد الأفراد من مختلف الأعمار...',
+        // });
+      });
   }
 
-  getInitialId(): void {
-    // Extract 'id' from the current route on page load
-    const id = this._ActivatedRoute.paramMap.subscribe({
-      next: (params) => {
-        let id = params.get('id');
-        if (id) {
-          this.isShowSkeleton = true;
-          this.currentId = id;
-          console.log('Active Route ID (Reload):', this.currentId);
-          this.getCurrentCategory(this.currentId);
-        }
-      },
-    });
+  updateMeta(): void {
+    if (this.specificCategories?.category?.name) {
+      this.titleService.setTitle(
+        `أصداء الخليج - ${this.specificCategories?.category.name}`
+      );
+      // this.metaService.updateTag({
+      //   name: 'description',
+      //   content: 'تقدم الشركة خدماتها و تساعد الأفراد من مختلف الأعمار...',
+      // });
+    }
   }
 
-  getCurrentCategory(blogId: string): void {
-    console.log('Active Route ID (Reload):', this.currentId);
-
-    this.isShowSkeleton = true;
-    this._CategoriesService.getCurrentCategories(blogId).subscribe({
-      next: (response) => {
-        console.log(response);
-        this.specificCategories = response as ISpecificCategory;
-        this.totalItems = response?.blogs.total as number;
-        this.isShowSkeleton = false;
-      },
-      error: (err) => console.error('Error fetching category:', err),
-    });
-  }
-
-  imageLoaded(e: any) {
-    console.log();
-    let targetImage = e.target as HTMLElement;
+  imageLoaded(event: Event): void {
+    const targetImage = event.target as HTMLElement;
     targetImage.nextElementSibling?.classList.add('d-none');
   }
 }

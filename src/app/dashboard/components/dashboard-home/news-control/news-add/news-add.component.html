@@ -4,24 +4,22 @@
     <div class="row g-3">
       <!-- Image Upload with Drag and Drop -->
       <div class="col-12">
-        <div>
-          <div class="p-field mb-3">
-            <p-fileUpload
-              #fileUpload
-              name="post_image"
-              accept="image/*"
-              [auto]="true"
-              [chooseLabel]="'اختر صورة'"
-              [uploadLabel]="'رفع'"
-              [cancelLabel]="'إلغاء'"
-              [showUploadButton]="true"
-              [showCancelButton]="true"
-              [customUpload]="true"
-              (onSelect)="onFileSelect($event)"
-              [draggable]="true"
-            >
-            </p-fileUpload>
-          </div>
+        <div class="p-field mb-3">
+          <p-fileUpload
+            #fileUpload
+            name="post_image"
+            accept="image/*"
+            [auto]="true"
+            [chooseLabel]="'اختر صورة'"
+            [uploadLabel]="'رفع'"
+            [cancelLabel]="'إلغاء'"
+            [showUploadButton]="true"
+            [showCancelButton]="true"
+            [customUpload]="true"
+            (onSelect)="onFileSelect($event)"
+            [draggable]="true"
+          >
+          </p-fileUpload>
         </div>
       </div>
 
@@ -42,7 +40,7 @@
         </div>
       </div>
 
-      <!-- Title Input -->
+      <!-- Title Input with Validation -->
       <div class="col-12">
         <div class="p-field">
           <input
@@ -51,29 +49,40 @@
             type="text"
             pInputText
             formControlName="post_title"
-            placeholder="أدخل عنوان المقال"
+            placeholder="أدخل عنوان الموضوع"
             class="p-inputtext-lg"
           />
-          <div class="d-flex justify-content-between align-items-center">
-            <small>
-              <small
-                class="p-error"
-                *ngIf="
-                  addArticleForm.get('post_title')?.hasError('seoTitle') &&
-                  addArticleForm.get('post_title')?.touched
-                "
+
+          <div class="d-flex justify-content-between">
+            <!-- Warnings displayed while typing -->
+            <div class="mt-2 d-flex gap-2">
+              <div *ngIf="arabicWarning" class="warning-message p-warning">
+                <i class="pi pi-exclamation-triangle"></i>
+                {{ arabicWarning }}
+              </div>
+              <div *ngIf="seoTitleWarning" class="warning-message p-warning">
+                <i class="pi pi-exclamation-triangle"></i>
+                {{ seoTitleWarning }}
+              </div>
+              <div
+                *ngIf="duplicateWordWarning"
+                class="warning-message p-warning"
               >
-                {{ addArticleForm.get("post_title")?.getError("seoTitle") }}
+                <i class="pi pi-exclamation-triangle"></i>
+                {{ duplicateWordWarning }}
+              </div>
+            </div>
+            <!-- Title length indicator -->
+            <div class="d-flex justify-content-between align-items-center mt-2">
+              <small
+                [ngClass]="{
+                  'p-error': seoTitleWarning
+                }"
+                class="title-length-info"
+              >
+                {{ post_title.value.length }}/80
               </small>
-            </small>
-            <small
-              [ngClass]="{
-                'p-error':
-                  addArticleForm.get('post_title')?.hasError('seoTitle') &&
-                  addArticleForm.get('post_title')?.touched
-              }"
-              >{{ post_title.value.length }}/60</small
-            >
+            </div>
           </div>
         </div>
       </div>
@@ -103,51 +112,59 @@
             [dateFormat]="'yy-mm-dd'"
             [showIcon]="true"
             styleClass="w-full"
-            placeholder="اختر تاريخ المقال"
+            placeholder="اختر تاريخ الموضوع"
           ></p-calendar>
         </div>
       </div>
 
-      <!-- Content Editor -->
+      <!-- Content Editor with Warnings -->
       <div class="col-12">
         <div class="p-field mb-3">
           <ngx-jodit
             formControlName="post_content"
             [options]="options"
             #ngxJodit
+            (change)="onEditorInput($event)"
           ></ngx-jodit>
-          <small
-            class="p-error"
-            *ngIf="
-              addArticleForm
-                .get('post_content')
-                ?.hasError('minContentLength') &&
-              addArticleForm.get('post_content')?.touched
-            "
-          >
-            {{
-              addArticleForm.get("post_content")?.getError("minContentLength")
-            }}
-          </small>
-          <small
-            class="p-error"
-            *ngIf="
-              addArticleForm.get('post_content')?.hasError('invalidArabic') &&
-              addArticleForm.get('post_content')?.touched
-            "
-          >
-            {{ addArticleForm.get("post_content")?.getError("invalidArabic") }}
-          </small>
+
+          <!-- Warnings for Content -->
+          <div class="mt-2 d-flex gap-2">
+            <div
+              *ngIf="!isContentEmpty && contentLengthWarning"
+              class="warning-message p-warning"
+            >
+              <i class="pi pi-exclamation-triangle"></i>
+              {{ contentLengthWarning }}
+            </div>
+            <div
+              *ngIf="!isContentEmpty && contentArabicWarning"
+              class="warning-message p-warning"
+            >
+              <i class="pi pi-exclamation-triangle"></i>
+              {{ contentArabicWarning }}
+            </div>
+          </div>
         </div>
       </div>
+
       <!-- Submit Button -->
-      <div class="p-md-6">
+      <div class="p-md-6 d-flex justify-content-between">
         <div class="p-field">
           <button
             pButton
             type="submit"
-            label="نشر المقال"
+            label="نشر الموضوع"
             [disabled]="!addArticleForm.valid"
+          ></button>
+        </div>
+        <div class="p-field">
+          <button
+            (click)="clearInputs(); fileUpload.clear()"
+            pButton
+            type="button"
+            icon="pi pi-times"
+            label="تراجع"
+            class="p-button-outlined p-button-danger"
           ></button>
         </div>
       </div>
@@ -156,38 +173,38 @@
 </p-card>
 
 <!-- Confirmation Dialog for Approve -->
-@if(currentBlog) {
-<p-dialog
-  [draggable]="false"
-  [(visible)]="approveDialogVisible"
-  header="تأكيد الموافقة"
-  [modal]="true"
-  [style]="{ maxwidth: '90vw' }"
->
-  <app-privew-blog [IBlogs]="currentBlog" />
-  <div>
-    <span>هل أنت متأكد أنك تريد الموافقة على الموضوع؟</span>
-  </div>
-  <ng-template pTemplate="footer">
-    <button
-      pButton
-      pRipple
-      label="إلغاء"
-      icon="pi pi-times"
-      class="p-button-text"
-      (click)="approveDialogVisible = false"
-    ></button>
-    <button
-      pButton
-      pRipple
-      label="موافقة"
-      icon="pi pi-check"
-      class="p-button-text"
-      (click)="onSubmit(); approveDialogVisible = false; fileUpload.clear()"
-    ></button>
-  </ng-template>
-</p-dialog>
-}
+<ng-container *ngIf="currentBlog">
+  <p-dialog
+    [draggable]="false"
+    [(visible)]="approveDialogVisible"
+    header="تأكيد الموافقة"
+    [modal]="true"
+    [style]="{ maxwidth: '90vw' }"
+  >
+    <app-privew-blog [IBlogs]="currentBlog" />
+    <div>
+      <span>هل أنت متأكد أنك تريد الموافقة على الموضوع؟</span>
+    </div>
+    <ng-template pTemplate="footer">
+      <button
+        pButton
+        pRipple
+        label="إلغاء"
+        icon="pi pi-times"
+        class="p-button-text"
+        (click)="approveDialogVisible = false"
+      ></button>
+      <button
+        pButton
+        pRipple
+        label="موافقة"
+        icon="pi pi-check"
+        class="p-button-text"
+        (click)="onSubmit(); approveDialogVisible = false; fileUpload.clear()"
+      ></button>
+    </ng-template>
+  </p-dialog>
+</ng-container>
 
 <ngx-spinner
   bdColor="rgba(255, 255, 255, 0.75)"
@@ -198,5 +215,5 @@
   [disableAnimation]="true"
   [fullScreen]="true"
 >
-  <span class="d-block d-block mx-auto text-center translate-middle-y"> </span
-></ngx-spinner>
+  <span class="d-block d-block mx-auto text-center translate-middle-y"> </span>
+</ngx-spinner>

@@ -175,3 +175,15 @@ img {
 .p-paginator {
   direction: ltr !important;
 }
+
+.pi {
+  margin-inline: 0.5rem !important;
+}
+
+.p-toast-message-content {
+  align-items: start;
+  .p-element.p-icon-wrapper {
+    align-items: start;
+    margin-left: 0.5rem;
+  }
+}

@@ -1,3 +1,4 @@
+@if (comments.length > 0) {
 <!-- Global Filter Input -->
 <div
   class="search-container p-input-icon-left search-bar"
@@ -156,3 +157,9 @@
     ></button>
   </ng-template>
 </p-dialog>
+<p-toast />
+} @else {
+<div class="w-100 min-h-50vh d-flex justify-content-center align-items-center">
+  جار تحميل البيانات ... <i class="pi pi-spin pi-spinner"></i>
+</div>
+}

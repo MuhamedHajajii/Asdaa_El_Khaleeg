@@ -130,3 +130,39 @@ h3 {
   border-radius: 6px !important;
   margin-bottom: 0px !important;
 }
+
+::ng-deep .p-datepicker .p-datepicker-header {
+  direction: ltr;
+}
+/* Styling the warning messages */
+.warning-message {
+  background-color: #fff3cd;
+  color: #856404;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.warning-message .pi {
+  font-size: 1.2rem;
+}
+
+.title-length-info {
+  font-size: 0.9rem;
+  color: #6c757d;
+  font-weight: 500;
+}
+
+.title-length-info.p-error {
+  color: #dc3545;
+  font-weight: bold;
+}
+
+/* Optional: Making warning messages appear with a smoother transition */
+.warning-message {
+  transition: all 0.3s ease-in-out;
+}

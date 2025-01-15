@@ -1,3 +1,4 @@
+@if (socialMediaLinks.length > 0) {
 <div class="social-media-control">
   <h2>روابط وسائل التواصل الاجتماعي</h2>
 
@@ -7,8 +8,6 @@
     <label>{{ link.label }}</label>
     <input type="text" [(ngModel)]="link.url" placeholder="أدخل الرابط هنا" />
   </div>
-  } @empty {
-  <p class="no-data">جاري تحميل البيانات ...</p>
   }
 
   <button
@@ -19,3 +18,8 @@
     label="حفظ التغييرات"
   ></button>
 </div>
+} @else {
+<div class="w-100 min-h-50vh d-flex justify-content-center align-items-center">
+  جار تحميل البيانات ... <i class="pi pi-spin pi-spinner"></i>
+</div>
+}

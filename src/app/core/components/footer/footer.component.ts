@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { SocialMediaService } from '../../services/content/social-media.service';
 import { Contact } from '../../interfaces/ISocialMedia';
+import { SocialMediaService } from '../../services/content/social-media.service';
+import { StaticCategoriesService } from '../../services/content/static-categories.service';
 
 @Component({
   selector: 'app-footer',
@@ -13,9 +14,17 @@ import { Contact } from '../../interfaces/ISocialMedia';
 export class FooterComponent {
   socialLinks: { label: string; url: string; icon: string; alt: string }[] = [];
 
-  constructor(private _SocialMediaService: SocialMediaService) {}
+  constructor(
+    private _StaticCategoriesService: StaticCategoriesService,
+    private _SocialMediaService: SocialMediaService
+  ) {}
   ngOnInit(): void {
     this.getSocialMediaLinks();
+    this._StaticCategoriesService.increaseView().subscribe({
+      next: (response) => {
+        console.log(response);
+      },
+    });
   }
 
   getSocialMediaLinks(): void {
