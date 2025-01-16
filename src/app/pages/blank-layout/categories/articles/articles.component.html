@@ -1,35 +1,39 @@
 @if (!isShowSkeleton && specificCategories) {
 <section>
+  <h1 class="d-none">
+    صحيفة أصداء الخليج | صحيفة سعودية مرخصة .. رئيس تحريرها سلمان بن أحمد العيد
+  </h1>
   <div class="row g-4">
     @for (card of specificCategories.blogs.data | paginate: { id:'some_id',
     itemsPerPage: 9, currentPage: currentPage,totalItems: totalItems }; track
     $index) {
     <div class="col-md-6 col-lg-4">
-      <article
-        [routerLink]="['/details', card.post_id]"
-        class="card cr article-shadow p-3 h-100 d-flex flex-column justify-content-between"
-      >
-        <div>
-          <h3 class="text-main fs-13 fw-bold cr">{{ card.post_title }}</h3>
-          <p
-            [innerHTML]="card.post_content | stringSlice : 100 | safeHtml"
-            class="fs-13 text-lighter mb-4"
-          ></p>
-        </div>
-        <h4 class="text-start">
-          <img
-            width="37px"
-            height="37px"
-            class="align-middle rounded-circle object-fit-cover ms-3"
-            [src]="
-              card.post_image || './assets/images/not_found_image.jpg'
-                | imagesSrc
-            "
-            alt="tweet"
-          />
-          <span class="align-middle fs-13">{{ card.author_name }}</span>
-        </h4>
-      </article>
+      <a [routerLink]="['/details', card.post_id]" href="#">
+        <article
+          class="card cr article-shadow p-3 h-100 d-flex flex-column justify-content-between"
+        >
+          <div>
+            <h3 class="text-main fs-13 fw-bold cr">{{ card.post_title }}</h3>
+            <p
+              [innerHTML]="card.post_content | stringSlice : 100 | safeHtml"
+              class="fs-13 text-lighter mb-4"
+            ></p>
+          </div>
+          <h4 class="text-start">
+            <img
+              width="37px"
+              height="37px"
+              class="align-middle rounded-circle object-fit-cover ms-3"
+              [src]="
+                card.post_image || './assets/images/not_found_image.jpg'
+                  | imagesSrc
+              "
+              alt="tweet"
+            />
+            <span class="align-middle fs-13">{{ card.author_name }}</span>
+          </h4>
+        </article>
+      </a>
     </div>
     }
 

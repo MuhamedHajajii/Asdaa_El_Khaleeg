@@ -9,36 +9,43 @@
               @for (slide of sliderData.blogs; track $index) {
               <ng-container>
                 <ng-template carouselSlide [id]="slide.post_id + ''">
-                  <figure
-                    class="my-0 h-100 Logo_Water_Mark card cr"
-                    [owlRouterLink]="['/details', slide.post_id]"
-                  >
-                    <img
-                      class="w-100 object-fit-cover hero_height"
-                      [src]="slide.featured_image"
-                      [alt]="slide.post_title"
-                    />
-                    <figcaption class="card-img-overlay d-flex align-items-end">
-                      <div
-                        class="carousel__content bg-black py-3 bg-opacity-50 px-3 border-radius-10 col-9 col-md-10 mb-4 px-3 text-white"
+                  <a [owlRouterLink]="['/details', slide.post_id]" href="#">
+                    <figure class="my-0 h-100 Logo_Water_Mark card cr">
+                      <img
+                        #image
+                        (load)="imageLoaded(image)"
+                        class="w-100 object-fit-cover hero_height"
+                        [src]="slide.featured_image"
+                        [alt]="slide.post_title"
+                      />
+                      <span
+                        class="placeholder bg-opacity-100 position-absolute top-0 start-0 bottom-0 end-0"
+                      ></span>
+                      <figcaption
+                        class="card-img-overlay d-flex align-items-end"
                       >
-                        <p
-                          [innerHTML]="
-                            slide.post_content | stringSlice : 150 | safeHtml
-                          "
-                          class="text-light fs-15"
-                        ></p>
-                        <div class="text-start">
-                          <button
-                            [routerLink]="['/details', slide.post_id]"
-                            class="btn-show-all btn text-light"
-                          >
-                            المزيد
-                          </button>
+                        <div
+                          class="carousel__content bg-black py-3 bg-opacity-50 px-3 border-radius-10 col-9 col-md-10 mb-4 px-3 text-white"
+                        >
+                          <p
+                            [innerHTML]="
+                              slide.post_content | stringSlice : 150 | safeHtml
+                            "
+                            class="text-light fs-15"
+                          ></p>
+                          <div class="text-start">
+                            <a
+                              [routerLink]="['/details', slide.post_id]"
+                              class="btn-show-all btn text-light"
+                              href="#"
+                            >
+                              المزيد</a
+                            >
+                          </div>
                         </div>
-                      </div>
-                    </figcaption>
-                  </figure>
+                      </figcaption>
+                    </figure>
+                  </a>
                 </ng-template>
               </ng-container>
               }
@@ -71,12 +78,17 @@
           <p class="fw-bold fs-13 py-2 mb-0">
             {{ masterBlog?.blogs[0]?.post_title }}
           </p>
-          <p
+          <a
+            class="text-decoration-none"
             [routerLink]="['/details', masterBlog?.blogs[0]?.post_id]"
-            class="cr fw-bold fs-13 text-main border-color-main border border-2 border-radius-10 p-3 text-center fs-13"
+            href="#"
           >
-            زاوية رئيس التحرير : سلمان بن أحمد العيد
-          </p>
+            <p
+              class="cr fw-bold fs-13 text-main border-color-main border border-2 border-radius-10 p-3 text-center fs-13"
+            >
+              زاوية رئيس التحرير : سلمان بن أحمد العيد
+            </p>
+          </a>
         </div>
       </div>
     </div>

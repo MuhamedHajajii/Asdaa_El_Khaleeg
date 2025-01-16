@@ -10,6 +10,7 @@ import { HomeNewsComponent } from './home-news/home-news.component';
 import { HomeSecondAdvertisingBannerComponent } from './home-second-advertising-banner/home-second-advertising-banner.component';
 import { HomeVideosComponent } from './home-videos/home-videos.component';
 import { NationalNewsComponent } from './national-news/national-news.component';
+import { Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
@@ -31,4 +32,20 @@ import { NationalNewsComponent } from './national-news/national-news.component';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent {}
+export class HomeComponent {
+  constructor(private metaService: Meta) {}
+  ngOnInit(): void {
+    if (window.location.href) {
+      const canonicalUrl = window.location.href;
+
+      // ✅ Find and remove existing canonical tag
+      const existingCanonical = document.querySelector('link[rel="canonical"]');
+      if (existingCanonical) {
+        existingCanonical.remove();
+      }
+
+      // ✅ Add the new canonical tag
+      this.metaService.addTag({ rel: 'canonical', href: canonicalUrl });
+    }
+  }
+}

@@ -3,7 +3,10 @@
   <div class="container">
     <header class="d-flex justify-content-between">
       <h2 class="section__title">إبداعات الوطن</h2>
-      <a [routerLink]="['/archives/blogs', '6']" class="btn btn-show-all"
+      <a
+        [routerLink]="['/archives/blogs', '6']"
+        class="btn btn-show-all"
+        href="#"
         >عرض الكل</a
       >
     </header>
@@ -16,105 +19,119 @@
             "
           />
 
-          <div class="mt-2">
-            <figure
-              class="Logo_Water_Mark small cr"
-              [routerLink]="['/details', nationalNews.blogs.data[3].post_id]"
-            >
+          <a
+            [routerLink]="['/details', nationalNews.blogs.data[3].post_id]"
+            href="#"
+          >
+            <div class="mt-2">
+              <figure class="Logo_Water_Mark small cr">
+                <img
+                  class="w-100 object-fit-cover h-110 border-radius-10"
+                  [src]="nationalNews.blogs.data[3].post_image"
+                  [alt]="nationalNews.blogs.data[3].post_title"
+                />
+              </figure>
+              <h3 class="fs-13 fw-bold mb-1 cr">
+                {{ nationalNews.blogs.data[3].post_title }}
+              </h3>
+              <div>
+                <p
+                  class="mb-0 fs-13 desc_color"
+                  [innerHTML]="
+                    nationalNews.blogs.data[3].post_content
+                      | stringSlice
+                      | safeHtml
+                  "
+                ></p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="col-12 col-lg-6">
+        <a
+          [routerLink]="['/details', nationalNews.blogs.data[0].post_id]"
+          href="#"
+        >
+          <div>
+            <figure class="cr Logo_Water_Mark small">
               <img
-                class="w-100 object-fit-cover h-110 border-radius-10"
-                [src]="nationalNews.blogs.data[3].post_image"
-                [alt]="nationalNews.blogs.data[3].post_title"
+                class="w-100 object-fit-cover border-radius-10 h-370"
+                [src]="nationalNews.blogs.data[0].post_image"
+                [alt]="nationalNews.blogs.data[0].post_title"
               />
             </figure>
             <h3 class="fs-13 fw-bold mb-1 cr">
-              {{ nationalNews.blogs.data[3].post_title }}
+              {{ nationalNews.blogs.data[0].post_title }}
             </h3>
             <div>
               <p
                 class="mb-0 fs-13 desc_color"
                 [innerHTML]="
-                  nationalNews.blogs.data[3].post_content
+                  nationalNews.blogs.data[0].post_content
                     | stringSlice
                     | safeHtml
                 "
               ></p>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="col-12 col-lg-6">
-        <div>
-          <figure
-            class="cr Logo_Water_Mark small"
-            [routerLink]="['/details', nationalNews.blogs.data[0].post_id]"
-          >
-            <img
-              class="w-100 object-fit-cover border-radius-10 h-370"
-              [src]="nationalNews.blogs.data[0].post_image"
-              [alt]="nationalNews.blogs.data[0].post_title"
-            />
-          </figure>
-          <h3 class="fs-13 fw-bold mb-1 cr">
-            {{ nationalNews.blogs.data[0].post_title }}
-          </h3>
-          <div>
-            <p
-              class="mb-0 fs-13 desc_color"
-              [innerHTML]="
-                nationalNews.blogs.data[0].post_content | stringSlice | safeHtml
-              "
-            ></p>
-          </div>
-        </div>
+        </a>
       </div>
       <div class="col-12 col-lg-3">
-        <div>
-          <figure
-            class="cr Logo_Water_Mark small"
-            [routerLink]="['/details', nationalNews.blogs.data[1].post_id]"
-          >
-            <img
-              class="w-100 object-fit-cover border-radius-10 h-130"
-              [src]="nationalNews.blogs.data[1].post_image"
-              [alt]="nationalNews.blogs.data[1].post_title"
-            />
-          </figure>
-          <h3 class="fs-13 fw-bold mb-1 cr">
-            {{ nationalNews.blogs.data[1].post_title }}
-          </h3>
+        <a
+          [routerLink]="['/details', nationalNews.blogs.data[1].post_id]"
+          href="#"
+        >
           <div>
-            <p
-              class="mb-0 fs-13 desc_color"
-              [innerHTML]="
-                nationalNews.blogs.data[1].post_content | stringSlice | safeHtml
-              "
-            ></p>
+            <figure class="cr Logo_Water_Mark small">
+              <img
+                class="w-100 object-fit-cover border-radius-10 h-130"
+                [src]="nationalNews.blogs.data[1].post_image"
+                [alt]="nationalNews.blogs.data[1].post_title"
+              />
+            </figure>
+            <h3 class="fs-13 fw-bold mb-1 cr">
+              {{ nationalNews.blogs.data[1].post_title }}
+            </h3>
+            <div>
+              <p
+                class="mb-0 fs-13 desc_color"
+                [innerHTML]="
+                  nationalNews.blogs.data[1].post_content
+                    | stringSlice
+                    | safeHtml
+                "
+              ></p>
+            </div>
           </div>
-        </div>
-        <div>
-          <figure
-            class="Logo_Water_Mark small cr"
-            [routerLink]="['/details', nationalNews.blogs.data[2].post_id]"
-          >
-            <img
-              class="w-100 object-fit-cover h-130 border-radius-10"
-              [src]="nationalNews.blogs.data[2].post_image"
-              [alt]="nationalNews.blogs.data[2].post_title"
-            />
-          </figure>
-          <h3 class="fs-13 fw-bold mb-1 cr">
-            {{ nationalNews.blogs.data[2].post_title }}
-          </h3>
+        </a>
+        <a
+          [routerLink]="['/details', nationalNews.blogs.data[2].post_id]"
+          href="#"
+        >
           <div>
-            <p
-              class="mb-0 fs-13 desc_color"
-              [innerHTML]="
-                nationalNews.blogs.data[2].post_content | stringSlice | safeHtml
-              "
-            ></p>
+            <figure class="Logo_Water_Mark small cr">
+              <img
+                class="w-100 object-fit-cover h-130 border-radius-10"
+                [src]="nationalNews.blogs.data[2].post_image"
+                [alt]="nationalNews.blogs.data[2].post_title"
+              />
+            </figure>
+            <h3 class="fs-13 fw-bold mb-1 cr">
+              {{ nationalNews.blogs.data[2].post_title }}
+            </h3>
+            <div>
+              <p
+                class="mb-0 fs-13 desc_color"
+                [innerHTML]="
+                  nationalNews.blogs.data[2].post_content
+                    | stringSlice
+                    | safeHtml
+                "
+              ></p>
+            </div>
           </div>
-        </div>
+        </a>
       </div>
     </div>
   </div>

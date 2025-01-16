@@ -3,39 +3,47 @@
   <div class="container">
     <header class="d-flex justify-content-between">
       <h2 class="section__title">الموضوعات</h2>
-      <a [routerLink]="['/archives/article', '08']" class="btn btn-show-all"
+      <a
+        [routerLink]="['/archives/article', '08']"
+        href="#"
+        class="btn btn-show-all"
         >عرض الكل</a
       >
     </header>
     <div class="row g-4 g-lg-3">
       @for (blog of specificCategory.blogs.data | slice:0:3; track $index) {
       <div class="col-md-6 col-lg-4">
-        <article
+        <a
           [routerLink]="['/details', blog.post_id]"
-          class="card cr p-3 h-100 justify-content-between flex-column"
+          class="text-decoration-none"
+          href="#"
         >
-          <div class="d-flex flex-column justify-content-between">
-            <h3 class="text-main fs-13 fw-bold cr">{{ blog.post_title }}</h3>
-            <p
-              class="fs-13 text-lighter mb-4"
-              [innerHTML]="blog.post_content | stringSlice : 150 | safeHtml"
-            ></p>
-          </div>
+          <article
+            class="card cr p-3 h-100 justify-content-between flex-column"
+          >
+            <div class="d-flex flex-column justify-content-between">
+              <h3 class="text-main fs-13 fw-bold cr">{{ blog.post_title }}</h3>
+              <p
+                class="fs-13 text-lighter mb-4"
+                [innerHTML]="blog.post_content | stringSlice : 150 | safeHtml"
+              ></p>
+            </div>
 
-          <h4 class="text-start">
-            <img
-              width="37px"
-              height="37px"
-              class="align-middle rounded-circle object-fit-cover ms-3"
-              [src]="
-                blog.post_image || './assets/images/not_found_image.jpg'
-                  | imagesSrc
-              "
-              alt="tweet"
-            />
-            <span class="align-middle fs-13">{{ blog.author_name }}</span>
-          </h4>
-        </article>
+            <h4 class="text-start">
+              <img
+                width="37px"
+                height="37px"
+                class="align-middle rounded-circle object-fit-cover ms-3"
+                [src]="
+                  blog.post_image || './assets/images/not_found_image.jpg'
+                    | imagesSrc
+                "
+                alt="tweet"
+              />
+              <span class="align-middle fs-13">{{ blog.author_name }}</span>
+            </h4>
+          </article>
+        </a>
       </div>
       }
     </div>

@@ -5,46 +5,48 @@
     itemsPerPage: 9, currentPage: currentPage,totalItems: totalItems }; track
     $index) {
     <div class="col-12 col-md-6 col-lg-4">
-      <div [routerLink]="['/details', card.post_id]">
-        <figure class="Logo_Water_Mark cr h-250">
-          <img
-            class="w-100 h-100 object-fit-cover border-radius-10"
-            [src]="
-              card?.post_image || './assets/images/not_found_image.jpg'
-                | imagesSrc
-            "
-            (load)="imageLoaded($event)"
-            alt="card.author"
-          />
-          @if (!imageLoadedFlag) {
-          <div
-            class="placeholder opacity-100 bd-placeholder-img card-img-top position-absolute top-0 start-0 w-100 border-radius-10"
-            style="height: 250px; background-color: #868e96"
-          ></div>
-          }
-        </figure>
-        <h3
-          class="text-main fs-13 fw-bold mt-2 mb-1 text-decoration-underline cr"
-        >
-          {{ card.post_title | stringSlice : 70 }}
-        </h3>
-        <div
-          class="d-flex justify-content-between align-items-center mb-2 mt-3"
-        >
-          <h4 class="fs-13 fw-bold mb-0">
-            {{ card.author_name == "admin" ? "" : card.author_name }}
-          </h4>
-          <p class="mb-0 date_color fw-bold fs-13">
-            {{ card.post_date | hijriDate }}
-          </p>
-        </div>
+      <a [routerLink]="['/details', card.post_id]" href="#">
         <div>
-          <p
-            class="mb-0 fs-13 desc_color fw-bold"
-            [innerHTML]="card.post_content | stringSlice : 100 | safeHtml"
-          ></p>
+          <figure class="Logo_Water_Mark cr h-250">
+            <img
+              class="w-100 h-100 object-fit-cover border-radius-10"
+              [src]="
+                card?.post_image || './assets/images/not_found_image.jpg'
+                  | imagesSrc
+              "
+              (load)="imageLoaded($event)"
+              alt="card.author"
+            />
+            @if (!imageLoadedFlag) {
+            <div
+              class="placeholder opacity-100 bd-placeholder-img card-img-top position-absolute top-0 start-0 w-100 border-radius-10"
+              style="height: 250px; background-color: #868e96"
+            ></div>
+            }
+          </figure>
+          <h3
+            class="text-main fs-13 fw-bold mt-2 mb-1 text-decoration-underline cr"
+          >
+            {{ card.post_title | stringSlice : 70 }}
+          </h3>
+          <div
+            class="d-flex justify-content-between align-items-center mb-2 mt-3"
+          >
+            <h4 class="fs-13 fw-bold mb-0">
+              {{ card.author_name == "admin" ? "" : card.author_name }}
+            </h4>
+            <p class="mb-0 date_color fw-bold fs-13">
+              {{ card.post_date | hijriDate }}
+            </p>
+          </div>
+          <div>
+            <p
+              class="mb-0 fs-13 desc_color fw-bold"
+              [innerHTML]="card.post_content | stringSlice : 100 | safeHtml"
+            ></p>
+          </div>
         </div>
-      </div>
+      </a>
     </div>
     }
   </div>

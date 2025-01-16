@@ -56,6 +56,9 @@ export class HeroComponent {
       },
     });
   }
+  imageLoaded(event: HTMLImageElement): void {
+    event.nextElementSibling?.remove();
+  }
   /** Carousel Options */
   customOptions: OwlOptions = {
     loop: true,

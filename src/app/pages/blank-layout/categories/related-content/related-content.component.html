@@ -6,6 +6,7 @@
       @if (relatedContent.category) {
       <a
         [routerLink]="['/archives/blogs', relatedContent.category.slug]"
+        href="#"
         class="btn btn-show-all"
         >عرض الكل</a
       >
@@ -20,78 +21,93 @@
             "
           />
 
-          <div
+          <a
             [routerLink]="['/details', relatedContent.blogs.data[3].post_id]"
+            href="#"
           >
-            <figure class="cr Logo_Water_Mark mb-0 small">
-              <img
-                class="w-100 object-fit-cover h-300 border-radius-10"
-                [src]="
-                  relatedContent.blogs.data[3].post_image ||
-                    './assets/images/not_found_image.jpg' | imagesSrc
-                "
-                [alt]="relatedContent.blogs.data[3].post_title"
-              />
-            </figure>
-            <h3 class="my-0 fs-13 fw-bold mb-1 cr">
-              {{ relatedContent.blogs.data[3].post_title }}
-            </h3>
-          </div>
+            <div>
+              <figure class="cr Logo_Water_Mark mb-0 small">
+                <img
+                  class="w-100 object-fit-cover h-300 border-radius-10"
+                  [src]="
+                    relatedContent.blogs.data[3].post_image ||
+                      './assets/images/not_found_image.jpg' | imagesSrc
+                  "
+                  [alt]="relatedContent.blogs.data[3].post_title"
+                />
+              </figure>
+              <h3 class="my-0 fs-13 fw-bold mb-1 cr">
+                {{ relatedContent.blogs.data[3].post_title }}
+              </h3>
+            </div>
+          </a>
         </div>
       </div>
 
       <div class="col-12 col-lg-3">
-        <div
-          class="mb-3"
+        <a
           [routerLink]="['/details', relatedContent.blogs.data[1].post_id]"
+          href="#"
         >
-          <figure class="Logo_Water_Mark small cr mb-0">
-            <img
-              class="w-100 object-fit-cover border-radius-10 h-285 cr"
-              [src]="
-                relatedContent.blogs.data[1].post_image ||
-                  './assets/images/not_found_image.jpg' | imagesSrc
-              "
-              [alt]="relatedContent.blogs.data[1].post_title"
-            />
-          </figure>
-          <h3 class="my-0 fs-13 fw-bold mb-1 cr">
-            {{ relatedContent.blogs.data[1].post_title }}
-          </h3>
-        </div>
-        <div [routerLink]="['/details', relatedContent.blogs.data[2].post_id]">
-          <figure class="Logo_Water_Mark small cr mb-0">
-            <img
-              class="w-100 object-fit-cover h-285 border-radius-10"
-              [src]="
-                relatedContent.blogs.data[2].post_image ||
-                  './assets/images/not_found_image.jpg' | imagesSrc
-              "
-              [alt]="relatedContent.blogs.data[2].post_title"
-            />
-          </figure>
-          <h3 class="my-0 fs-13 fw-bold mb-1 cr">
-            {{ relatedContent.blogs.data[2].post_title }}
-          </h3>
-        </div>
+          <div class="mb-3">
+            <figure class="Logo_Water_Mark small cr mb-0">
+              <img
+                class="w-100 object-fit-cover border-radius-10 h-285 cr"
+                [src]="
+                  relatedContent.blogs.data[1].post_image ||
+                    './assets/images/not_found_image.jpg' | imagesSrc
+                "
+                [alt]="relatedContent.blogs.data[1].post_title"
+              />
+            </figure>
+            <h3 class="my-0 fs-13 fw-bold mb-1 cr">
+              {{ relatedContent.blogs.data[1].post_title }}
+            </h3>
+          </div>
+        </a>
+        <a
+          [routerLink]="['/details', relatedContent.blogs.data[2].post_id]"
+          href="#"
+        >
+          <div>
+            <figure class="Logo_Water_Mark small cr mb-0">
+              <img
+                class="w-100 object-fit-cover h-285 border-radius-10"
+                [src]="
+                  relatedContent.blogs.data[2].post_image ||
+                    './assets/images/not_found_image.jpg' | imagesSrc
+                "
+                [alt]="relatedContent.blogs.data[2].post_title"
+              />
+            </figure>
+            <h3 class="my-0 fs-13 fw-bold mb-1 cr">
+              {{ relatedContent.blogs.data[2].post_title }}
+            </h3>
+          </div>
+        </a>
       </div>
 
       <div class="col-12 col-lg-6">
-        <div [routerLink]="['/details', relatedContent.blogs.data[0].post_id]">
-          <figure class="Logo_Water_Mark small cr mb-0">
-            <img
-              class="w-100 object-fit-cover border-radius-10 h-620"
-              [src]="
-                relatedContent.blogs.data[0].post_image ||
-                  './assets/images/not_found_image.jpg' | imagesSrc
-              "
-              [alt]="relatedContent.blogs.data[0].post_title"
-            />
-          </figure>
-          <h3 class="my-0 fs-13 fw-bold mb-1 cr">
-            {{ relatedContent.blogs.data[0].post_title }}
-          </h3>
-        </div>
+        <a
+          [routerLink]="['/details', relatedContent.blogs.data[0].post_id]"
+          href="#"
+        >
+          <div>
+            <figure class="Logo_Water_Mark small cr mb-0">
+              <img
+                class="w-100 object-fit-cover border-radius-10 h-620"
+                [src]="
+                  relatedContent.blogs.data[0].post_image ||
+                    './assets/images/not_found_image.jpg' | imagesSrc
+                "
+                [alt]="relatedContent.blogs.data[0].post_title"
+              />
+            </figure>
+            <h3 class="my-0 fs-13 fw-bold mb-1 cr">
+              {{ relatedContent.blogs.data[0].post_title }}
+            </h3>
+          </div>
+        </a>
       </div>
     </div>
   </div>

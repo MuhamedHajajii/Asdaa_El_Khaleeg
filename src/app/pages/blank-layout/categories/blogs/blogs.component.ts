@@ -49,6 +49,18 @@ export class BlogsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    if (window.location.href) {
+      const canonicalUrl = window.location.href;
+
+      // ✅ Find and remove existing canonical tag
+      const existingCanonical = document.querySelector('link[rel="canonical"]');
+      if (existingCanonical) {
+        existingCanonical.remove();
+      }
+
+      // ✅ Add the new canonical tag
+      this.metaService.addTag({ rel: 'canonical', href: canonicalUrl });
+    }
     this.listenToRouteChanges();
     this.getInitialId();
   }
