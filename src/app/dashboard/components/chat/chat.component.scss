@@ -278,10 +278,26 @@
   background-color: #f1f1f1;
   padding: 15px;
   border-radius: 15px;
-  max-width: 300px;
+  width: 300px;
   position: relative;
   font-size: 16px;
   color: #333;
+  position: absolute;
+  right: 70%;
+  top: 30%;
+}
+.speech-bubble + img {
+  transform: rotateY(180deg);
+  position: relative;
+  animation: talkImage 0.8s ease-in-out infinite alternate;
+}
+@keyframes talkImage {
+  from {
+    bottom: 0;
+  }
+  to {
+    bottom: 20px;
+  }
 }
 
 /* Creating the "tail" of the speech bubble */

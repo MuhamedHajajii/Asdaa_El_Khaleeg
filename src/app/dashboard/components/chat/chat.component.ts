@@ -122,7 +122,9 @@ export class ChatComponent {
           .replace('AM', 'ص') // Replacing AM with ص
           .replace('PM', 'م'); // Replacing PM with م
         // Set the text that will be typed
-        this.textToShow = `آخر مرة قمت فيها بنشر مدونة كانت في ${this.currentTime}.`;
+        this.textToShow = `
+        انتبه!
+        آخر مرة قمت فيها بنشر مدونة كانت في ${this.currentTime}.`;
         this.startTypingEffect();
       },
     });
