@@ -1,6 +1,8 @@
 <nav>
   <!-- navbar banner -->
-  <div class="container navbar__banner py-2 d-flex justify-content-between">
+  <div
+    class="container navbar__banner py-2 d-flex justify-content-between align-items-md-center"
+  >
     <div class="d-flex justify-content-between align-items-center gap-3">
       <a routerLink="/" href="#">
         <img
@@ -15,6 +17,9 @@
         alt="التاريخ"
       />
       <time class="d-none d-sm-inline">{{ nowDate | hijriDate }} هـ</time>
+    </div>
+    <div>
+      <span class="d-block text-main fs-13">مدعوم بالذكاء الاصطناعي</span>
     </div>
     <div
       class="d-flex justify-content-center align-items-center gap-4 flex-row-reverse"
@@ -40,6 +45,7 @@
       </div>
     </div>
   </div>
+
   <!-- nav bar banner -->
   <div class="navbar navbar-expand-lg bg-main flex-row-reverse">
     <div
