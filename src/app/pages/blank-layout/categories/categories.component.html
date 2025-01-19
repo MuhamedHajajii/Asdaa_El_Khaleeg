@@ -10,13 +10,18 @@
       <div class="p-2 col-12 col-lg-3 order-0 order-lg-1 position-relative">
         <div>
           <div
-            class="hero_height main_animation border-radius-10 overflow-hidden Logo_Water_Mark"
+            class="hero_height main_animation border-radius-10 overflow-hidden Logo_Water_Mark cr"
           >
-            <img
-              class="w-100 object-fit-cover main_animation"
-              src="./assets/images/pages/home/Hero_Section/main_hero.png"
-              alt="carousel"
-            />
+            <a
+              [routerLink]="['/details', masterBlog?.blogs[0]?.post_id]"
+              href="#"
+            >
+              <img
+                class="w-100 object-fit-cover main_animation"
+                src="./assets/images/pages/home/Hero_Section/main_hero.png"
+                alt="carousel"
+              />
+            </a>
           </div>
         </div>
         <div class="main-content">

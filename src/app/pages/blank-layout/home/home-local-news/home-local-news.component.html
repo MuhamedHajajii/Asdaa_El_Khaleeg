@@ -60,12 +60,12 @@
                   role="presentation"
                   src="./assets/images/pages/home/loca_news/clock-rotate-left-solid.png"
                 />
-                <span class="align-middle text-dark">{{
+                <span class="align-middle text-main">{{
                   news.post_date | hijriDate
                 }}</span>
               </p>
               <div>
-                <p class="mb-0 fs-13 desc_color fw-bold cr">
+                <p class="mb-0 fs-13 desc_color title_section fw-bold cr">
                   {{ news.post_title }}
                 </p>
               </div>
@@ -94,7 +94,7 @@
             <div
               class="row justify-content-between align-items-center mb-2 mt-3"
             >
-              <h3 class="fs-13 fw-bold mb-0 col-9 text-end text-main cr">
+              <h3 class="fs-13 fw-bold mb-0 col-9 text-end title_section cr">
                 {{ localNews.blogs.data[0].post_title | stringSlice : 80 }}
               </h3>
               <p class="mb-0 date_color fw-bold fs-13 col-3 text-start">
@@ -104,14 +104,14 @@
                   src="./assets/images/pages/home/loca_news/clock-rotate-left-solid.png"
                   role="presentation"
                 />
-                <span class="align-middle text-dark">{{
+                <span class="align-middle text-dark text-main">{{
                   localNews.blogs.data[0].post_date | hijriDate
                 }}</span>
               </p>
             </div>
             <div>
               <p
-                class="mb-0 fs-13 desc_color fw-bold"
+                class="mb-0 fs-13 desc_color fw-bold title_section"
                 [innerHTML]="
                   localNews.blogs.data[0].post_content
                     | stringSlice : 150

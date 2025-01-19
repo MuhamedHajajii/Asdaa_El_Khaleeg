@@ -41,11 +41,9 @@ export class AboutUsControlComponent {
   ngOnInit(): void {
     this.editorModules = {
       toolbar: [
-        [{ size: [] }],
-        ['bold', 'italic', 'underline'],
-        [{ align: [] }],
-        [{ list: 'ordered' }, { list: 'bullet' }],
-        ['blockquote'],
+        ['bold', 'italic', 'underline'], // Limit to essential formatting
+        [{ list: 'ordered' }, { list: 'bullet' }], // Basic lists
+        ['blockquote'], // Quote block
       ],
     };
     this._AboutUsService.getAboutUs().subscribe({
@@ -75,5 +73,11 @@ export class AboutUsControlComponent {
         console.error('Error saving changes:', err);
       },
     });
+  }
+  // Helper function to clean HTML
+  cleanHTML(html: string): string {
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = html;
+    return tempDiv.textContent || tempDiv.innerText || '';
   }
 }

@@ -67,11 +67,17 @@
           <div
             class="main_animation border-radius-10 overflow-hidden Logo_Water_Mark"
           >
-            <img
-              class="w-100 object-fit-cover h-370"
-              src="./assets/images/pages/home/Hero_Section/main_hero.png"
-              alt="carousel"
-            />
+            <a
+              [routerLink]="['/details', masterBlog?.blogs[0]?.post_id]"
+              href="#"
+            >
+              <img
+                style="height: 380px"
+                class="w-100 object-fit-cover main_animation"
+                src="./assets/images/pages/home/Hero_Section/main_hero.png"
+                alt="carousel"
+              />
+            </a>
           </div>
         </div>
         <div class="main-content">
@@ -80,7 +86,8 @@
           </p>
           <a
             class="text-decoration-none"
-            [routerLink]="['/details', masterBlog?.blogs[0]?.post_id]"
+            [routerLink]="['/archives/blogs', '10']"
+            href="#"
             href="#"
           >
             <p

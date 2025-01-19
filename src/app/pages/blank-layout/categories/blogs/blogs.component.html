@@ -6,7 +6,11 @@
     itemsPerPage: 9, currentPage: currentPage,totalItems: totalItems }; track
     $index) {
     <div class="col-12 col-md-6 col-lg-4">
-      <a [routerLink]="['/details', card.post_id]" href="#">
+      <a
+        class="text-decoration-none"
+        [routerLink]="['/details', card.post_id]"
+        href="#"
+      >
         <div>
           <figure class="Logo_Water_Mark cr h-250">
             <img
@@ -25,24 +29,23 @@
             ></div>
             }
           </figure>
-          <h3
-            class="text-main fs-13 fw-bold mt-2 mb-1 text-decoration-underline cr"
-          >
-            {{ card.post_title | stringSlice : 70 }}
+          <h3 class="text-dark fs-13 fw-bold mt-2 mb-1 cr title_section">
+            {{ card.post_title | stringSlice : 50 }}
           </h3>
           <div
             class="d-flex justify-content-between align-items-center mb-2 mt-3"
           >
-            <h4 class="fs-13 fw-bold mb-0">
+            <h4 style="color: #022738" class="fs-13 fw-bold mb-0">
               {{ card.author_name == "admin" ? "" : card.author_name }}
             </h4>
-            <p class="mb-0 date_color fw-bold fs-13">
+            <p class="mb-0 date_color fw-bold fs-13 text-main">
               {{ card.post_date | hijriDate }}
             </p>
           </div>
           <div>
             <p
-              class="mb-0 fs-13 desc_color fw-bold"
+              style="color: #646363"
+              class="mb-0 fs-13 desc_color fw-bold text-secondary-dark title_section"
               [innerHTML]="card.post_content | stringSlice : 100 | safeHtml"
             ></p>
           </div>

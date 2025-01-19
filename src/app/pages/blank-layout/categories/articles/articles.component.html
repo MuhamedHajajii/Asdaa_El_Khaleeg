@@ -13,10 +13,12 @@
           class="card cr article-shadow p-3 h-100 d-flex flex-column justify-content-between"
         >
           <div>
-            <h3 class="text-main fs-13 fw-bold cr">{{ card.post_title }}</h3>
+            <h3 class="text-main fs-13 fw-bold cr title_section">
+              {{ card.post_title }}
+            </h3>
             <p
               [innerHTML]="card.post_content | stringSlice : 100 | safeHtml"
-              class="fs-13 text-lighter mb-4"
+              class="fs-13 text-lighter mb-4 title_section"
             ></p>
           </div>
           <h4 class="text-start">

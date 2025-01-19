@@ -18,16 +18,21 @@
 ></ngx-spinner> -->
 
 <div
-  class="lightBox position-absolute bg-white top-0 left-0 w-100 h-100 justify-content-center align-items-center"
+  class="lightBox position-fixed bg-white top-0 left-0 w-100 h-100 justify-content-center align-items-center"
   style="z-index: 9999999"
 >
-  <div class="lightBoxcontent text-center">
+  <div
+    class="lightBoxcontent d-flex flex-column justify-content-center align-items-center text-center"
+  >
     <img
       src="./assets/favicon_io/android-chrome-192x192.png"
       role="presentation"
       style="width: 75px"
       class="d-block"
     />
-    <span class="loader"></span>
+    <div>
+      <span class="loader"></span>
+    </div>
+    <span class="text-main fs-13">مدعوم بالذكاء الاصطناعي</span>
   </div>
 </div>

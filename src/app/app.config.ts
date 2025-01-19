@@ -32,7 +32,10 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes, inMemoryScrollingFeature, withViewTransitions()),
     provideClientHydration(),
     provideAnimations(),
-    provideToastr({ positionClass: 'toast-top-left', timeOut: 2000 }),
+    provideToastr({
+      positionClass: 'toast-top-left',
+      timeOut: 2000,
+    }),
     provideHttpClient(
       withFetch(),
       withInterceptors([loadingSpinnerInterceptor, homeCacheInterceptor])

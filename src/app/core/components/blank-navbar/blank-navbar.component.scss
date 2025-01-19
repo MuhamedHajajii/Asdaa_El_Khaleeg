@@ -34,7 +34,7 @@
 .search_icon {
   position: absolute;
   top: 50%;
-  left: 10px;
+  left: 10%;
   transform: translateY(-50%);
   width: 35px;
 }
@@ -50,10 +50,10 @@
 #Search_Input:focus,
 #Search_Input:hover {
   background-color: white;
-  & + .search_icon {
+  & + button .search-dark {
     display: inline-block !important;
-    & + .search_icon {
-      display: none !important;
-    }
+  }
+  & + button .search-light {
+    display: none !important;
   }
 }

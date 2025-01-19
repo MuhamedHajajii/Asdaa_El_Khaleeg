@@ -23,10 +23,10 @@ export class HomeContentService {
   getHomeLocalNews(): Observable<any> {
     if (this.checkPlatForm()) {
       let category_slug = {
-        category_slug :'01'
-      }
-      let params = new HttpParams({fromObject: category_slug});
-      return this._HttpClient.get(`${WEB_SITE_BASE_URL}blogstest`,{params});
+        category_slug: '01',
+      };
+      let params = new HttpParams({ fromObject: category_slug });
+      return this._HttpClient.get(`${WEB_SITE_BASE_URL}blogstest`, { params });
     } else {
       return of(null);
     }
@@ -34,10 +34,10 @@ export class HomeContentService {
   getHomeArticles(): Observable<any> {
     if (this.checkPlatForm()) {
       let category_slug = {
-        category_slug :'08'
-      }
-      let params = new HttpParams({fromObject: category_slug});
-      return this._HttpClient.get(`${WEB_SITE_BASE_URL}blogstest`,{params});
+        category_slug: '08',
+      };
+      let params = new HttpParams({ fromObject: category_slug });
+      return this._HttpClient.get(`${WEB_SITE_BASE_URL}blogstest`, { params });
     } else {
       return of(null);
     }
@@ -45,10 +45,10 @@ export class HomeContentService {
   getHomeInvestigations(): Observable<any> {
     if (this.checkPlatForm()) {
       let category_slug = {
-        category_slug :'i'
-      }
-      let params = new HttpParams({fromObject: category_slug});
-      return this._HttpClient.get(`${WEB_SITE_BASE_URL}blogstest`,{params});
+        category_slug: 'i',
+      };
+      let params = new HttpParams({ fromObject: category_slug });
+      return this._HttpClient.get(`${WEB_SITE_BASE_URL}blogstest`, { params });
     } else {
       return of(null);
     }
@@ -56,7 +56,7 @@ export class HomeContentService {
   getHomeYouTube(): Observable<any> {
     if (this.checkPlatForm()) {
       return this._HttpClient.get(
-        `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet,contentDetails&maxResults=3&pageToken=EAAafVBUOkNBWWlFRVpHTnpVNE1UaEZRMFUzUWpCRFJVUW9BVWkxNXF2Q3RNdUtBMUFCV2pnaVEyaG9WbFpYU2s1aVIzUnlUbXRLUlZSWGFHbFNiRVpNVTJ4R2QyRnRNWEZQUjJOVFJFRnFZakk0UnpkQ2FFTkpPSFZVTmtGUkln&playlistId=UUbMlkk6BDMhbFQKJQpjmj8g&key=AIzaSyAHFJPu7SzSC7XzbBHoNbcQrphjWJLYyIQ`
+        `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet,contentDetails&maxResults=10&pageToken=EAAafVBUOkNBWWlFRVpHTnpVNE1UaEZRMFUzUWpCRFJVUW9BVWkxNXF2Q3RNdUtBMUFCV2pnaVEyaG9WbFpYU2s1aVIzUnlUbXRLUlZSWGFHbFNiRVpNVTJ4R2QyRnRNWEZQUjJOVFJFRnFZakk0UnpkQ2FFTkpPSFZVTmtGUkln&playlistId=UUbMlkk6BDMhbFQKJQpjmj8g&key=AIzaSyAHFJPu7SzSC7XzbBHoNbcQrphjWJLYyIQ`
       );
     } else {
       return of(null);
@@ -65,10 +65,10 @@ export class HomeContentService {
   getHomeNationalsNews(): Observable<any> {
     if (this.checkPlatForm()) {
       let category_slug = {
-        category_slug :'6'
-      }
-      let params = new HttpParams({fromObject: category_slug});
-      return this._HttpClient.get(`${WEB_SITE_BASE_URL}blogstest`,{params});
+        category_slug: '6',
+      };
+      let params = new HttpParams({ fromObject: category_slug });
+      return this._HttpClient.get(`${WEB_SITE_BASE_URL}blogstest`, { params });
     } else {
       return of(null);
     }

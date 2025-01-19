@@ -3,6 +3,7 @@ import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { ICurrentTemp } from '../../../../../core/interfaces/banner/ICurrentTemp';
 import { DatePipe, isPlatformBrowser } from '@angular/common';
 import { SafeHtmlPipe } from '../../../../../core/pipes/safe-html.pipe';
+import { IWeatherAPI } from '../../../../../core/interfaces/IWeatherAPI';
 
 @Component({
   selector: 'app-home-banner',
@@ -24,16 +25,16 @@ export class HomeBannerComponent {
   ngOnInit(): void {
     if (isPlatformBrowser(this.PLATFORM_ID)) {
       const url =
-        'https://api.open-meteo.com/v1/forecast?latitude=25&longitude=45&hourly=temperature_2m&timeformat=unixtime&forecast_days=1';
+        'https://api.weatherapi.com/v1/current.json?key=94d6f85346f344d699b111519251901&q=Riyadh&aqi=yes';
+      // const url =
+      //   'https://api.open-meteo.com/v1/forecast?latitude=25&longitude=45&hourly=temperature_2m&timeformat=unixtime&forecast_days=1';
 
       const currency =
         'https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json';
 
-      const population = 'https://restcountries.com/v3.1/name/Saudi%20Arabia';
-
-      this._HttpClient.get<any>(url).subscribe({
-        next: (data: any) => {
-          const temperatureCelsius = data.hourly.temperature_2m[0];
+      this._HttpClient.get<IWeatherAPI>(url).subscribe({
+        next: (data: IWeatherAPI) => {
+          const temperatureCelsius = data.current.temp_c;
           const temperatureFahrenheit = (temperatureCelsius * 9) / 5 + 32;
           // Log both Celsius and Fahrenheit
           this.currentTemp = `${Math.trunc(

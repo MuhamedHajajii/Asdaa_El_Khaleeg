@@ -30,8 +30,8 @@ export class FooterComponent {
   getSocialMediaLinks(): void {
     this._SocialMediaService.getSocialMediaLinks().subscribe({
       next: (response) => {
+        console.log(response);
         const contact = response?.contact as Contact;
-        // Use Record<string, any> to allow dynamic indexing
         const linksMapping: Record<
           string,
           { label: string; icon: string; alt: string }
@@ -72,16 +72,20 @@ export class FooterComponent {
             alt: 'اصداء الخليج واتساب',
           },
         };
-
+        console.log(response);
         // Filter non-null social media links
         if (contact) {
           for (const [key, value] of Object.entries(contact)) {
-            if (value && linksMapping[key]) {
-              this.socialLinks.push({
-                url: value as string,
-                ...linksMapping[key],
-              });
-            }
+            this.socialLinks.push({
+              url: value as string,
+              ...linksMapping[key],
+            });
+            // if (value !== 'null' && linksMapping[key]) {
+            //   this.socialLinks.push({
+            //     url: value as string,
+            //     ...linksMapping[key],
+            //   });
+            // }
           }
         }
       },

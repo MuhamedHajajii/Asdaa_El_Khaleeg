@@ -17,6 +17,12 @@
               class="text-danger fst-italic fw-bold position-absolute bottom-100 start-0"
               >اقل عدد احرف 3*</small
             >
+            } @if (messagesForm.get('name')?.getError("pattern") &&
+            startValidation) {
+            <small
+              class="text-danger fst-italic fw-bold position-absolute bottom-100 start-0"
+              >احرف فقط</small
+            >
             }
           </div>
           <div>
@@ -91,7 +97,7 @@
               class="text-danger fst-italic fw-bold position-absolute bottom-100 start-0"
               >مطلوب*</small
             >
-            } @if (messagesForm.get('email')?.getError("email") &&
+            } @if (messagesForm.get('email')?.getError("pattern") &&
             startValidation) {
             <small
               class="text-danger fst-italic fw-bold position-absolute bottom-100 start-0"
@@ -105,7 +111,7 @@
                 'is-invalid':
                   startValidation &&
                   (messagesForm.get('email')?.getError('required') ||
-                    messagesForm.get('email')?.getError('email'))
+                    messagesForm.get('email')?.getError('pattern'))
               }"
               type="email"
               class="form-control py-3"
@@ -126,6 +132,12 @@
               class="text-danger fst-italic fw-bold position-absolute bottom-100 start-0"
               >مطلوب*</small
             >
+            } @if (messagesForm.get('message')?.getError("minlength") &&
+            startValidation) {
+            <small
+              class="text-danger fst-italic fw-bold position-absolute bottom-100 start-0"
+              >اقل عدد احرف 10*</small
+            >
             }
           </div>
           <div>
@@ -133,7 +145,8 @@
               [ngClass]="{
                 'is-invalid':
                   startValidation &&
-                  messagesForm.get('message')?.getError('required')
+                  (messagesForm.get('message')?.getError('required') ||
+                    messagesForm.get('message')?.getError('pattern'))
               }"
               style="height: 150px"
               class="form-control py-3"
@@ -146,11 +159,17 @@
       </div>
       <!-- submit button  -->
       <div class="text-center col-md-12">
-        <button [disabled]="isLoading"
+        <button
+          [disabled]="isLoading"
           class="btn-main btn rounded-3 mx-auto col-6 px-4 title__fonts fw-bold py-3 text-uppercase fs-14"
         >
           <span class="position-relative">
-            ارسال الرسالة <i [ngClass]="{'d-none':!isLoading}" class="position-absolute top-25 pi pi-spin pi-spinner mx-2" style="font-size: 13px"></i>
+            ارسال الرسالة
+            <i
+              [ngClass]="{ 'd-none': !isLoading }"
+              class="position-absolute top-25 pi pi-spin pi-spinner mx-2"
+              style="font-size: 13px"
+            ></i>
           </span>
         </button>
       </div>

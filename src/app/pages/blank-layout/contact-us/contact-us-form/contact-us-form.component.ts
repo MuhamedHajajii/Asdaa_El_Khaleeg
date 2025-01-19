@@ -37,10 +37,20 @@ export class ContactUsFormComponent {
   ) {}
 
   messagesForm: FormGroup = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    email: new FormControl('', [Validators.required, Validators.email]),
+    name: new FormControl('', [
+      Validators.required,
+      Validators.pattern(/^[a-zA-Z\s]+$/),
+      Validators.minLength(3),
+    ]),
+    email: new FormControl('', [
+      Validators.required,
+      Validators.pattern(/[A-Za-z0-9\._%+\-]+@[A-Za-z0-9\.\-]+\.[A-Za-z]{2,}/),
+    ]),
     phone: new FormControl('', [Validators.required]),
-    message: new FormControl('', [Validators.required]),
+    message: new FormControl('', [
+      Validators.required,
+      Validators.minLength(10),
+    ]),
   });
 
   onSubmit(): void {
@@ -62,7 +72,7 @@ export class ContactUsFormComponent {
           this._ToastrService.success('تم ارسال الرسالة بنجاح');
           this.messagesForm.reset();
           this.startValidation = false;
-          window.scrollTo(0, 0);
+          // window.scrollTo(0, 0);
         },
       });
     } else {

@@ -26,17 +26,18 @@
             <div class="mt-2">
               <figure class="Logo_Water_Mark small cr">
                 <img
-                  class="w-100 object-fit-cover h-110 border-radius-10"
+                  style="object-position: center"
+                  class="w-100 object-fit-cover h-250 border-radius-10"
                   [src]="nationalNews.blogs.data[3].post_image"
                   [alt]="nationalNews.blogs.data[3].post_title"
                 />
               </figure>
-              <h3 class="fs-13 fw-bold mb-1 cr">
+              <h3 class="fs-13 fw-bold mb-1 cr title_section">
                 {{ nationalNews.blogs.data[3].post_title }}
               </h3>
               <div>
                 <p
-                  class="mb-0 fs-13 desc_color"
+                  class="mb-0 fs-13 desc_color title_section"
                   [innerHTML]="
                     nationalNews.blogs.data[3].post_content
                       | stringSlice
@@ -56,17 +57,18 @@
           <div>
             <figure class="cr Logo_Water_Mark small">
               <img
-                class="w-100 object-fit-cover border-radius-10 h-370"
+                style="object-position: center; height: 520px"
+                class="w-100 object-fit-cover border-radius-10"
                 [src]="nationalNews.blogs.data[0].post_image"
                 [alt]="nationalNews.blogs.data[0].post_title"
               />
             </figure>
-            <h3 class="fs-13 fw-bold mb-1 cr">
+            <h3 class="fs-13 fw-bold mb-1 cr title_section">
               {{ nationalNews.blogs.data[0].post_title }}
             </h3>
             <div>
               <p
-                class="mb-0 fs-13 desc_color"
+                class="mb-0 fs-13 desc_color title_section"
                 [innerHTML]="
                   nationalNews.blogs.data[0].post_content
                     | stringSlice
@@ -82,20 +84,21 @@
           [routerLink]="['/details', nationalNews.blogs.data[1].post_id]"
           href="#"
         >
-          <div>
+          <div class="mb-2">
             <figure class="cr Logo_Water_Mark small">
               <img
-                class="w-100 object-fit-cover border-radius-10 h-130"
+                style="object-position: center; height: 225px"
+                class="w-100 object-fit-cover border-radius-10"
                 [src]="nationalNews.blogs.data[1].post_image"
                 [alt]="nationalNews.blogs.data[1].post_title"
               />
             </figure>
-            <h3 class="fs-13 fw-bold mb-1 cr">
+            <h3 class="fs-13 fw-bold mb-2 cr title_section">
               {{ nationalNews.blogs.data[1].post_title }}
             </h3>
             <div>
               <p
-                class="mb-0 fs-13 desc_color"
+                class="mb-0 fs-13 desc_color title_section"
                 [innerHTML]="
                   nationalNews.blogs.data[1].post_content
                     | stringSlice
@@ -112,17 +115,18 @@
           <div>
             <figure class="Logo_Water_Mark small cr">
               <img
-                class="w-100 object-fit-cover h-130 border-radius-10"
+                style="object-position: center; height: 225px"
+                class="w-100 object-fit-cover border-radius-10"
                 [src]="nationalNews.blogs.data[2].post_image"
                 [alt]="nationalNews.blogs.data[2].post_title"
               />
             </figure>
-            <h3 class="fs-13 fw-bold mb-1 cr">
+            <h3 class="fs-13 fw-bold mb-2 cr title_section">
               {{ nationalNews.blogs.data[2].post_title }}
             </h3>
             <div>
               <p
-                class="mb-0 fs-13 desc_color"
+                class="mb-0 fs-13 desc_color title_section"
                 [innerHTML]="
                   nationalNews.blogs.data[2].post_content
                     | stringSlice

@@ -12,7 +12,7 @@
     </header>
     <div class="row">
       <div class="col-12 col-md-6">
-        <div>
+        <div class="pt-2">
           <a
             [routerLink]="['/details', investigations.blogs.data[0].post_id]"
             href="#"
@@ -25,11 +25,11 @@
               />
             </figure>
             <div>
-              <h3 class="fs-13 text-main fw-bold mb-1 cr">
+              <h3 class="fs-13 text-main fw-bold mb-1 cr title_section">
                 {{ investigations.blogs.data[0].post_title }}
               </h3>
               <p
-                class="fs-13 text-lighter fw-semibold py-2"
+                class="fs-13 text-lighter fw-semibold py-2 title_section"
                 [innerHTML]="
                   investigations.blogs.data[0].post_content
                     | stringSlice
@@ -60,11 +60,11 @@
                     />
                   </figure>
                   <div>
-                    <h3 class="fs-13 text-main fw-bold mb-2 cr">
+                    <h3 class="fs-13 text-main fw-bold mb-2 cr title_section">
                       {{ investigations.blogs.data[1].post_title }}
                     </h3>
                     <p
-                      class="fs-13 text-lighter fw-semibold"
+                      class="fs-13 text-lighter fw-semibold title_section"
                       [innerHTML]="
                         investigations.blogs.data[1].post_content
                           | stringSlice
@@ -92,11 +92,11 @@
                     />
                   </figure>
                   <div>
-                    <h3 class="fs-13 text-main fw-bold mb-2 cr">
+                    <h3 class="fs-13 text-main fw-bold mb-2 cr title_section">
                       {{ investigations.blogs.data[2].post_title }}
                     </h3>
                     <p
-                      class="fs-13 text-lighter fw-semibold"
+                      class="fs-13 text-lighter fw-semibold title_section"
                       [innerHTML]="
                         investigations.blogs.data[2].post_content
                           | stringSlice
@@ -124,11 +124,11 @@
                     />
                   </figure>
                   <div>
-                    <h3 class="fs-13 text-main fw-bold mb-2 cr">
+                    <h3 class="fs-13 text-main fw-bold mb-2 cr title_section">
                       {{ investigations.blogs.data[3].post_title }}
                     </h3>
                     <p
-                      class="fs-13 text-lighter fw-semibold"
+                      class="fs-13 text-lighter fw-semibold title_section"
                       [innerHTML]="
                         investigations.blogs.data[3].post_content
                           | stringSlice
@@ -159,7 +159,7 @@
     </header>
     <div class="row">
       <div class="col-12 col-md-6">
-        <div>
+        <div class="pt-2">
           <figure class="Logo_Water_Mark small cr">
             <ngx-skeleton-loader
               [theme]="{

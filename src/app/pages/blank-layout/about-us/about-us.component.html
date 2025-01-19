@@ -1,11 +1,11 @@
 <app-blank-navbar />
-<section id="Contact__Us" class="py-5">
+<section id="About_Us" class="py-5">
   <div class="container">
     <h1
       class="fs-20 text-main"
       [innerHTML]="aboutUsContent.about_title | safeHtml"
     ></h1>
-    <h2 class="my-4" [innerHTML]="aboutUsContent.about_text | safeHtml"></h2>
+    <p class="my-4" [innerHTML]="aboutUsContent.about_text | safeHtml"></p>
     <h3
       class="fw-bold my-4 text-main"
       [innerHTML]="aboutUsContent.about_second_title | safeHtml"

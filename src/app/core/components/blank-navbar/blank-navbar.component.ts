@@ -3,17 +3,18 @@ import { Router, RouterLink } from '@angular/router';
 import { Contact } from '../../interfaces/ISocialMedia';
 import { HijriDatePipe } from '../../pipes/date-hijri.pipe';
 import { SocialMediaService } from '../../services/content/social-media.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-blank-navbar',
   standalone: true,
-  imports: [RouterLink, HijriDatePipe],
+  imports: [RouterLink, HijriDatePipe, FormsModule],
   templateUrl: './blank-navbar.component.html',
   styleUrl: './blank-navbar.component.scss',
 })
 export class BlankNavbarComponent {
   nowDate = new Date();
-
+  searchResult: string = '';
   socialLinks: { label: string; url: string; icon: string; alt: string }[] = [];
 
   constructor(
@@ -26,11 +27,14 @@ export class BlankNavbarComponent {
   }
 
   searchResults(searchResult: string): void {
-    this._Router.navigate([`/archives/search`, searchResult]);
+    if (searchResult.length > 0) {
+      this._Router.navigate([`/archives/search`, searchResult]);
+    }
   }
   getSocialMediaLinks(): void {
     this._SocialMediaService.getSocialMediaLinks().subscribe({
       next: (response) => {
+        console.log(response);
         const contact = response?.contact as Contact;
         const linksMapping: Record<
           string,
@@ -76,12 +80,16 @@ export class BlankNavbarComponent {
         // Filter non-null social media links
         if (contact) {
           for (const [key, value] of Object.entries(contact)) {
-            if (value !== 'null' && linksMapping[key]) {
-              this.socialLinks.push({
-                url: value as string,
-                ...linksMapping[key],
-              });
-            }
+            this.socialLinks.push({
+              url: value as string,
+              ...linksMapping[key],
+            });
+            // if (value !== 'null' && linksMapping[key]) {
+            //   this.socialLinks.push({
+            //     url: value as string,
+            //     ...linksMapping[key],
+            //   });
+            // }
           }
         }
       },

@@ -31,6 +31,9 @@
             />
             <div class="text-900 text-3xl font-medium mb-3">السلام عليكم</div>
             <span class="text-600 font-medium">برجاء تسجيل الدخول</span>
+            <span class="d-block text-main fs-13 mt-3"
+              >مدعوم بالذكاء الاصطناعي</span
+            >
           </div>
 
           <form [formGroup]="userData" (ngSubmit)="onSignInFormSubmitClick()">
@@ -99,7 +102,7 @@
                     styleClass="mx-2"
                     formControlName="rememberMe"
                   ></p-checkbox>
-                  <label for="rememberme1">تزكرني</label>
+                  <label for="rememberme1">تذكرني</label>
                 </div>
               </div>
 

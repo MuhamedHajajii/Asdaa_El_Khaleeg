@@ -2,7 +2,7 @@
 <section id="Home__articles" class="bg-third py-4">
   <div class="container">
     <header class="d-flex justify-content-between">
-      <h2 class="section__title">الموضوعات</h2>
+      <h2 class="section__title">المقالات</h2>
       <a
         [routerLink]="['/archives/article', '08']"
         href="#"
@@ -22,9 +22,11 @@
             class="card cr p-3 h-100 justify-content-between flex-column"
           >
             <div class="d-flex flex-column justify-content-between">
-              <h3 class="text-main fs-13 fw-bold cr">{{ blog.post_title }}</h3>
+              <h3 class="text-main fs-13 fw-bold cr title_section">
+                {{ blog.post_title }}
+              </h3>
               <p
-                class="fs-13 text-lighter mb-4"
+                class="fs-13 text-lighter mb-4 title_section"
                 [innerHTML]="blog.post_content | stringSlice : 150 | safeHtml"
               ></p>
             </div>

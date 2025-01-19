@@ -5,26 +5,25 @@
   height: 16px;
   border-radius: 50%;
   display: block;
-  margin:15px auto;
+  margin: 15px auto;
   position: relative;
-  background: #FFF;
-  box-shadow: -24px 0 #FFF, 24px 0 #FFF;
+  background: #fff;
+  box-shadow: -24px 0 #fff, 24px 0 #fff;
   box-sizing: border-box;
   animation: shadowPulse 2s linear infinite;
 }
 
 @keyframes shadowPulse {
   33% {
-    background: #FFF;
-    box-shadow: -24px 0 $main-color, 24px 0 #FFF;
+    background: #fff;
+    box-shadow: -24px 0 $main-color, 24px 0 #fff;
   }
   66% {
     background: $main-color;
-    box-shadow: -24px 0 #FFF, 24px 0 #FFF;
+    box-shadow: -24px 0 #fff, 24px 0 #fff;
   }
   100% {
-    background: #FFF;
-    box-shadow: -24px 0 #FFF, 24px 0 $main-color;
+    background: #fff;
+    box-shadow: -24px 0 #fff, 24px 0 $main-color;
   }
 }
-

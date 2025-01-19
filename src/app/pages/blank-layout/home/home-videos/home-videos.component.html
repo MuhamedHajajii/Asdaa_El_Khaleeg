@@ -27,35 +27,36 @@
               alt="card.author"
             />
           </figure>
-          <h3 class="fs-13 fw-bold mb-1">
+          <h3 class="fs-13 fw-bold mb-1 title_section">
             {{ currentYoutubeVideos.items[0].snippet.title }}
           </h3>
         </div>
       </div>
 
-      <div class="col-12 col-md-3">
+      <div class="col-12 col-md-3 d-flex justify-content-start flex-column">
         <div
           (click)="
             onClickOpenYouTubeVideo(
               currentYoutubeVideos.items[1].snippet.resourceId.videoId
             )
           "
-          class="Logo_youtube_Mark cr mb-3"
+          class="Logo_youtube_Mark cr mb-2"
         >
-          <figure class="Logo_Water_Mark small overflow-hidden">
+          <figure class="Logo_Water_Mark small overflow-hidden mb-0">
             <img
-              class="youTube_Image w-100 h-100 object-fit-cover border-radius-10"
+              style="height: 175px !important"
+              class="youTube_Image w-100 object-fit-cover border-radius-10"
               [src]="
                 currentYoutubeVideos.items[1].snippet.thumbnails.standard.url
               "
               alt="card.author"
             />
           </figure>
-          <div>
-            <h3 class="fs-13 fw-bold mb-1">
+          <!-- <div>
+            <h3 class="fs-13 fw-bold mb-1 title_section">
               {{ currentYoutubeVideos.items[1].snippet.title }}
             </h3>
-          </div>
+          </div> -->
         </div>
         <div
           (click)="
@@ -63,22 +64,47 @@
               currentYoutubeVideos.items[2].snippet.resourceId.videoId
             )
           "
-          class="Logo_youtube_Mark cr"
+          class="Logo_youtube_Mark cr mb-2"
         >
-          <figure class="Logo_Water_Mark small overflow-hidden">
+          <figure class="Logo_Water_Mark small overflow-hidden mb-0">
             <img
-              class="youTube_Image w-100 h-100 object-fit-cover border-radius-10"
+              style="height: 175px !important"
+              class="youTube_Image w-100 object-fit-cover border-radius-10"
               [src]="
                 currentYoutubeVideos.items[2].snippet.thumbnails.standard.url
               "
               alt="card.author"
             />
           </figure>
-          <div>
-            <h3 class="fs-13 fw-bold mb-1">
+          <!-- <div>
+            <h3 class="fs-13 fw-bold mb-1 title_section">
               {{ currentYoutubeVideos.items[2].snippet.title }}
             </h3>
-          </div>
+          </div> -->
+        </div>
+        <div
+          (click)="
+            onClickOpenYouTubeVideo(
+              currentYoutubeVideos.items[3].snippet.resourceId.videoId
+            )
+          "
+          class="Logo_youtube_Mark cr mb-2"
+        >
+          <figure class="Logo_Water_Mark small overflow-hidden mb-0">
+            <img
+              style="height: 175px !important"
+              class="youTube_Image w-100 object-fit-cover border-radius-10"
+              [src]="
+                currentYoutubeVideos.items[3].snippet.thumbnails.standard.url
+              "
+              alt="card.author"
+            />
+          </figure>
+          <!-- <div>
+            <h3 class="fs-13 fw-bold mb-1 title_section">
+              {{ currentYoutubeVideos.items[3].snippet.title }}
+            </h3>
+          </div> -->
         </div>
       </div>
     </div>
