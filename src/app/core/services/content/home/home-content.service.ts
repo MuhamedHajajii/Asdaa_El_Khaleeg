@@ -56,7 +56,7 @@ export class HomeContentService {
   getHomeYouTube(): Observable<any> {
     if (this.checkPlatForm()) {
       return this._HttpClient.get(
-        `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet,contentDetails&maxResults=10&pageToken=EAAafVBUOkNBWWlFRVpHTnpVNE1UaEZRMFUzUWpCRFJVUW9BVWkxNXF2Q3RNdUtBMUFCV2pnaVEyaG9WbFpYU2s1aVIzUnlUbXRLUlZSWGFHbFNiRVpNVTJ4R2QyRnRNWEZQUjJOVFJFRnFZakk0UnpkQ2FFTkpPSFZVTmtGUkln&playlistId=UUbMlkk6BDMhbFQKJQpjmj8g&key=AIzaSyAHFJPu7SzSC7XzbBHoNbcQrphjWJLYyIQ`
+        `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet,contentDetails&maxResults=6&playlistId=UUbMlkk6BDMhbFQKJQpjmj8g&key=AIzaSyAHFJPu7SzSC7XzbBHoNbcQrphjWJLYyIQ`
       );
     } else {
       return of(null);
