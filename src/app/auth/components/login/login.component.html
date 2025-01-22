@@ -42,12 +42,12 @@
               <label
                 for="email1"
                 class="block text-900 text-xl font-medium mb-2"
-                >البريد الالكتروني</label
+                >اسم المستخدم</label
               >
               <input
                 id="email1"
-                type="email"
-                placeholder="البريد الالكتروني"
+                type="name"
+                placeholder="اسم المستخدم"
                 pInputText
                 class="w-full md:w-30rem mb-1"
                 style="padding: 1rem"
@@ -58,9 +58,9 @@
               userData.controls['email'].touched) {
               <div class="text-red-500 mb-5">
                 @if (userData.controls['email'].hasError('required')) {
-                <small>البريد الالكتروني مطلوب</small>
-                } @if (userData.controls['email'].hasError('email')) {
-                <small>ادخل بريد الكتروني صحيح</small>
+                <small>اسم المستخدم مطلوب</small>
+                } @if (userData.controls['email'].hasError('minlength')) {
+                <small>اقل عدد احرف 4</small>
                 }
               </div>
               }
@@ -74,10 +74,10 @@
               <p-password
                 id="password1"
                 placeholder="كلمة المرور"
-                [toggleMask]="false"
                 styleClass="mb-1"
                 inputStyleClass="w-full p-3 md:w-30rem"
                 formControlName="password"
+                [feedback]="false"
               ></p-password>
               <!-- Password Error Message -->
               @if (userData.controls['password'].invalid &&
@@ -118,7 +118,7 @@
               ></button>
               @if (isErrorMessage) {
               <div class="text-red-500 my-2 text-center">
-                <small>خطأ بريد الكتروني او كلمة المرور غير صحيح</small>
+                <small>خطأ في اسم المستخدم أو كلمة المرور</small>
               </div>
               }
             </div>

@@ -42,6 +42,7 @@ import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
+
   userData: FormGroup;
 
   isErrorMessage: boolean = false;
@@ -55,7 +56,7 @@ export class LoginComponent {
     private _ToastrService: ToastrService
   ) {
     this.userData = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
+      email: new FormControl('', [Validators.required,Validators.minLength(4)]),
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(9),
@@ -96,7 +97,7 @@ export class LoginComponent {
         }
       }
       let userData: IUserData = {
-        email: email,
+        email: `${email}@gmail.com`,
         password: password,
       };
       // Print form values

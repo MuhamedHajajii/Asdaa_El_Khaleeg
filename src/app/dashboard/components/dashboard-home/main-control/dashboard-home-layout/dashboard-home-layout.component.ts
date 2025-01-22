@@ -67,19 +67,21 @@ export class DashboardHomeLayoutComponent {
   // Check the last visit date and calculate the increment
   checkLastVisit(): void {
     this.lastVisitData = this._StaticsService.getLastVisitData();
-    const currentDate = new Date();
-    if (this.lastVisitData) {
-      const lastVisit = new Date(this.lastVisitData.lastVisit);
-      const timeDifference = currentDate.getTime() - lastVisit.getTime();
-      const daysDifference = timeDifference / (1000 * 3600 * 24); // Calculate difference in days
+    if(this.lastVisitData) {
+      const currentDate = new Date();
+      if (this.lastVisitData) {
+        const lastVisit = new Date(this.lastVisitData.lastVisit);
+        const timeDifference = currentDate.getTime() - lastVisit.getTime();
+        const daysDifference = timeDifference / (1000 * 3600 * 24); // Calculate difference in days
 
-      if (daysDifference > 1) {
-        this.calculateIncrement();
+        if (daysDifference > 1) {
+          this.calculateIncrement();
+        } else {
+          this.visitMessage = 'No new updates since your last visit today';
+        }
       } else {
-        this.visitMessage = 'No new updates since your last visit today';
+        this.visitMessage = 'Welcome to the dashboard!';
       }
-    } else {
-      this.visitMessage = 'Welcome to the dashboard!';
     }
 
     // Store the current visit data

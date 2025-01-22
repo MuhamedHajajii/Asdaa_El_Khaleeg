@@ -14,6 +14,7 @@ import { DialogModule } from 'primeng/dialog';
 import { PanelModule } from 'primeng/panel';
 import { TooltipModule } from 'primeng/tooltip';
 import { StaticsService } from '../../services/statics.service';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-chat',
@@ -113,9 +114,10 @@ export class ChatComponent {
   private typingInterval: any; // To hold the typing interval reference
 
   showTime() {
-    this.showTimeDiv = !this.showTimeDiv;
     this._StaticsService.getStatics().subscribe({
       next: (res) => {
+        if(res.latestBlogs.length > 0) {
+          this.showTimeDiv = !this.showTimeDiv;
         console.log(res.latestBlogs[0].created_at);
         this.currentTime = moment(res.latestBlogs[0].created_at)
           .format('iDD iMMMM iYYYY [الساعة] hh:mm A')
@@ -125,11 +127,15 @@ export class ChatComponent {
         this.textToShow = `
         انتبه!
         آخر مرة قمت فيها بنشر مدونة كانت في ${this.currentTime}.`;
-        this.startTypingEffect();
+          this.startTypingEffect();
+        }
       },
     });
   }
   ngOnInit() {
+    setTimeout(() => {
+      this.showTime()
+    }, 2000);
     // Automatically show the time every hour
     setInterval(() => {
       this.showTime(); // Call showTime every hour

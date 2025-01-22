@@ -216,6 +216,8 @@ export class NewsAddComponent implements OnInit {
     });
   }
 
+  currentBlogId:boolean = false
+
   inOpenCheckCurrentBlog() {
     this._ActivatedRoute.paramMap.subscribe({
       next: (params) => {
