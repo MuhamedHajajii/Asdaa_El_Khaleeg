@@ -14,11 +14,15 @@ main {
   color: var(--primary-color) !important;
 }
 
-::ng-deep .p-input-icon-right > .p-icon-wrapper, .p-input-icon-right > i:last-of-type {
+::ng-deep .p-input-icon-right > .p-icon-wrapper,
+.p-input-icon-right > i:last-of-type {
   right: auto;
   left: 0.75rem;
 }
 
 .btn-main {
   padding-top: 16px !important;
+}
+:host {
+  overflow-x: hidden;
 }
