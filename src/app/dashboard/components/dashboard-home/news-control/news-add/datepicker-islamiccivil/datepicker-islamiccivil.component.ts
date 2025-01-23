@@ -95,7 +95,6 @@ export class NgbdDatepickerIslamiccivil implements ControlValueAccessor {
   selectDate(date: any) {
     this.model = date;
     this.onChange(this.model);
-    console.log(date);
     this.valueChange.emit(this.model);
   }
 }

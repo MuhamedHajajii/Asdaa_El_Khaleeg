@@ -70,11 +70,7 @@ export class DetailsComponent {
     private titleService: Title,
     private metaService: Meta,
     private router: Router
-  ) {
-    if (isPlatformBrowser(this._PLATFORM_ID)) {
-      this.currentUrl = window.location.href; // Get the current URL
-    }
-  }
+  ) {}
 
   encodeURIComponent(value: string): string {
     return encodeURIComponent(value);
@@ -111,6 +107,11 @@ export class DetailsComponent {
           this.currentId = id;
           console.log('Active Route ID (Reload):', this.currentId);
           this.getCurrentBlog(this.currentId);
+          if (isPlatformBrowser(this._PLATFORM_ID)) {
+            console.log(window.location.href, 'current ============');
+            // this.currentUrl = window.location.href; // Get the current URL
+            this.currentUrl = `https://www.asda-alkhaleej.com/archives/${id}`; // Get the current URL
+          }
         }
       },
     });
@@ -135,9 +136,6 @@ export class DetailsComponent {
     this._CategoriesService.getEditorBlog().subscribe({
       next: (response) => {
         this.masterBlog = response;
-        console.log(response.blogs[0].post_id);
-        console.log(response.blogs[0].post_title);
-        // this._Router.navigate([`/details`, response.blogs[0].post_id]);
       },
     });
   }
@@ -240,7 +238,10 @@ export class DetailsComponent {
         content: metaDescription,
       });
     }
-
+    const metaDescription = this.decodeHtml(
+      this?.IBlogs?.blog?.post_content.replace(/<[^>]+>/g, '').slice(0, 150)
+    );
+    console.log(metaDescription);
     this.router.events
       .pipe(
         filter((event) => event instanceof NavigationEnd),
@@ -254,7 +255,7 @@ export class DetailsComponent {
       .subscribe((data) => {
         const metaDescription =
           data['description'] ||
-          this.IBlogs?.blog?.post_content
+          this.decodeHtml(this.IBlogs?.blog?.post_content)
             ?.replace(/<[^>]+>/g, '')
             .slice(0, 150);
 
@@ -266,14 +267,19 @@ export class DetailsComponent {
           content: metaDescription,
         });
       });
+
     this.metaService.addTags([
       { name: 'og:title', content: this?.IBlogs?.blog?.post_title },
       {
         name: 'og:description',
-        content: this.decodeHtml(this?.IBlogs?.blog?.post_content),
+        content: metaDescription,
       },
       { name: 'og:image', content: this?.IBlogs?.blog?.post_image },
-      { name: 'og:url', content: this.currentUrl },
+      // { name: 'og:url', content: this.currentUrl },
+      {
+        name: 'og:url',
+        content: `https://www.asda-alkhaleej.com/archives/${this.currentId}`,
+      },
       { name: 'og:type', content: 'article' },
     ]);
   }

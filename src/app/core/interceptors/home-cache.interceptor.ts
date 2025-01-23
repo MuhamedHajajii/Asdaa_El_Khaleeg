@@ -10,7 +10,6 @@ const CACHE_DURATION = 2 * 60 * 1000; // 10 minutes
 
 export const homeCacheInterceptor: HttpInterceptorFn = (req, next) => {
   if (req.method !== 'GET') return next(req);
-  console.log(req.urlWithParams);
   if (req.url.includes('Writer_index')) return next(req);
   if (req.url.includes('blog_store')) return next(req);
   if (req.url.includes('blog_index')) return next(req);
@@ -20,7 +19,6 @@ export const homeCacheInterceptor: HttpInterceptorFn = (req, next) => {
   const cached = cache.get(cacheKey);
 
   if (cached && cached.expiry > Date.now()) {
-    console.log('Serving cached response:', cacheKey);
     return of(cached.response.clone());
   }
 
@@ -31,7 +29,6 @@ export const homeCacheInterceptor: HttpInterceptorFn = (req, next) => {
           response: event.clone(),
           expiry: Date.now() + CACHE_DURATION,
         });
-        console.log('Storing in cache:', cacheKey);
       }
     })
   );

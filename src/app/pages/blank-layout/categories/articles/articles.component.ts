@@ -32,13 +32,11 @@ export class ArticlesComponent {
     this.isShowSkeleton = true;
     window.scrollTo(0, 0);
     this.currentPage = e;
-    console.log(this.currentPage);
     this._CategoriesService
       .getCurrentCategories(this.currentId, this.currentPage)
       .subscribe({
         next: (response) => {
           this.isShowSkeleton = false;
-          console.log(response);
           this.specificCategories = response as ISpecificCategory;
           this.totalItems = response?.blogs.total as number;
         },
@@ -63,7 +61,6 @@ export class ArticlesComponent {
         let id = params.get('id');
         if (id) {
           this.currentId = id;
-          console.log('Active Route ID (Reload):', this.currentId);
           this.getCurrentCategory(this.currentId);
         }
       },
@@ -74,7 +71,6 @@ export class ArticlesComponent {
     this.isShowSkeleton = true;
     this._CategoriesService.getCurrentCategories(blogId).subscribe({
       next: (response) => {
-        console.log(response);
         this.isShowSkeleton = false;
         this.specificCategories = response as ISpecificCategory;
         this.totalItems = response?.blogs.total as number;

@@ -50,12 +50,7 @@ import { CategoriesService } from '../../../../services/categories.service';
 import { NewsControlService } from '../../../../services/news-control.service';
 import { WritersService } from '../../../../services/writers.service';
 import { PrivewBlogComponent } from './privew-blog/privew-blog.component';
-import {
-  NgxSpinnerComponent,
-  NgxSpinnerModule,
-  NgxSpinnerService,
-} from 'ngx-spinner';
-import { Jodit } from 'jodit';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-news-add',
@@ -329,7 +324,6 @@ export class NewsAddComponent implements OnInit {
           });
       }
     } else {
-      console.log('Form is invalid!');
     }
   }
   clearInputs(): void {
@@ -375,12 +369,9 @@ export class NewsAddComponent implements OnInit {
 
   ngAfterViewInit(): void {
     if (this.ngxJodit) {
-      console.log(this.ngxJodit);
-      console.log(
-        this.ngxJodit.jodit?.registeredButtons.add({
-          22: { group: 'source', name: 'left' },
-        })
-      );
+      this.ngxJodit.jodit?.registeredButtons.add({
+        22: { group: 'source', name: 'left' },
+      });
     }
     this.addArticleForm.get('post_title')?.valueChanges.subscribe((value) => {
       this.arabicWarning = this.checkArabicText(value);

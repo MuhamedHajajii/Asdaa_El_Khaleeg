@@ -14,7 +14,6 @@ export class YoutubeService {
 
     return this._HttpClient.get<IYoutube>(apiUrl).pipe(
       catchError((error) => {
-        console.error('Error fetching YouTube videos:', error);
         return throwError(() => new Error('Failed to fetch YouTube videos'));
       })
     );

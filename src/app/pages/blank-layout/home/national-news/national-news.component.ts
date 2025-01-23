@@ -35,7 +35,6 @@ export class NationalNewsComponent {
   getNationalNews() {
     this._HomeContentService.getHomeNationalsNews().subscribe({
       next: (response) => {
-        console.log(response);
         this.nationalNews = response;
       },
     });

@@ -15,7 +15,6 @@ export class HijriDatePipe implements PipeTransform {
       const hijriDate = moment(value).locale('ar-sa').format(format);
       return hijriDate;
     } catch (error) {
-      console.error('Invalid date input for HijriDatePipe:', value);
       return value;
     }
   }

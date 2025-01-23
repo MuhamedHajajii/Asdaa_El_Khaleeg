@@ -25,7 +25,6 @@ export class HomeInvestigationsComponent {
   getLocalNews() {
     this._HomeContentService.getHomeInvestigations().subscribe({
       next: (response) => {
-        console.log(response);
         this.investigations = response;
       },
     });

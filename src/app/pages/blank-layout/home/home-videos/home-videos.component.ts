@@ -22,7 +22,6 @@ export class HomeVideosComponent {
     this._HomeContentService.getHomeYouTube().subscribe({
       next: (response) => {
         this.currentYoutubeVideos = response;
-        console.log(response);
       },
     });
   }

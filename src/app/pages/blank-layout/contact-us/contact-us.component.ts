@@ -12,23 +12,19 @@ import { ISocialMedia } from '../../../core/interfaces/ISocialMedia';
   styleUrl: './contact-us.component.scss',
 })
 export class ContactUsComponent {
+  socialMediaLinks!: ISocialMedia;
 
-socialMediaLinks!:ISocialMedia
-
-  constructor(private _SocialMediaService:SocialMediaService) { }
-
+  constructor(private _SocialMediaService: SocialMediaService) {}
 
   ngOnInit(): void {
-    this.getSocialMediaLinks()
+    this.getSocialMediaLinks();
   }
 
-  getSocialMediaLinks():void {
+  getSocialMediaLinks(): void {
     this._SocialMediaService.getSocialMediaLinks().subscribe({
       next: (response) => {
-        this.socialMediaLinks = response as ISocialMedia
-        console.log(response);
-      }
-    })
+        this.socialMediaLinks = response as ISocialMedia;
+      },
+    });
   }
-
 }

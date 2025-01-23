@@ -60,7 +60,6 @@ export class HomeNewsComponent {
     this._HomeContentService.getHomeRandomNews().subscribe({
       next: (response) => {
         this.allNews = response?.blogs?.data || [];
-        console.log(response);
         // this.currentSlugId = response.blogs.data[0].;
         if (this.PlaceHolder)
           this.PlaceHolder.nativeElement.classList.add('d-none');
@@ -74,7 +73,6 @@ export class HomeNewsComponent {
       this.PlaceHolder.nativeElement.classList.remove('d-none');
     this._CategoriesService.getCurrentCategories(categoryId).subscribe({
       next: (response) => {
-        console.log(response);
         this.allNews = response?.blogs?.data || [];
         if (this.PlaceHolder)
           this.PlaceHolder.nativeElement.classList.add('d-none');
@@ -96,7 +94,6 @@ export class HomeNewsComponent {
     input.classList.add('active');
   }
   imageLoaded(e: any) {
-    console.log();
     let targetImage = e.target as HTMLElement;
     targetImage.nextElementSibling?.classList.add('d-none');
   }

@@ -60,7 +60,6 @@ export class EmployeesControlComponent {
     this.employeesService.getAllEmployees().subscribe({
       next: (response) => {
         this.employees = response.rows;
-        console.log(response.rows);
       },
       error: () =>
         this.messageService.add({

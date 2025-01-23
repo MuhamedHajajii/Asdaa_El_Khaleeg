@@ -79,8 +79,6 @@ export class NewsControlComponent {
       // Reset to original data if no category is selected
       this.selectedBlogs = [...this.blogs];
     }
-    console.log(value);
-    console.log(this.selectedBlogs);
   }
 
   constructor(
@@ -109,14 +107,12 @@ export class NewsControlComponent {
   getAllCategories(): void {
     this._CategoriesService.getAllCategories().subscribe({
       next: (response) => {
-        console.log(response);
         this.categories = response.rows.map((e) => {
           return {
             label: e.name,
             value: e.slug.toString(),
           };
         });
-        console.log(this.categories);
       },
     });
   }
@@ -130,7 +126,6 @@ export class NewsControlComponent {
         }));
         this.blogs = newData;
         this.selectedBlogs = newData;
-        console.log(response.rows);
       },
       error: (err) => {
         this.messageService.add({
@@ -188,8 +183,6 @@ export class NewsControlComponent {
   }
 
   toggleBlogStatus(blog: IBlog): void {
-    console.log(blog.id);
-    console.log(blog.publish_status);
     if (blog.publish_status === 0) {
       this._NewsControlService.newsDisable(blog.id).subscribe({
         next: (response) => {

@@ -15,19 +15,16 @@ import {
 } from '@angular/common/http';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import {
+  provideShareButtonsOptions,
+  SharerMethods,
+  withConfig,
+} from 'ngx-sharebuttons';
+import { shareIcons } from 'ngx-sharebuttons/icons';
 import { provideToastr } from 'ngx-toastr';
 import { routes } from './app.routes';
 import { homeCacheInterceptor } from './core/interceptors/home-cache.interceptor';
 import { loadingSpinnerInterceptor } from './core/interceptors/loading-spinner.interceptor';
-import {
-  customShareButton,
-  provideShareButtonsOptions,
-  SHARE_ICONS,
-  SharerMethods,
-  withConfig,
-} from 'ngx-sharebuttons';
-import { ShareButtons } from 'ngx-sharebuttons/buttons';
-import { shareIcons } from 'ngx-sharebuttons/icons';
 const scrollConfig: InMemoryScrollingOptions = {
   scrollPositionRestoration: 'top',
   anchorScrolling: 'enabled',

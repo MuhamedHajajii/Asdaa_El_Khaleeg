@@ -42,7 +42,6 @@ export class HomeLocalNewsComponent {
     this.sliceNumber = 1;
     this._HomeContentService.getHomeLocalNews().subscribe({
       next: (response) => {
-        console.log(response);
         this.localNews = response;
         this.sectionTitle = 'الأخبار المحلية';
         this.isShowSkeleton = false;
@@ -54,7 +53,6 @@ export class HomeLocalNewsComponent {
     this.sliceNumber = 4;
     this._HomeContentService.getHomeRandomNews().subscribe({
       next: (response) => {
-        console.log(response);
         this.localNews = response;
         this.sectionTitle = 'أخبار متنوعة';
         this.isShowSkeleton = false;

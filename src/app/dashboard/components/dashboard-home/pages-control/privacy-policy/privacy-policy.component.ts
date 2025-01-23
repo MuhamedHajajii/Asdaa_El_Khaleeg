@@ -62,7 +62,6 @@ export class PrivacyPolicyComponent {
       .updatePrivacyPolicy(this.privacy_policy)
       .subscribe({
         next: () => {
-          console.log('Changes saved:', this.privacy_policy);
           this.messageService.add({
             severity: 'success',
             summary: 'نجاح',
@@ -70,9 +69,7 @@ export class PrivacyPolicyComponent {
           });
           this.isEditing = false;
         },
-        error: (err) => {
-          console.error('Error saving changes:', err);
-        },
+        error: (err) => {},
       });
   }
 }

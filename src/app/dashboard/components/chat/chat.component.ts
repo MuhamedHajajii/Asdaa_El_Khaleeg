@@ -90,14 +90,12 @@ export class ChatComponent {
       const response = await result.response;
       return response.text(); // Return the text response from the API
     } catch (error) {
-      console.error('Error generating text:', error);
       return 'Sorry, something went wrong. Please try again later.';
     }
   }
   @ViewChildren('Answer') Answer!: QueryList<ElementRef>;
   onChangeMoving(): void {
     setTimeout(() => {
-      console.log(this.Answer.last.nativeElement);
       const lastChild = this.Answer.last.nativeElement;
       lastChild.scrollIntoView({
         behavior: 'smooth',
@@ -116,15 +114,14 @@ export class ChatComponent {
   showTime() {
     this._StaticsService.getStatics().subscribe({
       next: (res) => {
-        if(res.latestBlogs.length > 0) {
+        if (res.latestBlogs.length > 0) {
           this.showTimeDiv = !this.showTimeDiv;
-        console.log(res.latestBlogs[0].created_at);
-        this.currentTime = moment(res.latestBlogs[0].created_at)
-          .format('iDD iMMMM iYYYY [الساعة] hh:mm A')
-          .replace('AM', 'ص') // Replacing AM with ص
-          .replace('PM', 'م'); // Replacing PM with م
-        // Set the text that will be typed
-        this.textToShow = `
+          this.currentTime = moment(res.latestBlogs[0].created_at)
+            .format('iDD iMMMM iYYYY [الساعة] hh:mm A')
+            .replace('AM', 'ص') // Replacing AM with ص
+            .replace('PM', 'م'); // Replacing PM with م
+          // Set the text that will be typed
+          this.textToShow = `
         انتبه!
         آخر مرة قمت فيها بنشر مدونة كانت في ${this.currentTime}.`;
           this.startTypingEffect();
@@ -134,7 +131,7 @@ export class ChatComponent {
   }
   ngOnInit() {
     setTimeout(() => {
-      this.showTime()
+      this.showTime();
     }, 2000);
     // Automatically show the time every hour
     setInterval(() => {

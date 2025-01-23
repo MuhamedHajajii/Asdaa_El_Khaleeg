@@ -41,7 +41,6 @@ export class HeroComponent {
   getSliderData() {
     this._HomeContentService.getHomeSlider().subscribe({
       next: (response) => {
-        console.log(response);
         this.sliderData = response;
       },
     });

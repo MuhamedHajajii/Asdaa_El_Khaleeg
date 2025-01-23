@@ -42,7 +42,6 @@ import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-
   userData: FormGroup;
 
   isErrorMessage: boolean = false;
@@ -56,7 +55,10 @@ export class LoginComponent {
     private _ToastrService: ToastrService
   ) {
     this.userData = new FormGroup({
-      email: new FormControl('', [Validators.required,Validators.minLength(4)]),
+      email: new FormControl('', [
+        Validators.required,
+        Validators.minLength(4),
+      ]),
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(9),
@@ -101,16 +103,13 @@ export class LoginComponent {
         password: password,
       };
       // Print form values
-      console.log('Form Submitted:', { email, password });
       this._LoginService.login(userData).subscribe({
         next: (response: any) => {
           this.isLoading = false;
-          console.log(response);
           if (response.error) {
             this.isErrorMessage = true;
           }
           if (response.user) {
-            console.log(response.user);
             this._ToastrService.success('تم تسجيل الدخول بنجاح');
             if (isPlatformBrowser(this._PLATFORM_ID)) {
               localStorage.setItem('user', JSON.stringify(response.user));

@@ -61,7 +61,6 @@ export class AboutUsControlComponent {
     // Call your service to save the updated data
     this._AboutUsService.updateAboutUs(this.aboutUsContent).subscribe({
       next: () => {
-        console.log('Changes saved:', this.aboutUsContent);
         this.messageService.add({
           severity: 'success',
           summary: 'نجاح',
@@ -69,9 +68,7 @@ export class AboutUsControlComponent {
         });
         this.isEditing = false;
       },
-      error: (err) => {
-        console.error('Error saving changes:', err);
-      },
+      error: (err) => {},
     });
   }
   // Helper function to clean HTML

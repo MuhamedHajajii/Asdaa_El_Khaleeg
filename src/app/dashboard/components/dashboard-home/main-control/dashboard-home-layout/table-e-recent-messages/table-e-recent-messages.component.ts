@@ -34,7 +34,6 @@ export class TableERecentMessagesComponent {
 
   showDetails(email: IGetAllContactUsMessagesContact) {
     this.selectedEmail = email;
-    console.log(email);
     this.emailDialogVisible = true;
   }
 }

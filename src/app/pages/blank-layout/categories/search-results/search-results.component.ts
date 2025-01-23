@@ -86,7 +86,6 @@ export class SearchResultsComponent {
   }
 
   imageLoaded(e: any) {
-    console.log();
     let targetImage = e.target as HTMLElement;
     targetImage.nextElementSibling?.classList.add('d-none');
   }

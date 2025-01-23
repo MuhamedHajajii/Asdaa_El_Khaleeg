@@ -105,12 +105,10 @@ export class SocialMediaControlComponent {
   saveChanges() {
     this.isLoading = true;
     const updatedLinks = this.convertLinksToRequestBody(this.socialMediaLinks);
-    console.log(updatedLinks);
     this._SocialMediaService
       .updateSocialMediaLinks(updatedLinks)
       .subscribe((response) => {
         this.isLoading = false;
-        console.log('Changes saved:', response);
       });
   }
 

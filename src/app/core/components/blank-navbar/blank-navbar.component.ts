@@ -34,7 +34,6 @@ export class BlankNavbarComponent {
   getSocialMediaLinks(): void {
     this._SocialMediaService.getSocialMediaLinks().subscribe({
       next: (response) => {
-        console.log(response);
         const contact = response?.contact as Contact;
         const linksMapping: Record<
           string,
@@ -76,7 +75,6 @@ export class BlankNavbarComponent {
             alt: 'اصداء الخليج واتساب',
           },
         };
-        console.log(response);
         // Filter non-null social media links
         if (contact) {
           for (const [key, value] of Object.entries(contact)) {

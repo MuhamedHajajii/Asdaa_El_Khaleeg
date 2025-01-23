@@ -43,7 +43,6 @@ export class RelatedContentComponent {
     if (this.isRandom) {
       this._HomeContentService.getHomeRandomNews().subscribe({
         next: (response) => {
-          console.log(response);
           this.relatedContent = response;
           this.isShowSkeleton = false;
         },
@@ -55,7 +54,6 @@ export class RelatedContentComponent {
         .getCurrentCategories(this.currentRelatedContentId)
         .subscribe({
           next: (response) => {
-            console.log(response);
             this.relatedContent = response as ISpecificCategory;
             this.isShowSkeleton = false;
           },

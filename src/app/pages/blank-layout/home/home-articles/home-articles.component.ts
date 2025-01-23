@@ -34,7 +34,6 @@ export class HomeArticlesComponent {
   getArticles() {
     this._HomeContentService.getHomeArticles().subscribe({
       next: (response) => {
-        console.log(response);
         this.specificCategory = response;
       },
     });

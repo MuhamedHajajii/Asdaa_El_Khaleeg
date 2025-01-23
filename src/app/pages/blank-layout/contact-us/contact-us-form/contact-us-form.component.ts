@@ -63,12 +63,10 @@ export class ContactUsFormComponent {
     };
     if (this.messagesForm.valid) {
       this.isLoading = true;
-      console.log(USER_DATA);
-      console.log('Form Submitted:', USER_DATA);
+
       this._ContactUsService.submitUserForm(USER_DATA).subscribe({
         next: (response) => {
           this.isLoading = false;
-          console.log(response);
           this._ToastrService.success('تم ارسال الرسالة بنجاح');
           this.messagesForm.reset();
           this.startValidation = false;
@@ -76,7 +74,6 @@ export class ContactUsFormComponent {
         },
       });
     } else {
-      console.log('Form is invalid.');
     }
   }
 }

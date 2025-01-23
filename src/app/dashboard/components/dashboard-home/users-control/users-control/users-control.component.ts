@@ -59,7 +59,6 @@ export class UsersControlComponent implements OnInit {
     this.writersService.getAllWriters().subscribe({
       next: (response) => {
         this.writers = response.rows;
-        console.log(response.rows);
       },
       error: () =>
         this.messageService.add({
@@ -115,7 +114,6 @@ export class UsersControlComponent implements OnInit {
       // Add new writer
       this.writersService.addWriter(writer).subscribe({
         next: (response) => {
-          console.log(response);
           if (response.message) {
           }
           this.messageService.add({
@@ -167,8 +165,6 @@ export class UsersControlComponent implements OnInit {
 
   // Toggle writer status
   toggleStatus(writer: Writer) {
-    console.log(writer.writer_status);
-    console.log(writer.id);
     if (parseInt(writer.writer_status) === 0) {
       {
         this.writersService.disableWriter(writer.id).subscribe({

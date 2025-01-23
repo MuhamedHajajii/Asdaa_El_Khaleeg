@@ -19,29 +19,24 @@ export class CategoriesService {
     blogId: string,
     page?: number
   ): Observable<ISpecificCategory | null> {
-    console.log('Active Route ID (Reload):', blogId);
     if (isPlatformBrowser(this._PLATFORM_ID)) {
       let slug = {
-        category_slug :blogId
-      }
-      let params = new HttpParams({fromObject: slug});
+        category_slug: blogId,
+      };
+      let params = new HttpParams({ fromObject: slug });
 
       if (!page) {
-
         return <Observable<ISpecificCategory>>(
-          this._HttpClient.get(`${WEB_SITE_BASE_URL}blogstest`,{params})
+          this._HttpClient.get(`${WEB_SITE_BASE_URL}blogstest`, { params })
+        );
+      } else {
+        return <Observable<ISpecificCategory>>(
+          this._HttpClient.get(`${WEB_SITE_BASE_URL}blogstest?page=${page}`, {
+            params,
+          })
         );
       }
-
-      else {
-        return <Observable<ISpecificCategory>>(
-          this._HttpClient.get(
-            `${WEB_SITE_BASE_URL}blogstest?page=${page}`,{params}
-          )
-        );
-      }
-    }
-    else return of(null);
+    } else return of(null);
   }
 
   getBlogById(blogId: string): Observable<IBlog | null> {

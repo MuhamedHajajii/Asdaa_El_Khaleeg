@@ -21,16 +21,13 @@ export class FooterComponent {
   ngOnInit(): void {
     this.getSocialMediaLinks();
     this._StaticCategoriesService.increaseView().subscribe({
-      next: (response) => {
-        console.log(response);
-      },
+      next: (response) => {},
     });
   }
 
   getSocialMediaLinks(): void {
     this._SocialMediaService.getSocialMediaLinks().subscribe({
       next: (response) => {
-        console.log(response);
         const contact = response?.contact as Contact;
         const linksMapping: Record<
           string,
@@ -72,7 +69,6 @@ export class FooterComponent {
             alt: 'اصداء الخليج واتساب',
           },
         };
-        console.log(response);
         // Filter non-null social media links
         if (contact) {
           for (const [key, value] of Object.entries(contact)) {
