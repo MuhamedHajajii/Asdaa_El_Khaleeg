@@ -30,6 +30,8 @@ import { SafeHtmlPipe } from '../../../../core/pipes/safe-html.pipe';
 import { CategoriesService } from '../../../../core/services/content/categories.service';
 import { AdvertisingAreaComponent } from '../../../../shared/components/advertising-area/advertising-area.component';
 import { RelatedContentComponent } from '../related-content/related-content.component';
+import { ShareButtons } from 'ngx-sharebuttons/buttons';
+import { shareIcons } from 'ngx-sharebuttons/icons';
 
 @Component({
   selector: 'app-details',
@@ -45,6 +47,7 @@ import { RelatedContentComponent } from '../related-content/related-content.comp
     SafeHtmlPipe,
     ImagesSrcPipe,
     RouterLink,
+    ShareButtons,
   ],
   templateUrl: './details.component.html',
   styleUrl: './details.component.scss',
@@ -56,7 +59,7 @@ export class DetailsComponent {
   isStoreData: boolean = false;
   isShowSkeleton = true;
   masterBlog!: any;
-
+  currentUrl: string = '';
   @ViewChild('isStoreDataInput') isStoreDataInput!: ElementRef;
   @ViewChild('stickySection') stickySection!: ElementRef;
   constructor(
@@ -67,7 +70,15 @@ export class DetailsComponent {
     private titleService: Title,
     private metaService: Meta,
     private router: Router
-  ) {}
+  ) {
+    if (isPlatformBrowser(this._PLATFORM_ID)) {
+      this.currentUrl = window.location.href; // Get the current URL
+    }
+  }
+
+  encodeURIComponent(value: string): string {
+    return encodeURIComponent(value);
+  }
 
   ngOnInit(): void {
     if (window.location.href) {
@@ -255,7 +266,18 @@ export class DetailsComponent {
           content: metaDescription,
         });
       });
+    this.metaService.addTags([
+      { name: 'og:title', content: this?.IBlogs?.blog?.post_title },
+      {
+        name: 'og:description',
+        content: this.decodeHtml(this?.IBlogs?.blog?.post_content),
+      },
+      { name: 'og:image', content: this?.IBlogs?.blog?.post_image },
+      { name: 'og:url', content: this.currentUrl },
+      { name: 'og:type', content: 'article' },
+    ]);
   }
+
   decodeHtml(html: string): string {
     const txt = document.createElement('textarea');
     txt.innerHTML = html;

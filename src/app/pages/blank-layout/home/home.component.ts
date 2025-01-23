@@ -63,6 +63,20 @@ export class HomeComponent {
       this.titleService.setTitle(
         'صحيفة أصداء الخليج | صحيفة سعودية مرخصة .. رئيس تحريرها سلمان بن أحمد العيد '
       );
+      this.metaService.addTags([
+        { name: 'og:title', content: 'أصداء الخليج - صحيفة سعودية مرخصة' },
+        {
+          name: 'og:description',
+          content: 'صحيفة سعودية مرخصة .. رئيس تحريرها سلمان بن أحمد العيد',
+        },
+        {
+          name: 'og:image',
+          content:
+            'https://digitalbondmena.com/El_Khaleeg/assets/favicon_io/apple-touch-icon.png',
+        },
+        { name: 'og:url', content: 'https://digitalbondmena.com/El_Khaleeg/' },
+        { name: 'og:type', content: 'website' },
+      ]);
     }
   }
 }

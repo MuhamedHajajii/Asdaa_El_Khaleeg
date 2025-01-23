@@ -7,18 +7,27 @@ import {
   withViewTransitions,
 } from '@angular/router';
 
-import { routes } from './app.routes';
-import { provideClientHydration } from '@angular/platform-browser';
-import { provideAnimations } from '@angular/platform-browser/animations';
+import { IMAGE_CONFIG } from '@angular/common';
 import {
   provideHttpClient,
   withFetch,
   withInterceptors,
 } from '@angular/common/http';
-import { IMAGE_CONFIG } from '@angular/common';
-import { loadingSpinnerInterceptor } from './core/interceptors/loading-spinner.interceptor';
-import { homeCacheInterceptor } from './core/interceptors/home-cache.interceptor';
+import { provideClientHydration } from '@angular/platform-browser';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
+import { routes } from './app.routes';
+import { homeCacheInterceptor } from './core/interceptors/home-cache.interceptor';
+import { loadingSpinnerInterceptor } from './core/interceptors/loading-spinner.interceptor';
+import {
+  customShareButton,
+  provideShareButtonsOptions,
+  SHARE_ICONS,
+  SharerMethods,
+  withConfig,
+} from 'ngx-sharebuttons';
+import { ShareButtons } from 'ngx-sharebuttons/buttons';
+import { shareIcons } from 'ngx-sharebuttons/icons';
 const scrollConfig: InMemoryScrollingOptions = {
   scrollPositionRestoration: 'top',
   anchorScrolling: 'enabled',
@@ -37,8 +46,15 @@ export const appConfig: ApplicationConfig = {
       timeOut: 2000,
     }),
     provideHttpClient(
-      withFetch(),
-      withInterceptors([loadingSpinnerInterceptor, homeCacheInterceptor])
+      withInterceptors([loadingSpinnerInterceptor, homeCacheInterceptor]),
+      withFetch() // for lazy loading
+    ),
+    provideShareButtonsOptions(
+      shareIcons(),
+      withConfig({
+        debug: true,
+        sharerMethod: SharerMethods.Anchor,
+      })
     ),
     {
       provide: IMAGE_CONFIG,

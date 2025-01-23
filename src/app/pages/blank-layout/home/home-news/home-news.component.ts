@@ -32,7 +32,7 @@ import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 export class HomeNewsComponent {
   allNews: IBlog[] = [];
   blogs!: IBlogs;
-  newsTitle: string = 'الاخبار';
+  newsTitle: string = 'الأخبار';
   currentCategoryId!: string;
   currentSlugId: string = '03';
 

@@ -224,3 +224,15 @@ img {
     font-weight: 400 !important;
   }
 }
+
+@media screen and (min-width: 992px) {
+  .collapse,
+  .collapsing,
+  .collapsed,
+  .collapse.hide,
+  .collapse.show {
+    transition: none !important;
+    opacity: 1;
+    height: auto !important;
+  }
+}

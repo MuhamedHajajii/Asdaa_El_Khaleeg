@@ -1,12 +1,13 @@
-import { Component, LOCALE_ID } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { NgxSpinnerComponent } from 'ngx-spinner';
+
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet, NgxSpinnerComponent],
+  imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+  styleUrls: ['./app.component.scss'],
+  standalone: true,
+  providers: [],
 })
 export class AppComponent {
   title = 'Asdaa-el-khaleeg';

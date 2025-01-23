@@ -1,5 +1,7 @@
 ::ng-deep .content img,
-content img {
+::ng-deep .content iframe,
+content img,
+content iframe {
   width: 100%;
   border-radius: 10px;
   margin-bottom: 20px;

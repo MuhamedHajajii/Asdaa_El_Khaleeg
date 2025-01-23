@@ -47,6 +47,10 @@
               "node_modules/@fortawesome/fontawesome-free/css/all.css",
               "node_modules/jodit/es2021/jodit.min.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/@fortawesome/fontawesome-svg-core/styles.css",
+              "node_modules/ngx-sharebuttons/themes/default.scss",
+              "node_modules/ngx-sharebuttons/themes/material.scss",
+              "node_modules/ngx-sharebuttons/themes/modern.scss",
               "src/styles.scss"
             ],
             "scripts": ["node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"],

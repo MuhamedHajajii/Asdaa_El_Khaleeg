@@ -1,20 +1,28 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { HijriDatePipe } from '../../../../../../core/pipes/date-hijri.pipe';
 
 @Component({
   selector: 'app-d-total-monthly-views',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, HijriDatePipe],
   templateUrl: './d-total-monthly-views.component.html',
   styleUrl: './d-total-monthly-views.component.scss',
 })
 export class DTotalMonthlyViewsComponent {
+  lastWeekStart!: Date;
+  lastWeekEnd!: Date;
   @Input() lastWeekCounters: number = 0;
   @Input() lastTwoWeeksCounters: number = 0;
   percentageChange: number = 0;
 
   changeType: string = '';
   ngOnInit() {
+    const today = new Date();
+    this.lastWeekEnd = new Date(today.setDate(today.getDate() - 1));
+    this.lastWeekStart = new Date(
+      today.setDate(this.lastWeekEnd.getDate() - 6)
+    );
     this.calculatePercentageChange();
   }
 

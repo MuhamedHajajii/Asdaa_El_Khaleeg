@@ -1,5 +1,6 @@
 <p-card header="إضافة موضوع جديد" class="p-mb-3">
   <p-toast />
+
   <form [formGroup]="addArticleForm" (ngSubmit)="approveBlog()">
     <div class="row g-3">
       <!-- Image Upload with Drag and Drop -->
@@ -206,7 +207,7 @@
   </p-dialog>
 </ng-container>
 
-<!-- <ngx-spinner
+<ngx-spinner
   bdColor="rgba(255, 255, 255, 0.75)"
   size="default"
   color="var(--secondary-color-green)"
@@ -217,4 +218,4 @@
   [scrollTop]="true"
 >
   <span class="d-block d-block mx-auto text-center translate-middle-y"> </span>
-</ngx-spinner> -->
+</ngx-spinner>

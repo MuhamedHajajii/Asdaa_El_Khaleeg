@@ -50,7 +50,11 @@ import { CategoriesService } from '../../../../services/categories.service';
 import { NewsControlService } from '../../../../services/news-control.service';
 import { WritersService } from '../../../../services/writers.service';
 import { PrivewBlogComponent } from './privew-blog/privew-blog.component';
-import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
+import {
+  NgxSpinnerComponent,
+  NgxSpinnerModule,
+  NgxSpinnerService,
+} from 'ngx-spinner';
 import { Jodit } from 'jodit';
 
 @Component({
@@ -216,8 +220,6 @@ export class NewsAddComponent implements OnInit {
     });
   }
 
-  currentBlogId:boolean = false
-
   inOpenCheckCurrentBlog() {
     this._ActivatedRoute.paramMap.subscribe({
       next: (params) => {
@@ -375,7 +377,7 @@ export class NewsAddComponent implements OnInit {
     if (this.ngxJodit) {
       console.log(this.ngxJodit);
       console.log(
-        this.ngxJodit.jodit.registeredButtons.add({
+        this.ngxJodit.jodit?.registeredButtons.add({
           22: { group: 'source', name: 'left' },
         })
       );

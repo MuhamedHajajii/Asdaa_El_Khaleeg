@@ -161,7 +161,6 @@ export class DashboardSidebarComponent {
       },
     ];
   }
-
   logout(): void {
     this._ConfirmationService.confirm({
       message: 'هل أنت متأكد أنك تريد تسجيل الخروج؟',

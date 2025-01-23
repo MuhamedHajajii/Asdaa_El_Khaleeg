@@ -28,7 +28,7 @@ import { ImagesSrcPipe } from '../../../../core/pipes/images-src.pipe';
 export class HomeLocalNewsComponent {
   localNews!: ISpecificCategory;
   sliceNumber = 3;
-  sectionTitle = 'الاخبار المحلية';
+  sectionTitle = 'الأخبار المحلية';
   isShowSkeleton = true;
   @ViewChildren('toggleButtons') toggleButtons!: QueryList<ElementRef>;
   constructor(private _HomeContentService: HomeContentService) {}
@@ -44,7 +44,7 @@ export class HomeLocalNewsComponent {
       next: (response) => {
         console.log(response);
         this.localNews = response;
-        this.sectionTitle = 'الاخبار المحلية';
+        this.sectionTitle = 'الأخبار المحلية';
         this.isShowSkeleton = false;
       },
     });
@@ -56,7 +56,7 @@ export class HomeLocalNewsComponent {
       next: (response) => {
         console.log(response);
         this.localNews = response;
-        this.sectionTitle = 'اخبار متنوعة';
+        this.sectionTitle = 'أخبار متنوعة';
         this.isShowSkeleton = false;
       },
     });
