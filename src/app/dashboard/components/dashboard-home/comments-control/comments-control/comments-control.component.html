@@ -67,10 +67,15 @@
       </td>
       <td>{{ comment.comment_date | hijriDate }}</td>
       <td>
-        <a [routerLink]="['/details', comment.blog_id]"
-          ><span>التفاصيل</span>
+        <button
+          class="btn"
+          (click)="
+            openBlogDetails(comment.blog_id); approveDialogVisible = true
+          "
+        >
+          <span>التفاصيل</span>
           <i class="pi pi-search" style="margin-right: 5px"></i>
-        </a>
+        </button>
       </td>
       <td>
         <div class="flex justify-content-center gap-2">
@@ -175,3 +180,36 @@
   جار تحميل البيانات ... <i class="pi pi-spin pi-spinner"></i>
 </div>
 }
+
+<!-- Confirmation Dialog for Approve -->
+<ng-container *ngIf="approveDialogVisible">
+  <p-dialog
+    [draggable]="false"
+    [(visible)]="approveDialogVisible"
+    [modal]="true"
+    [style]="{ maxwidth: '90vw' }"
+  >
+    <app-preview-section-comments [currentId]="currentBlog" />
+    <div>
+      <!-- <span>هل أنت متأكد أنك تريد الموافقة على الموضوع؟</span> -->
+    </div>
+    <ng-template pTemplate="footer">
+      <!-- <button
+        pButton
+        pRipple
+        label="إلغاء"
+        icon="pi pi-times"
+        class="p-button-text"
+        (click)="approveDialogVisible = false"
+      ></button> -->
+      <button
+        pButton
+        pRipple
+        label="إغلاق"
+        icon="pi pi-check"
+        class="p-button-text"
+        (click)="approveDialogVisible = false"
+      ></button>
+    </ng-template>
+  </p-dialog>
+</ng-container>

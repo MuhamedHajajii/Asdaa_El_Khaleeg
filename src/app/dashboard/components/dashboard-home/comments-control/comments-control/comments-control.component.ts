@@ -11,6 +11,8 @@ import { CommentsService } from '../../../../services/comments.service';
 import { RouterLink } from '@angular/router';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { PrivewBlogComponent } from '../../news-control/news-add/privew-blog/privew-blog.component';
+import { PreviewSectionCommentsComponent } from '../preview-section-comments/preview-section-comments.component';
 
 @Component({
   selector: 'app-comments-control',
@@ -27,6 +29,8 @@ import { MessageService } from 'primeng/api';
     RouterLink,
     ToastModule,
     FormsModule,
+    PrivewBlogComponent,
+    PreviewSectionCommentsComponent,
   ],
   templateUrl: './comments-control.component.html',
   styleUrls: ['./comments-control.component.scss'],
@@ -61,7 +65,6 @@ export class CommentsControlComponent {
 
     this.loadComments();
   }
-
   loadComments() {
     this._CommentsService.getAllComments().subscribe({
       next: (response) => {
@@ -73,6 +76,10 @@ export class CommentsControlComponent {
   openApproveDialog(comment: Comment) {
     this.selectedComment = comment;
     this.approveDialogVisible = true;
+  }
+  currentBlog!: number;
+  openBlogDetails(currentBlog: number): void {
+    this.currentBlog = currentBlog;
   }
 
   openDenyDialog(comment: Comment) {
