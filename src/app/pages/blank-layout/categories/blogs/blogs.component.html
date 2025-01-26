@@ -37,7 +37,13 @@
             class="d-flex justify-content-between align-items-center mb-2 mt-3"
           >
             <h4 style="color: #022738" class="fs-13 fw-bold mb-0">
-              {{ card.author_name == "admin" ? "" : card.author_name }}
+              {{
+                card.author_name == "admin"
+                  ? ""
+                  : card.author_name
+                  ? card.author_name
+                  : "أصداء الخليج"
+              }}
             </h4>
             <p class="mb-0 date_color fw-bold fs-13 text-main">
               {{ card.post_date | hijriDate }}

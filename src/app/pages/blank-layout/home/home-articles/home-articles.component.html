@@ -42,7 +42,9 @@
                 "
                 alt="tweet"
               />
-              <span class="align-middle fs-13">{{ blog.author_name }}</span>
+              <span class="align-middle fs-13">{{
+                blog.author_name ? blog.author_name : "أصداء الخليج"
+              }}</span>
             </h4>
           </article>
         </a>

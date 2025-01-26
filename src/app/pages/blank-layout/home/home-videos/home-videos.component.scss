@@ -5,3 +5,14 @@ img {
   object-position: center;
   object-fit: cover;
 }
+
+::ng-deep iframe {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.object-fit-cover {
+  height: 100%;
+}

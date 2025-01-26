@@ -13,6 +13,7 @@ export interface Contact {
   tiktok_url: any;
   phone_number: any;
   location: any;
+  youtube_embedded: any;
   main_email: any;
   telegram_url: any;
   created_at: string;
@@ -26,6 +27,7 @@ export interface IUpdateSocialLinks {
   watus_number: string | null;
   face_url: string | null;
   youtube_url: string | null;
+  youtube_embedded: any;
   tiktok_url: string | null;
   phone_number: string | null;
   location: string | null;

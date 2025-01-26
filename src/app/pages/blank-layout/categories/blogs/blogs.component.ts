@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
 import {
   ActivatedRoute,
   NavigationEnd,
@@ -15,6 +21,7 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { SafeHtmlPipe } from '../../../../core/pipes/safe-html.pipe';
 import { filter, map, switchMap, Subject, takeUntil } from 'rxjs';
 import { Meta, Title } from '@angular/platform-browser';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-blogs',
@@ -45,7 +52,8 @@ export class BlogsComponent implements OnInit, OnDestroy {
     private _Router: Router,
     private _ActivatedRoute: ActivatedRoute,
     private titleService: Title,
-    private metaService: Meta
+    private metaService: Meta,
+    @Inject(PLATFORM_ID) private _PLATFORM_ID: object
   ) {}
 
   ngOnInit(): void {
@@ -63,6 +71,23 @@ export class BlogsComponent implements OnInit, OnDestroy {
     }
     this.listenToRouteChanges();
     this.getInitialId();
+  }
+  handleImages(): void {
+    if (isPlatformBrowser(this._PLATFORM_ID)) {
+      setTimeout(() => {
+        const images = document.querySelectorAll('img');
+        images.forEach((img) => {
+          let src = img.getAttribute('src') as string;
+          let newSrc = src.includes('watanye')
+            ? src.replace(/watanye/g, 'asda-alkhaleej')
+            : src;
+          if (src.includes('watanye')) {
+            console.log(src, '======');
+            img.setAttribute('src', newSrc);
+          }
+        });
+      }, 0);
+    }
   }
 
   ngOnDestroy(): void {
@@ -100,6 +125,7 @@ export class BlogsComponent implements OnInit, OnDestroy {
           this.totalItems = response?.blogs?.total || 0;
           this.isShowSkeleton = false;
           this.updateMeta();
+          this.handleImages();
         },
         error: (err) => console.error('Error fetching category:', err),
       });

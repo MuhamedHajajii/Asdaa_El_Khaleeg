@@ -1,43 +1,45 @@
 <nav>
   <!-- navbar banner -->
   <div
-    class="container navbar__banner py-2 d-flex justify-content-between align-items-center flex-wrap"
+    class="container py-2 d-flex justify-content-between align-items-center flex-wrap"
   >
     <div class="d-flex justify-content-between align-items-center gap-3">
       <a routerLink="/" href="#">
         <img
-          height="40px"
-          width="40px"
-          class="Banner_logo object-fit-contain cr"
+          width="300"
+          class="object-fit-contain cr"
           src="./assets/images/new_logos/blue_text.png"
           alt="اصداء الخليج"
         />
       </a>
-      <img
+      <!-- <img
         class="Banner_logo"
         src="./assets/images/navbar/calender_logo.png"
         alt="التاريخ"
       />
-      <time class="d-none d-sm-inline">{{ nowDate | hijriDate }} هـ</time>
+      <time class="d-none d-sm-inline">{{ nowDate | hijriDate }} هـ</time> -->
     </div>
     <!-- <div>
       <span class="d-block text-main fs-13">مدعوم بالذكاء الاصطناعي</span>
     </div> -->
-    <div class="flex-grow-1 text-center">
+    <div class="flex-grow-1 text-center d-none d-xl-block">
       <h2 class="h6 mb-0">رئيس التحرير/ سلمان بن احمد العيد</h2>
     </div>
     <div
       class="d-flex justify-content-between justify-content-lg-start align-items-center gap-4 flex-row-reverse flex-grow-1 mt-3 mt-lg-0"
     >
       <img
+        width="77px"
         src="./assets/images/navbar/logo.png"
         alt="رؤية المملكة العربية السعودية"
       />
       <img
+        width="77px"
         src="./assets/images/new_logos/first_banner.png"
         alt="رؤية المملكة العربية السعودية"
       />
       <img
+        width="77px"
         src="./assets/images/new_logos/second_banner.png"
         alt="رؤية المملكة العربية السعودية"
       />
@@ -320,9 +322,9 @@
               >
                 <a
                   class="text-black"
-                  [routerLink]="['/archives/blogs', 'y']"
+                  [routerLink]="['/archives/blogs', 'h']"
                   href="#"
-                  >منوعات</a
+                  >وقائع أمنية</a
                 >
               </li>
               <li
@@ -332,9 +334,9 @@
               >
                 <a
                   class="text-black"
-                  [routerLink]="['/archives/blogs', 'h']"
+                  [routerLink]="['/archives/blogs', 'y']"
                   href="#"
-                  >وقائع أمنية</a
+                  >منوعات</a
                 >
               </li>
               <li

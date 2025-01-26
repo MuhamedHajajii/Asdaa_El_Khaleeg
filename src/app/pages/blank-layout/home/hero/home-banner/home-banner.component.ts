@@ -4,6 +4,7 @@ import { ICurrentTemp } from '../../../../../core/interfaces/banner/ICurrentTemp
 import { DatePipe, isPlatformBrowser } from '@angular/common';
 import { SafeHtmlPipe } from '../../../../../core/pipes/safe-html.pipe';
 import { IWeatherAPI } from '../../../../../core/interfaces/IWeatherAPI';
+import { StaticCategoriesService } from '../../../../../core/services/content/static-categories.service';
 
 @Component({
   selector: 'app-home-banner',
@@ -13,17 +14,27 @@ import { IWeatherAPI } from '../../../../../core/interfaces/IWeatherAPI';
   styleUrl: './home-banner.component.scss',
 })
 export class HomeBannerComponent {
+  arabicLocale = 'ar-EG';
   currentTemp: string = '';
   sar: string = '';
   staticDate = '';
+  websiteCounter: number | string = 0;
   year = new Date().getFullYear();
   currentPopulation: string = '36.95';
   constructor(
     private _HttpClient: HttpClient,
-    @Inject(PLATFORM_ID) private PLATFORM_ID: object
+    @Inject(PLATFORM_ID) private PLATFORM_ID: object,
+    private _StaticCategoriesService: StaticCategoriesService
   ) {}
   ngOnInit(): void {
     if (isPlatformBrowser(this.PLATFORM_ID)) {
+      this._StaticCategoriesService.getViewsData().subscribe({
+        next: (response) => {
+          this.websiteCounter = new Intl.NumberFormat(this.arabicLocale).format(
+            response.counter.coutner_Value
+          );
+        },
+      });
       const url =
         'https://api.weatherapi.com/v1/current.json?key=94d6f85346f344d699b111519251901&q=Riyadh&aqi=yes';
       // const url =
@@ -49,7 +60,7 @@ export class HomeBannerComponent {
       });
       setInterval(() => {
         let time = new Date();
-        const saudiTime = new Intl.DateTimeFormat('en-US', {
+        const saudiTime = new Intl.DateTimeFormat('ar-SA', {
           timeZone: 'Asia/Riyadh',
           hour: '2-digit',
           minute: '2-digit',

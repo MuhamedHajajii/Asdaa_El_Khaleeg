@@ -32,7 +32,9 @@
               "
               alt="tweet"
             />
-            <span class="align-middle fs-13">{{ card.author_name }}</span>
+            <span class="align-middle fs-13">{{
+              card.author_name ? card.author_name : "أصداء الخليج"
+            }}</span>
           </h4>
         </article>
       </a>

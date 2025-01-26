@@ -53,3 +53,10 @@ input:active {
 .social-icons a:hover {
   opacity: 0.8;
 }
+
+share-buttons ::ng-deep button {
+  min-width: auto !important;
+  width: 35px !important;
+  height: 35px;
+  border-radius: 50%;
+}

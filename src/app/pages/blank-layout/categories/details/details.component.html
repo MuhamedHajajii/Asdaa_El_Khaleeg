@@ -17,26 +17,25 @@
                 alt="card.author"
               />
             </figure>
-            <h1 class="text-main fs-13 fw-bold mt-2 mb-1 fs-5">
-              {{ IBlogs.blog.post_title }}
-            </h1>
+
             <div
               class="d-flex justify-content-between align-items-center mb-2 mt-3"
             >
               <p class="mb-0 date_color fw-bold fs-13">
+                <img
+                  width="35px"
+                  height="35px"
+                  src="./assets/images/new_logos/logo_blue_no_text.png"
+                  alt="أصداء الخليج"
+                />
                 {{
                   IBlogs.blog.author_name === "admin"
                     ? ""
                     : IBlogs.blog.author_name
+                    ? IBlogs.blog.author_name
+                    : "أصداء الخليج"
                 }}
               </p>
-              <p class="mb-0 date_color fw-bold fs-13">
-                {{ IBlogs.blog.post_date | hijriDate }}
-              </p>
-            </div>
-
-            <div class="my-3">
-              <h3 class="fs-13 fw-bold text-main">شارك هذا المقال</h3>
               <div class="d-flex gap-2 social-icons">
                 <share-buttons
                   [exclude]="[
@@ -60,6 +59,19 @@
                   [description]="decodeHtml(IBlogs.blog.post_content)"
                 />
               </div>
+            </div>
+
+            <h1 class="text-main fs-13 fw-bold my-3 mb-1 fs-5">
+              {{ IBlogs.blog.post_title }}
+            </h1>
+
+            <div
+              class="d-flex justify-content-between align-items-center mb-2 mt-3"
+            >
+              <span></span>
+              <p class="mb-0 date_color fw-bold fs-13">
+                {{ IBlogs.blog.post_date | hijriDate }}
+              </p>
             </div>
 
             <div>
@@ -347,7 +359,7 @@
           </div>
 
           <div class="flex-grow-1 my-3">
-            <div class="h-600 sticky_content-20">
+            <div class="h-500 sticky_content-20">
               <app-advertising-area
                 [positionClasses]="
                   'd-flex justify-content-center flex-column fs-4  align-items-center gap-5 h-100 btn-large '

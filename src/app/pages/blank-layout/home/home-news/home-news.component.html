@@ -277,7 +277,13 @@
 
           <div class="d-flex justify-content-between align-items-center">
             <h3 class="fs-13 fw-bold mb-0">
-              {{ card.author_name === "admin" ? "" : card.author_name }}
+              {{
+                card.author_name === "admin"
+                  ? ""
+                  : card.author_name
+                  ? card.author_name
+                  : "أصداء الخليج"
+              }}
             </h3>
             <p class="text-main fs-13 fw-bold mb-0">
               {{ card.post_date | hijriDate }} هـ

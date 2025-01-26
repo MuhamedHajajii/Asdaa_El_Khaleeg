@@ -28,10 +28,7 @@ export class EmployeesService {
     );
   }
 
-  updatEmployee(
-    id: number,
-    data: IEmployeeUpdateBody
-  ): Observable<IEmployeeAddResponse> {
+  updatEmployee(id: number, data: any): Observable<IEmployeeAddResponse> {
     return this._HttpClient.post<IEmployeeAddResponse>(
       `${WEB_SITE_BASE_URL}administrator_update/${id}`,
       data

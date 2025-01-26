@@ -5,19 +5,26 @@ import { ButtonModule } from 'primeng/button';
 import { SocialMediaService } from '../../../../core/services/content/social-media.service';
 import { SocialMediaLinksService } from '../../../services/social-media-links.service';
 import { IUpdateSocialLinks } from '../../../../core/interfaces/ISocialMedia';
+import { MessagesModule } from 'primeng/messages';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-social-media-control',
   standalone: true,
-  imports: [FormsModule, ButtonModule],
+  imports: [FormsModule, ButtonModule, MessagesModule, ToastModule],
   templateUrl: './social-media-control.component.html',
   styleUrls: ['./social-media-control.component.scss'],
+  providers: [MessageService],
 })
 export class SocialMediaControlComponent {
   socialMediaLinks: any[] = [];
   originalLinks: any = {};
   isLoading: boolean = false;
-  constructor(private _SocialMediaService: SocialMediaLinksService) {}
+  constructor(
+    private _SocialMediaService: SocialMediaLinksService,
+    private MessageService: MessageService
+  ) {}
 
   ngOnInit() {
     // Fetch social media links from the service
@@ -69,6 +76,13 @@ export class SocialMediaControlComponent {
         url: contact.youtube_url === 'null' ? '' : contact.youtube_url,
       },
       {
+        key: 'youtube_embedded',
+        label: 'يوتيوب فيديو الرئيسية',
+        icon: 'pi-youtube',
+        url:
+          contact.youtube_embedded === 'null' ? '' : contact.youtube_embedded,
+      },
+      {
         key: 'tiktok_url',
         label: 'تيك توك',
         icon: 'pi-play',
@@ -109,6 +123,11 @@ export class SocialMediaControlComponent {
       .updateSocialMediaLinks(updatedLinks)
       .subscribe((response) => {
         this.isLoading = false;
+        this.MessageService.add({
+          severity: 'success',
+          summary: 'نجاح',
+          detail: 'تم حفظ التغييرات بنجاح',
+        });
       });
   }
 
@@ -121,6 +140,7 @@ export class SocialMediaControlComponent {
       watus_number: null,
       face_url: null,
       youtube_url: null,
+      youtube_embedded: null,
       tiktok_url: null,
       phone_number: null,
       location: null,

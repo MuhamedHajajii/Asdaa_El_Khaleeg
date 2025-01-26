@@ -15,9 +15,11 @@
               currentYoutubeVideos.items[0].snippet.resourceId.videoId
             )
           "
-          class="Logo_youtube_Mark cr"
+          class="h-100 cr position-relative"
+          height="545px"
+          [innerHTML]="videoIframe | safeHtml"
         >
-          <figure class="Logo_Water_Mark small">
+          <!-- <figure class="Logo_Water_Mark small">
             <img
               height="545px"
               class="w-100 object-fit-cover border-radius-10"
@@ -29,7 +31,7 @@
           </figure>
           <h3 class="fs-13 fw-bold mb-1 title_section">
             {{ currentYoutubeVideos.items[0].snippet.title }}
-          </h3>
+          </h3> -->
         </div>
       </div>
 
@@ -42,9 +44,11 @@
           "
           class="Logo_youtube_Mark cr mb-2"
         >
-          <figure class="Logo_Water_Mark small overflow-hidden mb-0">
+          <figure
+            style="height: 150px !important"
+            class="Logo_Water_Mark small overflow-hidden mb-0"
+          >
             <img
-              style="height: 175px !important"
               class="youTube_Image w-100 object-fit-cover border-radius-10"
               [src]="
                 currentYoutubeVideos.items[1].snippet.thumbnails.standard.url
@@ -66,9 +70,11 @@
           "
           class="Logo_youtube_Mark cr mb-2"
         >
-          <figure class="Logo_Water_Mark small overflow-hidden mb-0">
+          <figure
+            style="height: 150px !important"
+            class="Logo_Water_Mark small overflow-hidden mb-0"
+          >
             <img
-              style="height: 175px !important"
               class="youTube_Image w-100 object-fit-cover border-radius-10"
               [src]="
                 currentYoutubeVideos.items[2].snippet.thumbnails.standard.url
@@ -90,9 +96,11 @@
           "
           class="Logo_youtube_Mark cr mb-2"
         >
-          <figure class="Logo_Water_Mark small overflow-hidden mb-0">
+          <figure
+            style="height: 150px !important"
+            class="Logo_Water_Mark small overflow-hidden mb-0"
+          >
             <img
-              style="height: 175px !important"
               class="youTube_Image w-100 object-fit-cover border-radius-10"
               [src]="
                 currentYoutubeVideos.items[3].snippet.thumbnails.standard.url

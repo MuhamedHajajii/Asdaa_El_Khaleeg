@@ -82,6 +82,7 @@ export class EmployeesControlComponent {
   saveEmployee() {
     this.submitted = true;
 
+    // Ensure that name and title are provided
     if (!this.selectedEmployee.name || !this.selectedEmployee.title) return;
 
     let employeeDetails = {
@@ -89,10 +90,23 @@ export class EmployeesControlComponent {
       title: this.selectedEmployee.title,
     };
 
-    // Add or update employee
     if (this.selectedEmployee.id) {
+      // Prepare the form data for update (without image if not selected)
+      const formData = new FormData();
+      formData.append('name', this.selectedEmployee.name);
+      formData.append('title', this.selectedEmployee.title);
+
+      if (this.selectedImage) {
+        formData.append(
+          'main_image',
+          this.selectedImage,
+          this.selectedImage.name
+        );
+      }
+
+      // Send update request with or without image
       this.employeesService
-        .updatEmployee(this.selectedEmployee.id, employeeDetails)
+        .updatEmployee(this.selectedEmployee.id, formData)
         .subscribe({
           next: (response) => {
             this.messageService.add({
@@ -110,10 +124,12 @@ export class EmployeesControlComponent {
             }),
         });
     } else {
+      // Prepare form data for adding employee (with image if selected)
       const formData = new FormData();
       formData.append('name', this.selectedEmployee.name);
       formData.append('title', this.selectedEmployee.title);
       formData.append('status', '1');
+
       if (this.selectedImage) {
         formData.append(
           'main_image',
@@ -121,6 +137,7 @@ export class EmployeesControlComponent {
           this.selectedImage.name
         );
       }
+
       this.employeesService.addEmployee(formData).subscribe({
         next: (response) => {
           this.messageService.add({
@@ -141,6 +158,7 @@ export class EmployeesControlComponent {
 
     this.employeeDialog = false;
     this.selectedEmployee = {} as IEmployeeRow;
+    this.selectedImage = null; // Reset image selection
   }
 
   // Toggle employee status

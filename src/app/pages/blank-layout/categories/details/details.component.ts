@@ -95,6 +95,24 @@ export class DetailsComponent {
     this.onClickGetLastEditorNewsId();
   }
 
+  handleImages(): void {
+    if (isPlatformBrowser(this._PLATFORM_ID)) {
+      setTimeout(() => {
+        const images = document.querySelectorAll('img');
+        images.forEach((img) => {
+          let src = img.getAttribute('src') as string;
+          let newSrc = src.includes('watanye')
+            ? src.replace(/watanye/g, 'asda-alkhaleej')
+            : src;
+          if (src.includes('watanye')) {
+            console.log(src, '======');
+            img.setAttribute('src', newSrc);
+          }
+        });
+      }, 0);
+    }
+  }
+
   ngAfterContentInit(): void {
     this.checkForUserDataInLocalStorage();
   }
@@ -123,10 +141,10 @@ export class DetailsComponent {
       next: (response) => {
         console.log(response, 'current blog details');
         this.IBlogs = response as IBlog;
-        this.isShowSkeleton = false;
-
         // Update meta tags after the blog data is loaded
         this.changeMeta();
+        this.isShowSkeleton = false;
+        this.handleImages();
       },
       error: (err) => console.error('Error fetching category:', err),
     });
