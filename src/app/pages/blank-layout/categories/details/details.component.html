@@ -8,7 +8,7 @@
           <div>
             <figure class="Logo_Water_Mark">
               <img
-                style="object-position: center"
+                style="object-position: top"
                 class="w-100 object-fit-cover border-radius-10 h-600"
                 [src]="
                   IBlogs.blog.post_image ||
@@ -47,7 +47,9 @@
                     'xing',
                     'line',
                     'mix',
-                    'reddit'
+                    'reddit',
+                    'linkedin',
+                    'sms'
                   ]"
                   [url]="currentUrl"
                   show="11"
@@ -69,7 +71,7 @@
               class="d-flex justify-content-between align-items-center mb-2 mt-3"
             >
               <span></span>
-              <p class="mb-0 date_color fw-bold fs-13">
+              <p class="mb-0 date_color fw-bold fs-5">
                 {{ IBlogs.blog.post_date | hijriDate }}
               </p>
             </div>
@@ -362,7 +364,7 @@
             <div class="h-500 sticky_content-20">
               <app-advertising-area
                 [positionClasses]="
-                  'd-flex justify-content-center flex-column fs-4  align-items-center gap-5 h-100 btn-large '
+                  'd-flex justify-content-center flex-column fs-4  align-items-center gap-5 vh-90 btn-large '
                 "
               />
             </div>

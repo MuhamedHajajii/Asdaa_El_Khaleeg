@@ -18,7 +18,11 @@
     top: 100px;
   }
 }
-
-.h-500 {
+p .h-500 {
   height: 500px !important;
+}
+
+th {
+  // display: inline-flex !important;
+  text-wrap: nowrap;
 }

@@ -2,7 +2,7 @@
 ::ng-deep .content iframe,
 content img,
 content iframe {
-  width: 100%;
+  max-width: 100%;
   border-radius: 10px;
   margin-bottom: 20px;
 }
@@ -12,18 +12,21 @@ content iframe {
   line-height: 1.5 !important;
 }
 
-::ng-deep p,
-::ng-deep strong,
-strong p {
+::ng-deep .content p,
+::ng-deep .content strong,
+.content strong p {
   line-height: 2.4 !important;
-  font-size: 16px !important;
+  font-size: 20px !important;
+}
+h1 {
+  font-size: 26px !important;
 }
 input,
 input:focus,
 input:active {
   border: 1px solid #494848;
   box-shadow: none;
-  font-size: 13px !important;
+  font-size: 16px !important;
 }
 
 .commentInput {
