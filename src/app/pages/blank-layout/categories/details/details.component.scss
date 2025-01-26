@@ -10,13 +10,16 @@ content iframe {
 *,
 ::ng-deep * {
   line-height: 1.5 !important;
+  text-align: justify !important;
 }
 
 ::ng-deep .content p,
 ::ng-deep .content strong,
-.content strong p {
+.content strong p,
+h2 {
   line-height: 2.4 !important;
   font-size: 20px !important;
+  text-align: justify !important;
 }
 h1 {
   font-size: 26px !important;

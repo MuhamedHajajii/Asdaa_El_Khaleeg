@@ -5,6 +5,7 @@ export interface IGetAllNews {
 export interface IBlog {
   id: number;
   post_title: string;
+  post_subtitle: string;
   post_date: string;
   post_content: string;
   post_image: string;
@@ -32,6 +33,7 @@ export interface Category {
 
 export interface INewsAddBody {
   post_title: string;
+  post_subtitle: string;
   post_content: string;
   post_image: File;
   meta_title: string;
@@ -52,6 +54,7 @@ export interface IGetOneBlogResponse {
 export interface IGetOneBlogResponseRow {
   id: number;
   post_title: string;
+  post_subtitle: string;
   post_date: string;
   post_content: string;
   post_image: string;

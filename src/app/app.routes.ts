@@ -203,6 +203,13 @@ export const routes: Routes = [
           ).then((c) => c.SettingControlComponent),
       },
       {
+        path: 'youtube',
+        loadComponent: () =>
+          import(
+            './dashboard/components/dashboard-home/yout-ube-control/yout-ube-control.component'
+          ).then((c) => c.YoutUbeControlComponent),
+      },
+      {
         path: 'help',
         loadComponent: () =>
           import(

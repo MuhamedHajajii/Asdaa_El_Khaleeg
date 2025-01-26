@@ -51,6 +51,7 @@ import { NewsControlService } from '../../../../services/news-control.service';
 import { WritersService } from '../../../../services/writers.service';
 import { PrivewBlogComponent } from './privew-blog/privew-blog.component';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
+import { response } from 'express';
 
 @Component({
   selector: 'app-news-add',
@@ -121,6 +122,7 @@ export class NewsAddComponent implements OnInit {
     author_name: new FormControl('', [Validators.required]),
     post_date: new FormControl('', [Validators.required]),
     post_content: new FormControl('', [Validators.required]),
+    post_subtitle: new FormControl('', [Validators.required]),
     categories: new FormControl([], [Validators.required]),
   });
   // addArticleForm: FormGroup = new FormGroup({
@@ -223,8 +225,12 @@ export class NewsAddComponent implements OnInit {
           this.currenBlogId = +id;
           this._NewsControlService.getNewsById(+id).subscribe({
             next: (response) => {
+              console.log(response);
               let Data = response.row;
               this.addArticleForm.get('post_title')?.setValue(Data.post_title);
+              this.addArticleForm
+                .get('post_subtitle')
+                ?.setValue(Data.post_subtitle);
               this.addArticleForm
                 .get('author_name')
                 ?.setValue(Data.author_name);
@@ -262,6 +268,7 @@ export class NewsAddComponent implements OnInit {
       formData.append('post_title', formValues.post_title);
       formData.append('post_content', formValues.post_content);
       formData.append('meta_title', formValues.post_title);
+      formData.append('post_subtitle', formValues.post_subtitle);
       formData.append('meta_description', formValues.post_title);
       formData.append('author_name', formValues.author_name);
       formData.append('post_date', this.currentDate);
@@ -390,6 +397,7 @@ export class NewsAddComponent implements OnInit {
       blog: {
         post_id: 1,
         post_title: formValues.post_title,
+        post_subtitle: formValues.post_subtitle,
         post_date: this.currentDate,
         post_content: formValues.post_content,
         post_image: imageURL || this.currentImageSrc,

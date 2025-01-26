@@ -1,14 +1,17 @@
 @if (socialMediaLinks.length > 0) {
 <div class="social-media-control">
-  <h2>روابط وسائل التواصل الاجتماعي</h2>
+  <h2>إدارة فيديو الرئيسية</h2>
 
-  @for (link of socialMediaLinks; track $index) { @if ($index !== 6) {
   <div class="social-media-item">
-    <i [class]="'pi ' + link.icon" class="social-icon"></i>
-    <label>{{ link.label }}</label>
-    <input type="text" [(ngModel)]="link.url" placeholder="أدخل الرابط هنا" />
+    <i [class]="'pi ' + socialMediaLinks[6].icon" class="social-icon"></i>
+    <label>{{ socialMediaLinks[6].label }}</label>
+    <input
+      type="text"
+      [(ngModel)]="socialMediaLinks[6].url"
+      placeholder="أدخل الرابط هنا"
+    />
   </div>
-  } }
+
   <p-toast />
   <button
     pButton

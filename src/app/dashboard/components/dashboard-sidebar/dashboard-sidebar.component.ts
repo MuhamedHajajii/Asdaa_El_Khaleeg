@@ -119,6 +119,16 @@ export class DashboardSidebarComponent {
         ],
       },
       {
+        label: 'فيديو الرئيسية',
+        items: [
+          {
+            label: 'إدارة فيديو الرئيسية',
+            icon: 'pi pi-fw pi-youtube',
+            routerLink: ['/dashboard/youtube'],
+          },
+        ],
+      },
+      {
         label: 'الإعدادات',
         items: [
           {
