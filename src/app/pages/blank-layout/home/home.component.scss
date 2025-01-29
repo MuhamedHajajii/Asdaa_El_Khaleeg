@@ -1,6 +1,18 @@
 header {
-  background-image: url("/assets/images/pages/home/Hero_Section/hero__bg_image.png");
+  background-image: url("/assets/images/pages/home/pattern01.png");
   background-position: top right;
-  background-size: 800px 827px;
+  background-size: 452px 459px;
+  background-repeat: no-repeat;
+}
+.main-bg {
+  background-image: url("/assets/images/pages/home/pattern02.png");
+  background-size: 50% 80%;
+  background-position: right bottom;
+  background-repeat: no-repeat;
+}
+.third-bg {
+  background-image: url("/assets/images/pages/home/pattern04.png");
+  background-size: 100% 100%;
+  background-position: center 130px;
   background-repeat: no-repeat;
 }

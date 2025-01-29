@@ -1,7 +1,7 @@
-<div [ngClass]="positionClasses" class="advertising__container">
+<div [ngClass]="positionClasses" class="advertising__container overflow-hidden">
   <img
     class="d-block"
-    width="220"
+    [ngStyle]="{ width: imageWidth }"
     src="./assets/images/new_logos/blue_text.png"
     alt="اصداء الخليج"
   />

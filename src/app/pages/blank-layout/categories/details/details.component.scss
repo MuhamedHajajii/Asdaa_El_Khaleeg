@@ -66,3 +66,7 @@ share-buttons ::ng-deep button {
   height: 35px;
   border-radius: 50%;
 }
+
+::ng-deep #Home__Articles {
+  background-color: transparent !important;
+}

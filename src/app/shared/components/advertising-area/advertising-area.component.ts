@@ -11,4 +11,5 @@ import { RouterLink } from '@angular/router';
 })
 export class AdvertisingAreaComponent {
   @Input() positionClasses: string = '';
+  @Input() imageWidth: string = '220px';
 }
