@@ -43,6 +43,7 @@ export class CommentsControlComponent {
   approveDialogVisible = false;
   denyDialogVisible = false;
   selectedComment: Comment | null = null;
+  previewDialog: boolean = false;
 
   constructor(
     private _CommentsService: CommentsService,
@@ -80,6 +81,7 @@ export class CommentsControlComponent {
   currentBlog!: number;
   openBlogDetails(currentBlog: number): void {
     this.currentBlog = currentBlog;
+    this.previewDialog = true;
   }
 
   openDenyDialog(comment: Comment) {

@@ -32,6 +32,7 @@ import { AdvertisingAreaComponent } from '../../../../shared/components/advertis
 import { RelatedContentComponent } from '../related-content/related-content.component';
 import { ShareButtons } from 'ngx-sharebuttons/buttons';
 import { shareIcons } from 'ngx-sharebuttons/icons';
+import { CommentsService } from '../../../../dashboard/services/comments.service';
 
 @Component({
   selector: 'app-details',
@@ -69,7 +70,8 @@ export class DetailsComponent {
     private _ToastrService: ToastrService,
     private titleService: Title,
     private metaService: Meta,
-    private router: Router
+    private router: Router,
+    private _CommentsService: CommentsService
   ) {}
 
   encodeURIComponent(value: string): string {
@@ -175,7 +177,7 @@ export class DetailsComponent {
     if (isPlatformBrowser(this._PLATFORM_ID)) {
       let inputSaveData = event.target as HTMLInputElement;
       if (inputSaveData.checked) {
-        console.log('savait');
+        console.log('save it');
         this.isStoreData = true;
       } else {
         this.isStoreData = false;
@@ -200,12 +202,22 @@ export class DetailsComponent {
     if (this.userDataForm.valid) {
       console.log(this.userDataForm.value);
 
-      if (this.isStoreData) {
-        this.storeData();
-      }
+      let commentData = {
+        ...this.userDataForm.value,
+        blog_id: this.currentId,
+      };
 
-      this._ToastrService.success('تم ارسال التعليق بنجاح');
-      this.userDataForm.reset();
+      this._CommentsService.addComment(commentData).subscribe({
+        next: (response) => {
+          console.log(response);
+          if (this.isStoreData) {
+            this.storeData();
+          }
+
+          this._ToastrService.success('تم ارسال التعليق بنجاح');
+          this.userDataForm.reset();
+        },
+      });
     } else {
       this.userDataForm.markAllAsTouched();
       this._ToastrService.error('تحقق من البيانات المدخلة');

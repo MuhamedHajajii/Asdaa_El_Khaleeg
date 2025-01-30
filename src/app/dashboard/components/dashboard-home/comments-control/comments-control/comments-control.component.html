@@ -69,9 +69,7 @@
       <td>
         <button
           class="btn"
-          (click)="
-            openBlogDetails(comment.blog_id); approveDialogVisible = true
-          "
+          (click)="openBlogDetails(comment.blog_id); previewDialog = true"
         >
           <span>التفاصيل</span>
           <i class="pi pi-search" style="margin-right: 5px"></i>
@@ -182,33 +180,23 @@
 }
 
 <!-- Confirmation Dialog for Approve -->
-<ng-container *ngIf="approveDialogVisible">
+<ng-container *ngIf="previewDialog">
   <p-dialog
     [draggable]="false"
-    [(visible)]="approveDialogVisible"
+    [(visible)]="previewDialog"
     [modal]="true"
     [style]="{ maxwidth: '90vw' }"
   >
     <app-preview-section-comments [currentId]="currentBlog" />
-    <div>
-      <!-- <span>هل أنت متأكد أنك تريد الموافقة على الموضوع؟</span> -->
-    </div>
+    <div></div>
     <ng-template pTemplate="footer">
-      <!-- <button
-        pButton
-        pRipple
-        label="إلغاء"
-        icon="pi pi-times"
-        class="p-button-text"
-        (click)="approveDialogVisible = false"
-      ></button> -->
       <button
         pButton
         pRipple
         label="إغلاق"
         icon="pi pi-check"
         class="p-button-text"
-        (click)="approveDialogVisible = false"
+        (click)="previewDialog = false"
       ></button>
     </ng-template>
   </p-dialog>

@@ -90,7 +90,7 @@
               </div>
             </div>
           </div>
-          <!-- @if (IBlogs.comments) { -->
+          @if (IBlogs.comments) {
           <div class="p-2 col-12 order-0 order-lg-1 my-4">
             <form [formGroup]="userDataForm" (ngSubmit)="onSubmitComment()">
               <div class="row">
@@ -230,55 +230,36 @@
               </div>
             </form>
             <div class="mt-4">
+              @if (IBlogs.comments && IBlogs.comments.length > 0 ) {
               <div class="d-flex justify-content-between align-items-center">
                 <p>التعليقات</p>
                 <p class="text-danger" style="font-size: 13px !important">
-                  0 تعليقات
+                  {{ IBlogs.comments.length }} تعليقات
                 </p>
               </div>
+              @for (item of IBlogs.comments; track $index) {
               <div class="box-shadow border-radius-10 p-3 mb-3">
-                لا يوجد تعليقات
-              </div>
-              <!-- <div class="box-shadow border-radius-10 p-3 mb-3">
-              <div class="d-flex align-items-center gap-2 mb-2">
-                <span
-                  class="d-inline-block rounded-circle"
-                  style="width: 25px; height: 25px; background-color: #d9d9d9"
-                ></span>
-                <p class="mb-0">Mohamed Ahmed</p>
-                <p
-                  class="mb-0"
-                  style="font-size: 10px !important; color: #878787"
-                >
-                  منذ ساعة
+                <div class="d-flex align-items-center gap-2 mb-2">
+                  <span
+                    class="d-inline-block rounded-circle"
+                    style="width: 25px; height: 25px; background-color: #d9d9d9"
+                  ></span>
+                  <p class="mb-0">{{ item.comment_name }}</p>
+                  <p
+                    class="mb-0"
+                    style="font-size: 10px !important; color: #878787"
+                  >
+                    منذ {{ item.comment_date | hijriDate }}
+                  </p>
+                </div>
+                <p class="me-4 mb-0">
+                  {{ item.comment_text }}
                 </p>
               </div>
-              <p class="me-4 mb-0">
-                موضوع هام جدا و اري انه سوف يحدث بسببه طفرة كبيرة
-              </p>
-            </div>
-            <div class="box-shadow border-radius-10 p-3 mb-3">
-              <div class="d-flex align-items-center gap-2 mb-2">
-                <span
-                  class="d-inline-block rounded-circle"
-                  style="width: 25px; height: 25px; background-color: #d9d9d9"
-                ></span>
-                <p class="mb-0">Mohamed Ahmed</p>
-                <p
-                  class="mb-0"
-                  style="font-size: 10px !important; color: #878787"
-                >
-                  منذ ساعة
-                </p>
-              </div>
-              <p class="me-4 mb-0">
-                موضوع هام جدا و اري انه سوف يحدث بسببه طفرة كبيرة
-              </p>
-            </div> -->
+              } }
             </div>
           </div>
-          <!-- }  -->
-          }
+          } }
           <!-- skeleton -->
           @defer { @if (isShowSkeleton) {
           <div>

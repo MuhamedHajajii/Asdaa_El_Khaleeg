@@ -125,22 +125,6 @@ export class NewsAddComponent implements OnInit {
     post_subtitle: new FormControl('', [Validators.required]),
     categories: new FormControl([], [Validators.required]),
   });
-  // addArticleForm: FormGroup = new FormGroup({
-  //   post_image: new FormControl('', [Validators.required]),
-  //   post_title: new FormControl('', [
-  //     Validators.required,
-  //     this.seoTitleValidator(),
-  //     this.titleDuplicateWordsValidator(), // Add the new validator
-  //   ]),
-  //   author_name: new FormControl('', [Validators.required]),
-  //   post_date: new FormControl('', [Validators.required]),
-  //   post_content: new FormControl('', [
-  //     Validators.required,
-  //     this.minContentLengthValidator(300),
-  //     this.arabicTextValidator(),
-  //   ]),
-  //   categories: new FormControl([], [Validators.required]),
-  // });
 
   constructor(
     private _CategoriesService: CategoriesService,
@@ -262,6 +246,27 @@ export class NewsAddComponent implements OnInit {
   }
 
   onSubmit(): void {
+    const formValues = this.addArticleForm.value;
+    const formData = new FormData();
+    formData.append('post_title', formValues.post_title);
+    formData.append('post_content', formValues.post_content);
+    formData.append('meta_title', formValues.post_title);
+    formData.append('post_subtitle', formValues.post_subtitle);
+    formData.append('meta_description', formValues.post_title);
+    formData.append('author_name', formValues.author_name);
+    formData.append('post_date', this.currentDate);
+    formData.append('publish_status', '1');
+    if (formValues.post_image) {
+      formData.append(
+        'post_image',
+        formValues.post_image,
+        formValues.post_image.name
+      );
+    }
+    formValues.categories.forEach((element: any) => {
+      formData.append('categoryIDS[]', element);
+    });
+
     if (this.addArticleForm.valid) {
       const formValues = this.addArticleForm.value;
       const formData = new FormData();
@@ -284,32 +289,11 @@ export class NewsAddComponent implements OnInit {
         formData.append('categoryIDS[]', element);
       });
 
-      this._NgxSpinnerService.show();
-      if (this.currenBlogId == 0) {
-        this._NewsControlService.addNews(formData).subscribe({
-          next: (response) => {
-            this._MessageService.add({
-              severity: 'success',
-              summary: 'تم النشر بنجاح',
-              detail: 'تمت إضافة الموضوع بنجاح!',
-            });
-            this.addArticleForm.reset();
-            this.addArticleForm.get('post_content')?.setValue('');
-            this._NgxSpinnerService.hide();
-          },
-          error: (err) => {
-            this._MessageService.add({
-              severity: 'error',
-              summary: 'خطأ في النشر',
-              detail: 'حدث خطأ أثناء محاولة نشر الموضوع.',
-            });
-            this._NgxSpinnerService.hide();
-          },
-        });
-      } else {
-        this._NewsControlService
-          .updateNews(this.currenBlogId, formData)
-          .subscribe({
+      // Fetch and append static image
+      this.fetchAndAppendImage(formData).then((updatedFormData) => {
+        this._NgxSpinnerService.show();
+        if (this.currenBlogId == 0) {
+          this._NewsControlService.addNews(formData).subscribe({
             next: (response) => {
               this._MessageService.add({
                 severity: 'success',
@@ -329,10 +313,50 @@ export class NewsAddComponent implements OnInit {
               this._NgxSpinnerService.hide();
             },
           });
-      }
-    } else {
+        } else {
+          this._NewsControlService
+            .updateNews(this.currenBlogId, formData)
+            .subscribe({
+              next: (response) => {
+                this._MessageService.add({
+                  severity: 'success',
+                  summary: 'تم النشر بنجاح',
+                  detail: 'تمت إضافة الموضوع بنجاح!',
+                });
+                this.addArticleForm.reset();
+                this.addArticleForm.get('post_content')?.setValue('');
+                this._NgxSpinnerService.hide();
+              },
+              error: (err) => {
+                this._MessageService.add({
+                  severity: 'error',
+                  summary: 'خطأ في النشر',
+                  detail: 'حدث خطأ أثناء محاولة نشر الموضوع.',
+                });
+                this._NgxSpinnerService.hide();
+              },
+            });
+        }
+      });
     }
   }
+
+  fetchAndAppendImage(formData: FormData): Promise<FormData> {
+    return fetch('/assets/images/logo_light.png') // Your static image URL
+      .then((response) => response.blob())
+      .then((blob) => {
+        const staticFile = new File([blob], 'layer_image.jpg', {
+          type: 'image/jpeg',
+        });
+        formData.append('layer_image', staticFile); // Append static image
+        return formData; // Return updated FormData
+      })
+      .catch((error) => {
+        console.error('Error fetching static image:', error);
+        return formData; // Return original FormData even if fetch fails
+      });
+  }
+
   clearInputs(): void {
     this.addArticleForm.reset();
     this.addArticleForm.get('post_content')?.setValue('');

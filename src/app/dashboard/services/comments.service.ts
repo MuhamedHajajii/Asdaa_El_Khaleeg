@@ -13,6 +13,12 @@ export class CommentsService {
   getAllComments(): Observable<IComments> {
     return this._HttpClient.get<IComments>(`${WEB_SITE_BASE_URL}getComments`);
   }
+  addComment(commentData: any): Observable<IComments> {
+    return this._HttpClient.post<IComments>(
+      `${WEB_SITE_BASE_URL}addcommecnt`,
+      commentData
+    );
+  }
 
   updateCommentsStatus(id: number): Observable<IComments> {
     return this._HttpClient.post<IComments>(
