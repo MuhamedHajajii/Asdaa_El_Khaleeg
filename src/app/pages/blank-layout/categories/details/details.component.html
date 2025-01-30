@@ -175,10 +175,13 @@
                       formControlName="userComment"
                     />
                     <button
-                      [disabled]="userComments.length > 150"
+                      [disabled]="userComments.length > 150 && !isLoading"
                       class="btn btn-main py-2 px-4 position-absolute start-0 top-50 translate-middle-y ms-2 border-radius-10 z-1"
                     >
-                      اضف تعليق
+                      اضف تعليق @if (isLoading) {<i
+                        class="pi pi-spinner pi-spin"
+                      ></i
+                      >}
                     </button>
                   </div>
                   <div

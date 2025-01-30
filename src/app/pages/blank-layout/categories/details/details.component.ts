@@ -61,6 +61,7 @@ export class DetailsComponent {
   isShowSkeleton = true;
   masterBlog!: any;
   currentUrl: string = '';
+  isLoading: boolean = false;
   @ViewChild('isStoreDataInput') isStoreDataInput!: ElementRef;
   @ViewChild('stickySection') stickySection!: ElementRef;
   constructor(
@@ -200,6 +201,7 @@ export class DetailsComponent {
 
   onSubmitComment(): void {
     if (this.userDataForm.valid) {
+      this.isLoading = true;
       console.log(this.userDataForm.value);
 
       let commentData = {
@@ -213,7 +215,7 @@ export class DetailsComponent {
           if (this.isStoreData) {
             this.storeData();
           }
-
+          this.isLoading = false;
           this._ToastrService.success('تم ارسال التعليق بنجاح');
           this.userDataForm.reset();
         },
