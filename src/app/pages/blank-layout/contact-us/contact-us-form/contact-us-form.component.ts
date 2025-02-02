@@ -39,7 +39,7 @@ export class ContactUsFormComponent {
   messagesForm: FormGroup = new FormGroup({
     name: new FormControl('', [
       Validators.required,
-      Validators.pattern(/^[\u0600-\u06FF\s]+$/), // Allows only Arabic letters and spaces
+      Validators.pattern(/^[\u0600-\u06FFa-zA-Z\s]+$/), // Allows only Arabic letters and spaces
       Validators.minLength(3),
     ]),
     email: new FormControl('', [
