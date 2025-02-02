@@ -45,7 +45,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(
       withInterceptors([
         loadingSpinnerInterceptor,
-        // homeCacheInterceptor
+        homeCacheInterceptor
       ]),
       withFetch() // for lazy loading
     ),
