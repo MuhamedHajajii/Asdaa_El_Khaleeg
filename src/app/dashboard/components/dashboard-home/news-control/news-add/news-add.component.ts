@@ -301,6 +301,7 @@ export class NewsAddComponent implements OnInit {
                 detail: 'تمت إضافة الموضوع بنجاح!',
               });
               this.addArticleForm.reset();
+              this.addArticleForm.get('post_date')?.setValue(this.hijriDate);
               this.addArticleForm.get('post_content')?.setValue('');
               this._NgxSpinnerService.hide();
             },
@@ -324,6 +325,7 @@ export class NewsAddComponent implements OnInit {
                   detail: 'تمت إضافة الموضوع بنجاح!',
                 });
                 this.addArticleForm.reset();
+                this.addArticleForm.get('post_date')?.setValue(this.hijriDate);
                 this.addArticleForm.get('post_content')?.setValue('');
                 this._NgxSpinnerService.hide();
                 this._Router.navigate(['/dashboard/news-control']);
@@ -359,6 +361,7 @@ export class NewsAddComponent implements OnInit {
 
   clearInputs(): void {
     this.addArticleForm.reset();
+    this.addArticleForm.get('post_date')?.setValue(this.hijriDate);
     this.addArticleForm.get('post_content')?.setValue('');
   }
   onFileSelect(event: any): void {
