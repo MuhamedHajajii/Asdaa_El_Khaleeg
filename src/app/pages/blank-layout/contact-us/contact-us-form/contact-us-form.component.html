@@ -11,13 +11,13 @@
               class="text-danger fst-italic fw-bold position-absolute bottom-100 start-0"
               >مطلوب*</small
             >
-            } @if (messagesForm.get('name')?.getError("minlength") &&
+            } @else if (messagesForm.get('name')?.getError("minlength") &&
             startValidation) {
             <small
               class="text-danger fst-italic fw-bold position-absolute bottom-100 start-0"
               >اقل عدد احرف 3*</small
             >
-            } @if (messagesForm.get('name')?.getError("pattern") &&
+            } @else if (messagesForm.get('name')?.getError("pattern") &&
             startValidation) {
             <small
               class="text-danger fst-italic fw-bold position-absolute bottom-100 start-0"
@@ -52,7 +52,7 @@
               class="text-danger fst-italic fw-bold position-absolute bottom-100 start-0"
               >مطلوب*</small
             >
-            } @if (messagesForm.get('phone')?.errors && startValidation &&
+            } @else if (messagesForm.get('phone')?.errors && startValidation &&
             phone.value?.length || 0 > 0) {
             <small
               class="text-danger fst-italic fw-bold position-absolute bottom-100 start-0"
@@ -97,7 +97,7 @@
               class="text-danger fst-italic fw-bold position-absolute bottom-100 start-0"
               >مطلوب*</small
             >
-            } @if (messagesForm.get('email')?.getError("pattern") &&
+            } @else if (messagesForm.get('email')?.getError("pattern") &&
             startValidation) {
             <small
               class="text-danger fst-italic fw-bold position-absolute bottom-100 start-0"
@@ -132,7 +132,7 @@
               class="text-danger fst-italic fw-bold position-absolute bottom-100 start-0"
               >مطلوب*</small
             >
-            } @if (messagesForm.get('message')?.getError("minlength") &&
+            } @else if (messagesForm.get('message')?.getError("minlength") &&
             startValidation) {
             <small
               class="text-danger fst-italic fw-bold position-absolute bottom-100 start-0"

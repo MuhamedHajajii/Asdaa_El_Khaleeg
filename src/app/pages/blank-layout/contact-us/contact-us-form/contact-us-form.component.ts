@@ -39,12 +39,12 @@ export class ContactUsFormComponent {
   messagesForm: FormGroup = new FormGroup({
     name: new FormControl('', [
       Validators.required,
-      Validators.pattern(/^[a-zA-Z\s]+$/),
+      Validators.pattern(/^[\u0600-\u06FF\s]+$/), // Allows only Arabic letters and spaces
       Validators.minLength(3),
     ]),
     email: new FormControl('', [
       Validators.required,
-      Validators.pattern(/[A-Za-z0-9\._%+\-]+@[A-Za-z0-9\.\-]+\.[A-Za-z]{2,}/),
+      Validators.pattern(/[A-Za-z0-9._%+\-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/),
     ]),
     phone: new FormControl('', [Validators.required]),
     message: new FormControl('', [
