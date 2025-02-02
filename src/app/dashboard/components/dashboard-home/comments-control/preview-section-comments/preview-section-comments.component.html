@@ -5,49 +5,88 @@
       <div class="p-2 col-12 col-lg-8 order-1 order-lg-1">
         @if (currentBlogFromComments) {
         <div>
-          <div>
-            <figure class="Logo_Water_Mark">
+          <figure class="Logo_Water_Mark">
+            <img
+              style="object-position: top"
+              class="w-100 object-fit-cover border-radius-10 h-600"
+              [src]="
+                currentBlogFromComments.row.post_image ||
+                  './assets/images/not_found_image.jpg' | imagesSrc
+              "
+              alt="card.author"
+            />
+          </figure>
+
+          <div
+            class="d-flex justify-content-between align-items-center mb-2 mt-3"
+          >
+            <p class="mb-0 date_color fw-bold fs-13">
               <img
-                class="w-100 object-fit-cover border-radius-10 h-600"
-                [src]="currentBlogFromComments.row.post_image"
-                alt="card.author"
+                width="35px"
+                height="35px"
+                src="./assets/images/new_logos/logo_blue_no_text.png"
+                alt="أصداء الخليج"
               />
-            </figure>
-            <h3 class="text-main fs-13 fw-bold mt-2 mb-1 fs-5 cr">
-              {{ currentBlogFromComments.row.post_title }}
-            </h3>
-            <h2
-              class="text-dark text-center text-opacity-75 fs-13 fw-bold my-3 mb-1 fs-5"
-            >
-              {{ currentBlogFromComments.row.post_subtitle ?? "" }}
-            </h2>
-            <h3 class="text-main fs-13 fw-bold mt-2 mb-1 fs-5 cr">
-              {{ currentBlogFromComments.row.post_subtitle }}
-            </h3>
-            <div
-              class="d-flex justify-content-between align-items-center mb-2 mt-3"
-            >
-              <p class="mb-0 date_color fw-bold fs-13">
-                {{
-                  currentBlogFromComments.row.author_name === "admin"
-                    ? ""
-                    : currentBlogFromComments.row.author_name
-                    ? currentBlogFromComments.row.author_name
-                    : "أصداء الخليج"
-                }}
-              </p>
-              <p class="mb-0 date_color fw-bold fs-13">
-                {{ currentBlogFromComments.row.post_date | hijriDate }}
-              </p>
-            </div>
-            <div>
-              <p
-                class="mb-0 fs-13 desc_color fw-bold content"
-                [innerHTML]="
-                  currentBlogFromComments.row.post_content | safeHtml
+              {{
+                currentBlogFromComments.row.author_name === "admin"
+                  ? ""
+                  : currentBlogFromComments.row.author_name
+                  ? currentBlogFromComments.row.author_name
+                  : "أصداء الخليج"
+              }}
+            </p>
+            <div class="d-flex gap-2 social-icons">
+              <share-buttons
+                [exclude]="[
+                  'print',
+                  'viber',
+                  'vk',
+                  'tumblr',
+                  'pinterest',
+                  'xing',
+                  'line',
+                  'mix',
+                  'reddit',
+                  'linkedin',
+                  'sms'
+                ]"
+                [url]="currentUrl"
+                show="11"
+                [image]="
+                  currentBlogFromComments.row.post_image ||
+                    './assets/images/not_found_image.jpg' | imagesSrc
                 "
-              ></p>
+                [title]="currentBlogFromComments.row.post_title"
+                [description]="
+                  decodeHtml(currentBlogFromComments.row.post_content)
+                "
+              />
             </div>
+          </div>
+
+          <h1 class="text-main fs-13 fw-bold my-3 mb-1 fs-5">
+            {{ currentBlogFromComments.row.post_title }}
+          </h1>
+          <h2 class="text-dark text-opacity-75 fs-13 fw-bold my-3 mb-1 fs-5">
+            {{ currentBlogFromComments.row.post_subtitle ?? "" }}
+          </h2>
+
+          <div
+            class="d-flex justify-content-between align-items-center mb-2 mt-3"
+          >
+            <span></span>
+            <p class="mb-0 date_color fw-bold fs-5">
+              {{ currentBlogFromComments.row.post_date | hijriDate }}
+            </p>
+          </div>
+
+          <div>
+            <p
+              #content
+              id="content"
+              class="mb-0 fs-13 desc_color fw-bold content"
+              [innerHTML]="currentBlogFromComments.row.post_content | safeHtml"
+            ></p>
           </div>
         </div>
         }

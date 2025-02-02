@@ -7,6 +7,7 @@ import { HijriDatePipe } from '../../../../../../core/pipes/date-hijri.pipe';
 import { ImagesSrcPipe } from '../../../../../../core/pipes/images-src.pipe';
 import { SafeHtmlPipe } from '../../../../../../core/pipes/safe-html.pipe';
 import { AdvertisingAreaComponent } from '../../../../../../shared/components/advertising-area/advertising-area.component';
+import { ShareButtons } from 'ngx-sharebuttons/buttons';
 
 @Component({
   selector: 'app-privew-blog',
@@ -18,6 +19,7 @@ import { AdvertisingAreaComponent } from '../../../../../../shared/components/ad
     SafeHtmlPipe,
     ImagesSrcPipe,
     RouterLink,
+    ShareButtons,
   ],
   templateUrl: './privew-blog.component.html',
   styleUrl: './privew-blog.component.scss',
@@ -25,5 +27,12 @@ import { AdvertisingAreaComponent } from '../../../../../../shared/components/ad
 export class PrivewBlogComponent {
   @Input() IBlogs!: IBlog;
   masterBlog!: any;
+  currentUrl: string = '';
+
   reviewImage(image: any) {}
+  decodeHtml(html: string): string {
+    const txt = document.createElement('textarea');
+    txt.innerHTML = html;
+    return txt.value;
+  }
 }
