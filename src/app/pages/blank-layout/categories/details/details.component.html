@@ -1,4 +1,4 @@
-<div class="main_section_bg">
+<div id="main_section_bg" class="main_section_bg">
   <app-blank-navbar />
   <section id="Hero__Section" class="mt-4">
     <div class="container">
@@ -84,6 +84,8 @@
 
               <div>
                 <p
+                  #content
+                  id="content"
                   class="mb-0 fs-13 desc_color fw-bold content"
                   [innerHTML]="IBlogs.blog.post_content | safeHtml"
                 ></p>

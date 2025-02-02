@@ -129,6 +129,9 @@ export class ChatComponent {
       },
     });
   }
+  closeTimer(): void {
+    this.showTimeDiv = false;
+  }
   ngOnInit() {
     setTimeout(() => {
       this.showTime();

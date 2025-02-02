@@ -7,8 +7,8 @@ content iframe {
   margin-bottom: 20px;
 }
 
-*,
-::ng-deep * {
+*:not(br),
+::ng-deep *:not(br) {
   line-height: 1.5 !important;
   text-align: justify !important;
 }
@@ -31,7 +31,16 @@ input:active {
   box-shadow: none;
   font-size: 16px !important;
 }
-
+::ng-deep #main_section_bg .content *:not(br),
+::ng-deep #main_section_bg .content p,
+::ng-deep #main_section_bg .content span,
+#main_section_bg .content *:not(br),
+#main_section_bg .content p,
+#main_section_bg .content span {
+  background-color: transparent !important;
+  line-height: 2.4 !important;
+  font-size: 20px !important;
+}
 .commentInput {
   padding-left: 150px;
 }

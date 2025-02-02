@@ -224,7 +224,7 @@ export class NewsAddComponent implements OnInit {
               this.addArticleForm
                 .get('post_content')
                 ?.setValue(Data.post_content);
-              this.currentImageSrc = `https://www.asda-alkhaleej.com/blogs/${Data.post_image}`;
+              this.currentImageSrc = Data.post_image;
               this.addArticleForm.get('post_image')?.setErrors(null);
               this.addArticleForm.get('categories')?.setValue(
                 Data.category.map((e) => {

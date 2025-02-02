@@ -15,14 +15,14 @@
     />
   </button>
   <!-- Chatbox Button (fixed to the bottom right) -->
-  <button
+  <!-- <button
     (click)="showTime()"
     pButton
     class="chat-toggle-btn copy"
     tooltipPosition="top"
   >
     <i class="pi pi-copy"></i>
-  </button>
+  </button> -->
   <!-- Chatbox Container (fixed to the bottom right) -->
   <p-panel
     *ngIf="chatVisible"
@@ -93,7 +93,7 @@
     [position]="position"
     [style]="{ width: 'auto', background: 'transparent' }"
     #dialog
-    (click)="showTime()"
+    (click)="closeTimer()"
   >
     <ng-template pTemplate="headless">
       <!-- Speech Bubble -->

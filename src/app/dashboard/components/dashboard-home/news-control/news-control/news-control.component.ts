@@ -2,6 +2,7 @@ import { SlicePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import moment from 'moment-hijri'; // Import the Hijri moment library
 import { Message, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -15,10 +16,8 @@ import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { TooltipModule } from 'primeng/tooltip';
 import { Category, IBlog } from '../../../../../core/interfaces/INewsControl';
-import { HijriDatePipe } from '../../../../../core/pipes/date-hijri.pipe';
 import { CategoriesService } from '../../../../services/categories.service';
 import { NewsControlService } from '../../../../services/news-control.service';
-import moment from 'moment-hijri'; // Import the Hijri moment library
 
 interface categories {
   label: string;

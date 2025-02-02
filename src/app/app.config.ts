@@ -43,7 +43,10 @@ export const appConfig: ApplicationConfig = {
       timeOut: 2000,
     }),
     provideHttpClient(
-      withInterceptors([loadingSpinnerInterceptor, homeCacheInterceptor]),
+      withInterceptors([
+        loadingSpinnerInterceptor,
+        // homeCacheInterceptor
+      ]),
       withFetch() // for lazy loading
     ),
     provideShareButtonsOptions(

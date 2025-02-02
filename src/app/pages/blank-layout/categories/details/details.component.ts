@@ -148,6 +148,7 @@ export class DetailsComponent {
         this.changeMeta();
         this.isShowSkeleton = false;
         this.handleImages();
+        this.removeStyles();
       },
       error: (err) => console.error('Error fetching category:', err),
     });
@@ -320,5 +321,21 @@ export class DetailsComponent {
     const txt = document.createElement('textarea');
     txt.innerHTML = html;
     return txt.value;
+  }
+
+  @ViewChild('content') content!: ElementRef;
+  removeStyles(): void {
+    setTimeout(() => {
+      console.log(this.content);
+      if (this.content) {
+        let ele = this.content.nativeElement as HTMLElement;
+        console.log(ele.children);
+        Array.from(ele.children).forEach((child) => {
+          child.removeAttribute('style');
+        });
+      }
+      console.log(document.getElementById('content'));
+      document.getElementById('content');
+    }, 0);
   }
 }
