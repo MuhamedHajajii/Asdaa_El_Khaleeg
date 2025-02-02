@@ -1,9 +1,13 @@
 import {
   Component,
+  ElementRef,
   Inject,
   OnDestroy,
   OnInit,
   PLATFORM_ID,
+  QueryList,
+  ViewChild,
+  ViewChildren,
 } from '@angular/core';
 import {
   ActivatedRoute,
@@ -125,10 +129,30 @@ export class BlogsComponent implements OnInit, OnDestroy {
           this.isShowSkeleton = false;
           this.updateMeta();
           this.handleImages();
+          this.removeStyles();
         },
       });
   }
-
+  @ViewChildren('content') content!: QueryList<ElementRef>;
+  removeStyles(): void {
+    setTimeout(() => {
+      this.content.forEach((ele) => {
+        let element = ele.nativeElement as HTMLElement;
+        Array.from(element.children).forEach((tag) => {
+          tag.removeAttribute('style');
+        });
+      });
+      // if (this.content) {
+      //   let ele = this.content.nativeElement as HTMLElement;
+      //   console.log(ele);
+      //   ele.removeAttribute('style');
+      //   Array.from(ele.children).forEach((child) => {
+      //     child.removeAttribute('style');
+      //   });
+      // }
+      console.log(document.getElementById('content'));
+    }, 0);
+  }
   listenToRouteChanges(): void {
     this._Router.events
       .pipe(

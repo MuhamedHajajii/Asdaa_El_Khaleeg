@@ -122,7 +122,7 @@ export class NewsAddComponent implements OnInit {
     author_name: new FormControl('', [Validators.required]),
     post_date: new FormControl('', [Validators.required]),
     post_content: new FormControl('', [Validators.required]),
-    post_subtitle: new FormControl('', [Validators.required]),
+    post_subtitle: new FormControl(''),
     categories: new FormControl([], [Validators.required]),
   });
 
@@ -439,7 +439,7 @@ export class NewsAddComponent implements OnInit {
   duplicateWordWarning: string | null = null;
   checkArabicText(value: string): string | null {
     const arabicWordRegex = /[\u0600-\u06FF]/;
-    if (!value.includes('<img') && !arabicWordRegex.test(value)) {
+    if (!value?.includes('<img') && !arabicWordRegex?.test(value)) {
       return 'من الأفضل أن يتضمن النص كلمات باللغة العربية لتحسين الفهم والتفاعل.';
     }
     return null;
