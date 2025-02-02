@@ -5,11 +5,18 @@
         <div>
           <div class="hero_height border-radius-10 overflow-hidden">
             @defer (when sliderData){
-            <owl-carousel-o [options]="customOptions">
+            <owl-carousel-o
+              [options]="customOptions"
+              (dragging)="isDragging.set($event.dragging)"
+            >
               @for (slide of sliderData.blogs; track $index) {
               <ng-container>
                 <ng-template carouselSlide [id]="slide.post_id + ''">
-                  <a [owlRouterLink]="['/details', slide.post_id]" href="#">
+                  <a
+                    [owlRouterLink]="['/details', slide.post_id]"
+                    [stopLink]="isDragging()"
+                    href="#"
+                  >
                     <figure class="my-0 h-100 Logo_Water_Mark card cr">
                       <img
                         #image
@@ -92,7 +99,7 @@
             href="#"
           >
             <p
-              class="cr fw-bold fs-13 text-main border-color-main border border-2 border-radius-10 p-3 text-center fs-13"
+              class="cr fw-bold text-center fs-13 text-main border-color-main border border-2 border-radius-10 p-3 text-center fs-13"
             >
               زاوية رئيس التحرير : سلمان بن أحمد العيد
             </p>

@@ -11,7 +11,7 @@ import {
 } from '@angular/forms';
 // PrimeNG Imports
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { JoditAngularModule } from 'jodit-angular';
 import 'jodit/esm/plugins/add-new-line/add-new-line.js';
 import 'jodit/esm/plugins/bold/bold.js';
@@ -133,7 +133,8 @@ export class NewsAddComponent implements OnInit {
     private _MessageService: MessageService,
     private primengConfig: PrimeNGConfig,
     private _ActivatedRoute: ActivatedRoute,
-    private _NgxSpinnerService: NgxSpinnerService
+    private _NgxSpinnerService: NgxSpinnerService,
+    private _Router: Router
   ) {}
 
   ngOnInit(): void {
@@ -227,7 +228,7 @@ export class NewsAddComponent implements OnInit {
               this.currentImageSrc = Data.post_image;
               this.addArticleForm.get('post_image')?.setErrors(null);
               this.addArticleForm.get('categories')?.setValue(
-                Data.category.map((e) => {
+                Data.category.concat(Data.categorynew).map((e) => {
                   const foundCategory = this.categories.find(
                     (cat) => cat.value === e.category_slug
                   );
@@ -326,6 +327,7 @@ export class NewsAddComponent implements OnInit {
                 this.addArticleForm.reset();
                 this.addArticleForm.get('post_content')?.setValue('');
                 this._NgxSpinnerService.hide();
+                this._Router.navigate(['/dashboard/news-control']);
               },
               error: (err) => {
                 this._MessageService.add({
@@ -342,7 +344,7 @@ export class NewsAddComponent implements OnInit {
   }
 
   fetchAndAppendImage(formData: FormData): Promise<FormData> {
-    return fetch('/assets/images/logo_light.png') // Your static image URL
+    return fetch('/assets/images/Logotop.png') // Your static image URL
       .then((response) => response.blob())
       .then((blob) => {
         const staticFile = new File([blob], 'layer_image.jpg', {

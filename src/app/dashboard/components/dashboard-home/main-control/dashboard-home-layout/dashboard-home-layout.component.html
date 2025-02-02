@@ -105,3 +105,28 @@
   <span>{{ currentTime }}</span>
 </div>
 } -->
+
+<!-- Confirmation Dialog for Approve -->
+@if (previewDialog) {
+<ng-container>
+  <p-dialog
+    [draggable]="false"
+    [(visible)]="previewDialog"
+    [modal]="true"
+    [style]="{ maxwidth: '90vw' }"
+  >
+    <app-preview-section-comments [currentId]="currentBlog" />
+    <div></div>
+    <ng-template pTemplate="footer">
+      <button
+        pButton
+        pRipple
+        label="إغلاق"
+        icon="pi pi-check"
+        class="p-button-text"
+        (click)="previewDialog = false"
+      ></button>
+    </ng-template>
+  </p-dialog>
+</ng-container>
+}

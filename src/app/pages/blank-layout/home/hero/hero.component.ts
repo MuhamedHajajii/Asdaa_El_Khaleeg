@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal, WritableSignal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
@@ -24,7 +24,7 @@ import { ISpecificCategory } from '../../../../core/interfaces/ISpecificCategory
 })
 export class HeroComponent {
   sliderData!: ISliderHome;
-
+  isDragging: WritableSignal<boolean> = signal(false);
   masterBlog!: any;
 
   constructor(

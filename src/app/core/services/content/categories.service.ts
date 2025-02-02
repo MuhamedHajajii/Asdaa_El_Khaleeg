@@ -30,10 +30,11 @@ export class CategoriesService {
           this._HttpClient.get(`${WEB_SITE_BASE_URL}blogstest`, { params })
         );
       } else {
-        return <Observable<ISpecificCategory>>(
-          this._HttpClient.get(`${WEB_SITE_BASE_URL}blogstest?page=${page}`, {
+        return <Observable<ISpecificCategory>>this._HttpClient.get(
+          `${WEB_SITE_BASE_URL}blogstest?page=${page}`,
+          {
             params,
-          })
+          }
         );
       }
     } else return of(null);

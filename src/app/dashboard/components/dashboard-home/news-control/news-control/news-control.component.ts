@@ -48,7 +48,7 @@ interface categories {
   providers: [MessageService], // Provide MessageService here
 })
 export class NewsControlComponent {
-  blogs: IBlog[] = [];
+  blogs!: IBlog[];
 
   selectedBlogs: IBlog[] = [];
 
@@ -99,8 +99,12 @@ export class NewsControlComponent {
     this.getAllCategories();
   }
 
-  formatToolTip(categoryArr: Category[]): string {
-    return categoryArr.map((e) => e.category_name).join(' - ');
+  formatToolTip(categoryArr: Category[], categoryArr02: Category[]): string {
+    console.log(categoryArr);
+    return categoryArr
+      .concat(categoryArr02)
+      .map((e) => e.category_name)
+      .join(' - ');
   }
 
   getAllCategories(): void {

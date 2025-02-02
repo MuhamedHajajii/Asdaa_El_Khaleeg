@@ -16,6 +16,8 @@ import { StaticsService } from '../../../../services/statics.service';
 import { IStatics } from '../../../../../core/interfaces/IStatics';
 import { HijriDatePipe } from '../../../../../core/pipes/date-hijri.pipe';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { DialogModule } from 'primeng/dialog';
+import { PreviewSectionCommentsComponent } from '../../comments-control/preview-section-comments/preview-section-comments.component';
 
 @Component({
   selector: 'app-dashboard-home-layout',
@@ -36,6 +38,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     TableDMostCommentedComponent,
     TableAMostViewsBlogChartComponent,
     NgxSpinnerModule,
+    DialogModule,
+    PreviewSectionCommentsComponent,
   ],
   templateUrl: './dashboard-home-layout.component.html',
   styleUrl: './dashboard-home-layout.component.scss',
@@ -50,11 +54,15 @@ export class DashboardHomeLayoutComponent {
   countersIncrementMessage: string = '';
   commentsIncrementMessage: string = '';
   blogsIncrementMessage: string = '';
+  previewDialog: boolean = false;
+  currentBlog!: number;
+
   constructor(private _StaticsService: StaticsService) {}
 
   ngOnInit(): void {
     this._StaticsService.getStatics().subscribe({
       next: (res) => {
+        console.log(res);
         this.statics = res;
         this.counters = this.statics.counters;
         this.comments = this.statics.comments;
@@ -67,7 +75,7 @@ export class DashboardHomeLayoutComponent {
   // Check the last visit date and calculate the increment
   checkLastVisit(): void {
     this.lastVisitData = this._StaticsService.getLastVisitData();
-    if(this.lastVisitData) {
+    if (this.lastVisitData) {
       const currentDate = new Date();
       if (this.lastVisitData) {
         const lastVisit = new Date(this.lastVisitData.lastVisit);

@@ -31,7 +31,7 @@ import { WritersService } from '../../../../services/writers.service';
   providers: [MessageService],
 })
 export class UsersControlComponent implements OnInit {
-  writers: IWriter[] = [];
+  writers!: IWriter[];
   cols: any[] = [];
   selectedWriter: Writer = {} as Writer;
   writerDialog: boolean = false;

@@ -31,7 +31,6 @@ import { CategoriesService } from '../../../../core/services/content/categories.
 import { AdvertisingAreaComponent } from '../../../../shared/components/advertising-area/advertising-area.component';
 import { RelatedContentComponent } from '../related-content/related-content.component';
 import { ShareButtons } from 'ngx-sharebuttons/buttons';
-import { shareIcons } from 'ngx-sharebuttons/icons';
 import { CommentsService } from '../../../../dashboard/services/comments.service';
 
 @Component({

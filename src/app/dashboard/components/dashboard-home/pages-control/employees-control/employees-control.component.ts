@@ -31,7 +31,7 @@ import { IEmployeeRow } from '../../../../../core/interfaces/IEmployess';
   providers: [MessageService],
 })
 export class EmployeesControlComponent {
-  employees: IEmployeeRow[] = [];
+  employees!: IEmployeeRow[];
   cols: any[] = [];
   selectedEmployee: IEmployeeRow = {} as IEmployeeRow;
   employeeDialog: boolean = false;

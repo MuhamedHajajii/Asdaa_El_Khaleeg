@@ -26,10 +26,8 @@ import { PreviewSectionCommentsComponent } from '../preview-section-comments/pre
     TooltipModule,
     SlicePipe,
     CommonModule,
-    RouterLink,
     ToastModule,
     FormsModule,
-    PrivewBlogComponent,
     PreviewSectionCommentsComponent,
   ],
   templateUrl: './comments-control.component.html',
@@ -37,7 +35,7 @@ import { PreviewSectionCommentsComponent } from '../preview-section-comments/pre
   providers: [MessageService],
 })
 export class CommentsControlComponent {
-  comments: Comment[] = [];
+  comments!: Comment[];
   searchTerm: string = ''; // This binds to the global search input
   cols: any[] = []; // Define columns for the table
   approveDialogVisible = false;

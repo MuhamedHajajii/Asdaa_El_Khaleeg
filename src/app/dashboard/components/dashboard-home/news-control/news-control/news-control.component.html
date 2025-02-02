@@ -1,4 +1,4 @@
-@if (blogs.length > 0) {
+@if (blogs) {
 <div class="grid">
   <div class="col-12">
     <div class="card px-6 py-6">
@@ -113,7 +113,7 @@
             </td>
             <td
               class="col-1"
-              pTooltip="{{ formatToolTip(blog.category) }}"
+              pTooltip="{{ formatToolTip(blog.category, blog.categorynew) }}"
               tooltipPosition="top"
               style="
                 max-width: 250px;
@@ -123,7 +123,7 @@
               "
             >
               <span class="p-column-title">القسم</span>
-              {{ formatToolTip(blog.category) }}
+              {{ formatToolTip(blog.category, blog.categorynew) }}
             </td>
             <td class="col-1">
               <div class="flex justify-content-center gap-2">

@@ -14,7 +14,7 @@ import { StaticCategoriesService } from '../../../../../core/services/content/st
   styleUrl: './home-banner.component.scss',
 })
 export class HomeBannerComponent {
-  arabicLocale = 'ar-EG';
+  arabicLocale = 'en-EN';
   currentTemp: string = '';
   sar: string = '';
   staticDate = '';
@@ -60,7 +60,7 @@ export class HomeBannerComponent {
       });
       setInterval(() => {
         let time = new Date();
-        const saudiTime = new Intl.DateTimeFormat('ar-SA', {
+        const saudiTime = new Intl.DateTimeFormat('en-EN', {
           timeZone: 'Asia/Riyadh',
           hour: '2-digit',
           minute: '2-digit',

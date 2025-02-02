@@ -19,6 +19,7 @@ export interface IBlog {
   created_at: string;
   updated_at: string;
   category: Category[];
+  categorynew: Category[];
 }
 
 export interface Category {
@@ -68,4 +69,5 @@ export interface IGetOneBlogResponseRow {
   created_at: string;
   updated_at: string;
   category: any[];
+  categorynew: any[];
 }

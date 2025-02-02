@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
 import { HijriDatePipe } from '../../../../../../core/pipes/date-hijri.pipe';
@@ -21,5 +21,9 @@ import { RouterLink } from '@angular/router';
   styleUrl: './table-d-most-commented.component.scss',
 })
 export class TableDMostCommentedComponent {
+  // @Output() blogId: EventEmitter = new EventEmitter()
   @Input() mostCommentedBlogs: any[] = [];
+  openPreview(id: number) {
+    console.log(id);
+  }
 }

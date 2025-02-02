@@ -11,7 +11,7 @@
           </div>
           <div class="col-8 text-end">
             <p class="mb-0 fs-13 fw-bold">عدد زيارات الموقع</p>
-            <p class="mb-0 fs-11 fw-semibold Inter-font">
+            <p class="mb-0 fs-11 fw-bold Inter-font">
               {{ websiteCounter }} زائر
             </p>
           </div>
@@ -26,7 +26,7 @@
             <p class="mb-0 fs-13 fw-bold">حالة الطقس</p>
             <p
               [innerHTML]="currentTemp | safeHtml"
-              class="mb-0 fs-11 fw-semibold Inter-font"
+              class="mb-0 fs-11 fw-bold Inter-font"
             ></p>
           </div>
         </div>
@@ -38,7 +38,7 @@
           </div>
           <div class="col-8 text-end">
             <p class="mb-0 fs-13 fw-bold">التوقيت</p>
-            <p class="mb-0 fs-11 fw-semibold fixed-width">
+            <p class="mb-0 fs-11 fw-bold Inter-font">
               {{ staticDate }}
             </p>
           </div>
@@ -54,7 +54,9 @@
           </div>
           <div class="col-8 text-end">
             <p class="mb-0 fs-13 fw-bold">التعداد السكانى {{ year }}</p>
-            <p class="mb-0 fs-11 fw-semibold">{{ currentPopulation }} مليون</p>
+            <p class="mb-0 fs-11 fw-bold Inter-font">
+              {{ currentPopulation }} مليون
+            </p>
           </div>
         </div>
       </div>
@@ -68,7 +70,9 @@
           </div>
           <div class="col-8 text-end">
             <p class="mb-0 fs-13 fw-bold">سعر الصرف</p>
-            <p class="mb-0 fs-11 fw-semibold ltr">1 USD = {{ sar }} SAR</p>
+            <p class="mb-0 fs-11 fw-bold Inter-font ltr">
+              1 USD = {{ sar }} SAR
+            </p>
           </div>
         </div>
       </div>

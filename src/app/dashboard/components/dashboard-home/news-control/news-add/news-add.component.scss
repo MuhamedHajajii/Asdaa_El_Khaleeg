@@ -9,8 +9,8 @@
 ::ng-deep .p-editor-container .p-editor-toolbar.ql-snow {
   direction: ltr;
 }
-input,
-::ng-deep input {
+input:not(input[type="search"]),
+::ng-deep input:not(input[type="search"]) {
   width: 100%;
   margin-bottom: 16px;
 }
