@@ -107,7 +107,6 @@ export class DetailsComponent {
             ? src.replace(/watanye/g, 'asda-alkhaleej')
             : src;
           if (src.includes('watanye')) {
-            console.log(src, '======');
             img.setAttribute('src', newSrc);
           }
         });
@@ -125,10 +124,8 @@ export class DetailsComponent {
         let id = params.get('id');
         if (id) {
           this.currentId = id;
-          console.log('Active Route ID (Reload):', this.currentId);
           this.getCurrentBlog(this.currentId);
           if (isPlatformBrowser(this._PLATFORM_ID)) {
-            console.log(window.location.href, 'current ============');
             // this.currentUrl = window.location.href; // Get the current URL
             this.currentUrl = `https://www.asda-alkhaleej.com/archives/${id}`; // Get the current URL
           }
@@ -141,7 +138,6 @@ export class DetailsComponent {
     this.isShowSkeleton = true;
     this._CategoriesService.getBlogById(blogId).subscribe({
       next: (response) => {
-        console.log(response, 'current blog details');
         this.IBlogs = response as IBlog;
         // Update meta tags after the blog data is loaded
         this.changeMeta();
@@ -149,7 +145,6 @@ export class DetailsComponent {
         this.handleImages();
         this.removeStyles();
       },
-      error: (err) => console.error('Error fetching category:', err),
     });
   }
 
@@ -178,7 +173,6 @@ export class DetailsComponent {
     if (isPlatformBrowser(this._PLATFORM_ID)) {
       let inputSaveData = event.target as HTMLInputElement;
       if (inputSaveData.checked) {
-        console.log('save it');
         this.isStoreData = true;
       } else {
         this.isStoreData = false;
@@ -202,7 +196,6 @@ export class DetailsComponent {
   onSubmitComment(): void {
     if (this.userDataForm.valid) {
       this.isLoading = true;
-      console.log(this.userDataForm.value);
 
       let commentData = {
         ...this.userDataForm.value,
@@ -211,7 +204,6 @@ export class DetailsComponent {
 
       this._CommentsService.addComment(commentData).subscribe({
         next: (response) => {
-          console.log(response);
           if (this.isStoreData) {
             this.storeData();
           }
@@ -273,7 +265,6 @@ export class DetailsComponent {
     const metaDescription = this.decodeHtml(
       this?.IBlogs?.blog?.post_content.replace(/<[^>]+>/g, '').slice(0, 150)
     );
-    console.log(metaDescription);
     this.router.events
       .pipe(
         filter((event) => event instanceof NavigationEnd),
@@ -325,15 +316,12 @@ export class DetailsComponent {
   @ViewChild('content') content!: ElementRef;
   removeStyles(): void {
     setTimeout(() => {
-      console.log(this.content);
       if (this.content) {
         let ele = this.content.nativeElement as HTMLElement;
-        console.log(ele.children);
         Array.from(ele.children).forEach((child) => {
           child.removeAttribute('style');
         });
       }
-      console.log(document.getElementById('content'));
       document.getElementById('content');
     }, 0);
   }

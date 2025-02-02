@@ -37,7 +37,6 @@ export class YoutUbeControlComponent {
     // Fetch social media links from the service
     this._SocialMediaService.getSocialMediaLinks().subscribe((response) => {
       if (response && response.contact) {
-        console.log(response);
         this.socialMediaLinks = this.convertResponseToLinks(response.contact);
         this.originalLinks = JSON.parse(JSON.stringify(this.socialMediaLinks));
       }

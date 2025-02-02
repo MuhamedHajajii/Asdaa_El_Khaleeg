@@ -82,7 +82,6 @@ export class BlogsComponent implements OnInit, OnDestroy {
             ? src.replace(/watanye/g, 'asda-alkhaleej')
             : src;
           if (src.includes('watanye')) {
-            console.log(src, '======');
             img.setAttribute('src', newSrc);
           }
         });
@@ -127,7 +126,6 @@ export class BlogsComponent implements OnInit, OnDestroy {
           this.updateMeta();
           this.handleImages();
         },
-        error: (err) => console.error('Error fetching category:', err),
       });
   }
 

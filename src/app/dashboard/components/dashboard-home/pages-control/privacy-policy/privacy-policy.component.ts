@@ -73,7 +73,6 @@ export class PrivacyPolicyComponent {
   ngOnInit(): void {
     this._PrivacyPolicyService.getPrivacyPolicy().subscribe({
       next: (response) => {
-        console.log(response); // Add this for debugging
         this.privacy_policy = response.row;
       },
     });

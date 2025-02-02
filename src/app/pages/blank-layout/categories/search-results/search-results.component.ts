@@ -37,7 +37,6 @@ export class SearchResultsComponent {
     this.isShowSkeleton = true;
     window.scrollTo(0, 0);
     this.currentPage = e;
-    console.log(this.currentPage);
     this._SearchBlogsService
       .getSearchResults(this.currentId, this.currentPage)
       .subscribe({
@@ -46,7 +45,6 @@ export class SearchResultsComponent {
           this.totalItems = response?.blogs.total as number;
           this.isShowSkeleton = false;
         },
-        error: (err) => console.error('Error fetching category:', err),
       });
   }
 
@@ -81,7 +79,6 @@ export class SearchResultsComponent {
         this.totalItems = response?.blogs.total as number;
         this.isShowSkeleton = false;
       },
-      error: (err) => console.error('Error fetching category:', err),
     });
   }
 

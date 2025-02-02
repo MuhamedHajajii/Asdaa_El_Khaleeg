@@ -100,7 +100,6 @@ export class NewsControlComponent {
   }
 
   formatToolTip(categoryArr: Category[], categoryArr02: Category[]): string {
-    console.log(categoryArr);
     return categoryArr
       .concat(categoryArr02)
       .map((e) => e.category_name)

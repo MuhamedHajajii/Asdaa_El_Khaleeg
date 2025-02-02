@@ -40,7 +40,6 @@ export class ArticlesComponent {
           this.specificCategories = response as ISpecificCategory;
           this.totalItems = response?.blogs.total as number;
         },
-        error: (err) => console.error('Error fetching category:', err),
       });
   }
 
@@ -75,7 +74,6 @@ export class ArticlesComponent {
         this.specificCategories = response as ISpecificCategory;
         this.totalItems = response?.blogs.total as number;
       },
-      error: (err) => console.error('Error fetching category:', err),
     });
   }
 }

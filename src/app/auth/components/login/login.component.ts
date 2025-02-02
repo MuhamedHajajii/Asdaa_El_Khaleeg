@@ -71,7 +71,6 @@ export class LoginComponent {
     if (isPlatformBrowser(this._PLATFORM_ID)) {
       let userToken = localStorage.getItem('user');
       if (userToken) {
-        console.log(userToken);
         this._Router.navigate(['/dashboard']);
       }
     }

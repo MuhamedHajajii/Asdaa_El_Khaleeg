@@ -62,7 +62,6 @@ export class DashboardHomeLayoutComponent {
   ngOnInit(): void {
     this._StaticsService.getStatics().subscribe({
       next: (res) => {
-        console.log(res);
         this.statics = res;
         this.counters = this.statics.counters;
         this.comments = this.statics.comments;

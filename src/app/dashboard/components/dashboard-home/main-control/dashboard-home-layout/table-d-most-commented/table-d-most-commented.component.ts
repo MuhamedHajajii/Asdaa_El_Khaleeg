@@ -23,7 +23,5 @@ import { RouterLink } from '@angular/router';
 export class TableDMostCommentedComponent {
   // @Output() blogId: EventEmitter = new EventEmitter()
   @Input() mostCommentedBlogs: any[] = [];
-  openPreview(id: number) {
-    console.log(id);
-  }
+  openPreview(id: number) {}
 }

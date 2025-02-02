@@ -210,7 +210,6 @@ export class NewsAddComponent implements OnInit {
           this.currenBlogId = +id;
           this._NewsControlService.getNewsById(+id).subscribe({
             next: (response) => {
-              console.log(response);
               let Data = response.row;
               this.addArticleForm.get('post_title')?.setValue(Data.post_title);
               this.addArticleForm
@@ -354,7 +353,6 @@ export class NewsAddComponent implements OnInit {
         return formData; // Return updated FormData
       })
       .catch((error) => {
-        console.error('Error fetching static image:', error);
         return formData; // Return original FormData even if fetch fails
       });
   }
@@ -502,7 +500,6 @@ export class NewsAddComponent implements OnInit {
       this.contentLengthWarning = null; // Clear warnings when content is empty
       this.contentArabicWarning = null; // Clear warnings when content is empty
     }
-    console.log(cleanContent); // Log the cleaned content for debugging
   }
 
   // Method to remove HTML tags from the content
