@@ -156,6 +156,21 @@ export class DashboardSidebarComponent {
         ],
       },
       {
+        label: 'الأخبار',
+        items: [
+          {
+            label: 'إدارة الأخبار',
+            icon: 'pi pi-fw pi-book',
+            routerLink: ['/dashboard/news-control'],
+          },
+          {
+            label: 'إضافة خبر جديد',
+            icon: 'pi pi-fw pi-plus',
+            routerLink: ['/dashboard/news-add'],
+          },
+        ],
+      },
+      {
         label: 'الإعدادات',
         items: [
           {
